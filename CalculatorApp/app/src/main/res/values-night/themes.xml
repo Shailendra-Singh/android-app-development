@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CalculatorApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+         <item name="colorPrimary">@color/black</item>
+<!--        <color name="resultSectionColor">#116D6E</color>-->
+<!--        <color name="numberButtonColor">#321E1E</color>-->
+<!--        <color name="topRowButtonColor">#4E3636</color>-->
+<!--        <color name="operatorButtonColor">#526D82</color>-->
+    </style>
+</resources>

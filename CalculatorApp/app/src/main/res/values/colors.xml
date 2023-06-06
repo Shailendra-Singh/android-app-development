@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="resultSectionColor">#F9F5F6</color>
+    <color name="numberButtonColor">#4E3636</color>
+    <color name="topRowButtonColor">#5C8984</color>
+    <color name="operatorButtonColor">#F79327</color>
+</resources>

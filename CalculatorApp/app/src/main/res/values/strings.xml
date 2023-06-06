@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">CalculatorApp</string>
+    <string name="calc_text">0</string>
+    <string name="ac_symbol_str">AC</string>
+    <string name="plus_minus_str">+/-</string>
+    <string name="period_symbol_str">.</string>
+    <string name="equal_symbol_str">=</string>
+    <string name="plus_symbol_str">+</string>
+    <string name="subtract_symbol_str">-</string>
+    <string name="multiply_symbol">X</string>
+    <string name="divide_symbol_str">/</string>
+    <string name="percent_symbol_str">%</string>
+    <string name="_9">9</string>
+    <string name="_8">8</string>
+    <string name="_7">7</string>
+    <string name="_6">6</string>
+    <string name="_5">5</string>
+    <string name="_4">4</string>
+    <string name="_3">3</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_0">0</string>
+</resources>
