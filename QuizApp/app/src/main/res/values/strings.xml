@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">QuizApp</string>
+    <string name="main_screen_text">Quiz App</string>
+    <string name="submit">SUBMIT</string>
+    <string name="quiz_image">Quiz Image</string>
+    <string name="result">Result</string>
+    <string name="congratulations_text">Hey, Congratulations!</string>
+    <string name="finish_btn_txt">FINISH</string>
+    <string name="trophy_image">trophy_image</string>
+</resources>
