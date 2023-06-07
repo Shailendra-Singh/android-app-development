@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#D3D3D3</color>
+    <color name="drawing_view_background_color">#9AA2AF</color>
+    <!-- Color Palette -->
+    <color name="red">#B31942</color>
+    <color name="blue">#0A3161</color>
+    <color name="light_blue">#418FDE</color>
+    <color name="light_green">#1E9C01</color>
+    <color name="dark_green">#007A3D</color>
+    <color name="yellow">#FFD100</color>
+    <color name="skin">#ffdbac</color>
+    <color name="random">#800080</color>
+</resources>
