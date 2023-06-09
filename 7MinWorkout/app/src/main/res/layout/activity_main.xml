@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/main_layout_padding"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/iv_app_heading"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fl_start"
+        android:layout_width="match_parent"
+        android:contentDescription="@string/image"
+        android:src="@drawable/img_main_page"
+        android:layout_height="220dp" />
+
+    <FrameLayout
+        android:id="@+id/fl_start"
+        app:layout_constraintTop_toBottomOf="@id/iv_app_heading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="@dimen/circle_diameter"
+        android:layout_height="@dimen/circle_diameter"
+        android:background="@drawable/item_circular_color_accent_border_ripple"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="START"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/default_text_button_size"
+            android:textStyle="bold"
+            />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
