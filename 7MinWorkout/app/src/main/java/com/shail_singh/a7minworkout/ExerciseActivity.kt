@@ -1,11 +1,19 @@
 package com.shail_singh.a7minworkout
 
+import android.app.Dialog
+import android.content.Intent
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.shail_singh.a7minworkout.databinding.ActivityExerciseBinding
+import com.shail_singh.a7minworkout.databinding.DialogCustomBackConfirmationBinding
+import java.util.Locale
 
 class ExerciseActivity : AppCompatActivity() {
 
@@ -17,6 +25,10 @@ class ExerciseActivity : AppCompatActivity() {
 
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition: Int = -1
+    private var tts: TextToSpeech? = null
+    private var player: MediaPlayer? = null
+
+    private var exerciseAdapter: ExerciseStatusAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +43,65 @@ class ExerciseActivity : AppCompatActivity() {
 
         exerciseList = Constants.defaultExerciseList()
 
+        tts = TextToSpeech(this, TextToSpeech.OnInitListener { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                val result = tts!!.setLanguage(Locale.ENGLISH)
+
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "The Language specified is not supported!")
+                }
+            } else {
+                Log.e("TTS", "Initialization of Text to Speech service failed!")
+
+            }
+        })
+
+        val soundURI = Uri.parse(Constants.ROOT_PROJECT_LOCATION + R.raw.press_start)
+        player = MediaPlayer.create(applicationContext, soundURI)
+        player?.isLooping = false
+
         binding?.tbExercise?.setNavigationOnClickListener {
-            onBackPressed()
+            customDialogForBackButton()
         }
 
         setRestView()
+        setUpExerciseStatusRecyclerView()
+    }
+
+    private fun customDialogForBackButton() {
+        val customDialog = Dialog(this)
+        val dialogBinding = DialogCustomBackConfirmationBinding.inflate(layoutInflater)
+        customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+
+        // Action on YES
+        dialogBinding.btnDialogYes.setOnClickListener {
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+        }
+
+        // Action on No
+        dialogBinding.btnDialogNo.setOnClickListener {
+            customDialog.dismiss()
+        }
+
+        customDialog.show()
+    }
+
+    private fun setUpExerciseStatusRecyclerView() {
+        binding?.rvExerciseStatus?.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        exerciseAdapter = ExerciseStatusAdapter(exerciseList!!)
+        binding?.rvExerciseStatus?.adapter = exerciseAdapter
     }
 
     private fun setRestView() {
+        try {
+            player?.start()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
         binding?.flRestView?.visibility = View.VISIBLE
         binding?.tvTitle?.visibility = View.VISIBLE
         binding?.tvExerciseName?.visibility = View.INVISIBLE
@@ -57,6 +120,7 @@ class ExerciseActivity : AppCompatActivity() {
             exerciseList!![currentExercisePosition + 1].getName()
 
         setRestProgressBar()
+        nextExerciseActivityVoiceAlert("Rest now for ${Constants.REST_DURATION / 1000} seconds.")
     }
 
     private fun setExerciseView() {
@@ -77,6 +141,7 @@ class ExerciseActivity : AppCompatActivity() {
         val currentExercise = exerciseList!![currentExercisePosition]
         binding?.ivExerciseImage?.setImageResource(currentExercise.getImage())
         binding?.tvExerciseName?.text = currentExercise.getName()
+        nextExerciseActivityVoiceAlert("Perform. ${currentExercise.getName()}")
 
         setExerciseProgressBar()
     }
@@ -94,6 +159,8 @@ class ExerciseActivity : AppCompatActivity() {
 
                 override fun onFinish() {
                     currentExercisePosition++
+                    exerciseList!![currentExercisePosition].setIsSelected(true)
+                    exerciseAdapter!!.notifyDataSetChanged()
                     setExerciseView()
                 }
 
@@ -113,13 +180,27 @@ class ExerciseActivity : AppCompatActivity() {
                 }
 
                 override fun onFinish() {
+                    exerciseList!![currentExercisePosition].setIsSelected(false)
+                    exerciseList!![currentExercisePosition].setIsCompleted(true)
+                    exerciseAdapter!!.notifyDataSetChanged()
                     if (currentExercisePosition < exerciseList!!.size - 1) setRestView()
-                    else Toast.makeText(
-                        this@ExerciseActivity, "All exercises done", Toast.LENGTH_LONG
-                    ).show()
+                    else {
+                        finish()
+                        val intent = Intent(this@ExerciseActivity, FinishActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
 
             }.start()
+    }
+
+    private fun nextExerciseActivityVoiceAlert(text: String) {
+        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    override fun onBackPressed() {
+        customDialogForBackButton()
+        this.onBackPressedDispatcher.onBackPressed()
     }
 
     override fun onDestroy() {
@@ -133,6 +214,13 @@ class ExerciseActivity : AppCompatActivity() {
             exerciseTimer?.cancel()
             exerciseProgress = 0
         }
+        if (tts != null) {
+            tts?.stop()
+            tts?.shutdown()
+        }
+
+        if (player != null) player!!.stop()
+
         binding = null
     }
 }

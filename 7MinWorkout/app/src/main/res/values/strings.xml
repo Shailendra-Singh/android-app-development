@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">7MinWorkout</string>
     <string name="image">start image</string>
+    <string name="workout_complete_congratulations_str">Congratulations !!!\nYou have completed the workout!</string>
+    <string name="back_dialog_confirmation_desc_txt">This will stop your workout. You\'ve come this far, are you sure you want to quit?</string>
 </resources>

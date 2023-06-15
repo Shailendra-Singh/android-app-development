@@ -57,29 +57,29 @@
         android:id="@+id/tv_upcoming_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text="UPCOMING EXERCISE"
         android:textColor="@color/grey"
         android:textSize="@dimen/default_text_button_sub_heading_size"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_upcoming_exercise_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fl_rest_view"
-        app:layout_constraintBottom_toTopOf="@id/tv_upcoming_exercise_name"
         tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_upcoming_exercise_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Upcoming Exercise Name"
+        android:layout_marginTop="5dp"
         android:textColor="@color/grey"
         android:textSize="@dimen/default_text_button_size"
         android:textStyle="bold"
-        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_upcoming_label"
+        tools:text="Upcoming Exercise Name"
         tools:visibility="visible" />
 
     <FrameLayout
@@ -132,7 +132,6 @@
         android:layout_margin="10dp"
         android:background="@drawable/item_circular_color_accent_border"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_exercise_name"
@@ -169,5 +168,15 @@
         </LinearLayout>
 
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_exercise_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_exercise_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
