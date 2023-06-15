@@ -4,5 +4,6 @@
     <dimen name="default_text_button_size">22sp</dimen>
     <dimen name="default_text_button_sub_heading_size">16sp</dimen>
     <dimen name="circle_diameter">150dp</dimen>
+    <dimen name="bmi_circle_diameter">75dp</dimen>
     <dimen name="progress_circle_diameter">90dp</dimen>
 </resources>

@@ -21,9 +21,10 @@
         android:layout_width="@dimen/circle_diameter"
         android:layout_height="@dimen/circle_diameter"
         android:background="@drawable/item_circular_color_accent_border_ripple"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_app_heading">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,5 +36,38 @@
             android:textStyle="bold" />
 
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_bmi"
+        android:layout_width="@dimen/bmi_circle_diameter"
+        android:layout_height="@dimen/bmi_circle_diameter"
+        android:background="@drawable/item_circular_color_accent_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_start">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="BMI"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_text_button_size"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Calculator"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/default_text_button_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_bmi" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
