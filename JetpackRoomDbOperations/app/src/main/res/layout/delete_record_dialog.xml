@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/iv_warning_logo"
+        android:layout_width="@dimen/action_icon_diameter"
+        android:layout_height="@dimen/action_icon_diameter"
+        android:src="@drawable/ic_warning"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@id/tv_dialog_heading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_dialog_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/action_icon_diameter"
+        android:gravity="center_vertical"
+        android:text="Delete Record?"
+        android:textSize="@dimen/text_heading_size"
+        android:layout_marginLeft="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_warning_logo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_dialog_delete_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="@color/old_glory_red"
+        android:textColor="@color/white"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:text="NO"
+        android:textSize="@dimen/text_sub_heading_size"
+        app:layout_constraintEnd_toStartOf="@id/btn_dialog_delete_yes"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_heading" />
+
+    <Button
+        android:id="@+id/btn_dialog_delete_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/old_glory_blue"
+        android:textColor="@color/white"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:text="YES"
+        android:textSize="@dimen/text_sub_heading_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_heading" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
