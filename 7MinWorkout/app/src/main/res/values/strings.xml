@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">7MinWorkout</string>
+    <string name="image">start image</string>
+    <string name="workout_complete_congratulations_str">Congratulations !!!\nYou have completed the workout!</string>
+    <string name="back_dialog_confirmation_desc_txt">This will stop your workout. You\'ve come this far, are you sure you want to quit?</string>
+    <string name="weight_kg_input_hint">WEIGHT (in KG)</string>
+    <string name="weight_lb_input_hint">WEIGHT (in Pound)</string>
+    <string name="height_inch_input_hint">HEIGHT (in Inch)</string>
+    <string name="height_feet_input_hint">HEIGHT (in Feet)</string>
+    <string name="height_cm_input_hint">HEIGHT (in cm)</string>
+</resources>
