@@ -29,12 +29,12 @@ class BMIActivity : AppCompatActivity() {
         }
 
         binding?.rgUnitSelector?.setOnCheckedChangeListener { _, checkedId: Int ->
-            if (checkedId == R.id.rb_unit_metric) {
+            isMetricSelected = if (checkedId == R.id.rb_unit_metric) {
                 setMetricView()
-                isMetricSelected = true
+                true
             } else {
                 setUSSystemView()
-                isMetricSelected = false
+                false
             }
         }
 
@@ -125,8 +125,8 @@ class BMIActivity : AppCompatActivity() {
 
         val bmiValue = BigDecimal(bmi.toDouble()).setScale(2, RoundingMode.HALF_EVEN)
         binding?.tvBmiValue?.text = bmiValue.toString()
-        binding?.tvBmiCategory?.text = bmiLabel.toString()
-        binding?.tvBmiDescription?.text = bmiDesc.toString()
+        binding?.tvBmiCategory?.text = bmiLabel
+        binding?.tvBmiDescription?.text = bmiDesc
         binding?.llTextViewContainer?.visibility = View.VISIBLE
     }
 
@@ -162,5 +162,10 @@ class BMIActivity : AppCompatActivity() {
         val weightInKg = weightInLb / 2.20462f
         val heightInCm = (heightInFt * 12.0f + heightInInch) * 2.54f
         return calculateBMI(weightInKg, heightInCm)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

@@ -5,6 +5,9 @@ object Constants {
     const val EXERCISE_DURATION: Long = 30000
     const val TIME_INTERVAL_DURATION: Long = 1000
     const val ROOT_PROJECT_LOCATION: String = "android.resource://com.shail_singh.a7minworkout/"
+    // Room DB
+    const val TABLE_NAME: String = "history"
+    const val DATABASE_NAME: String = "app_db"
 
     fun defaultExerciseList(): ArrayList<ExerciseModel> {
         val exerciseList = ArrayList<ExerciseModel>()

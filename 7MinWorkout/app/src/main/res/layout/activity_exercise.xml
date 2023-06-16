@@ -127,8 +127,8 @@
 
     <FrameLayout
         android:id="@+id/fl_exercise_view"
-        android:layout_width="@dimen/circle_diameter"
-        android:layout_height="@dimen/circle_diameter"
+        android:layout_width="@dimen/progress_circle_diameter"
+        android:layout_height="@dimen/progress_circle_diameter"
         android:layout_margin="10dp"
         android:background="@drawable/item_circular_color_accent_border"
         android:visibility="invisible"

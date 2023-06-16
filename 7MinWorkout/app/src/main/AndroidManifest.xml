@@ -4,12 +4,14 @@
 
     <queries>
         <intent>
+
             <!-- For compatibility with Android 11 -->
             <action android:name="android.intent.action.TTS_SERVICE" />
         </intent>
     </queries>
 
     <application
+        android:name=".WorkoutApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.7MinWorkout"
         tools:targetApi="31">
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
         <activity
             android:name=".BMIActivity"
             android:exported="false" />
