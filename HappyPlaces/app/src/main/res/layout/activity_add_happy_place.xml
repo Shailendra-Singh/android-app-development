@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_desc"
+                        android:id="@+id/et_description"
                         style="@style/HappyPlaceEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

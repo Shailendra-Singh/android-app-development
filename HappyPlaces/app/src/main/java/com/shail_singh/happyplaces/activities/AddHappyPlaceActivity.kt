@@ -127,12 +127,12 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_save -> {
                 when {
                     binding?.etTitle?.text.isNullOrEmpty() -> showToast("Title can't be empty!")
-                    binding?.etDesc?.text.isNullOrEmpty() -> showToast("Description can't be empty!")
+                    binding?.etDescription?.text.isNullOrEmpty() -> showToast("Description can't be empty!")
                     binding?.etLocation?.text.isNullOrEmpty() -> showToast("Location not provided")
                     this.placeBitmap == null -> showToast("Please select an image!")
                     else -> {
                         this.title = binding?.etTitle?.text.toString()
-                        this.description = binding?.etDesc?.text.toString()
+                        this.description = binding?.etDescription?.text.toString()
                         this.dateStr = binding?.etDate?.text.toString()
                         this.location = binding?.etLocation?.text.toString()
                         onActionHappyPlaceSave()
@@ -280,20 +280,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             showToast("Happy Place Saved")
         }
 
-        // Reset variables
-        this.title = ""
-        this.description = ""
-        this.location = ""
-        this.lat = 0.0
-        this.lon = 0.0
-        this.placeBitmap = null
-
-        // Reset UI fields
-        binding?.etTitle?.text?.clear()
-        binding?.etDesc?.text?.clear()
-        binding?.etLocation?.text?.clear()
-        binding?.ivPlaceImage?.setImageResource(R.drawable.add_screen_placeholder_image)
-        updateDateInView()
+        // Close activity
+        finish()
     }
 
     private fun showToast(msg: String) {

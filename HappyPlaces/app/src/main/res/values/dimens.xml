@@ -20,5 +20,16 @@
     <dimen name="image_border_stroke_size">1dp</dimen>
     <dimen name="add_place_image_shape_radius">3dp</dimen>
     <dimen name="button_radius">10dp</dimen>
+    <dimen name="item_happy_place_cv_main_marginStartEnd">8dp</dimen>
+    <dimen name="item_happy_place_cv_corner_radius">3dp</dimen>
+    <dimen name="item_happy_place_cv_elevation">3dp</dimen>
+    <dimen name="item_happy_place_content_padding">8dp</dimen>
+    <dimen name="item_happy_place_circular_image_diameter">75dp</dimen>
+    <dimen name="item_happy_place_title_textSize">16sp</dimen>
+    <dimen name="item_happy_place_description_textSize">14sp</dimen>
+    <dimen name="item_happy_places_content_paddingLeft">15dp</dimen>
+    <dimen name="happy_place_details_content_padding">8dp</dimen>
+    <dimen name="happy_place_details_scroll_view_marginTop">10dp</dimen>
+    <dimen name="happy_place_details_full_image_size">300dp</dimen>
 
 </resources>

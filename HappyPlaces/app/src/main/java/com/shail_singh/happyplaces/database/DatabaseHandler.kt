@@ -23,7 +23,7 @@ class DatabaseHandler(application: Application) {
         return happyPlaceDao.fetchAll()
     }
 
-    fun fetchPlace(id: Int): Flow<HappyPlaceModel> {
+    fun fetchPlace(id: Long): Flow<HappyPlaceModel> {
         return happyPlaceDao.fetchRecord(id)
     }
 

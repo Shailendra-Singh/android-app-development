@@ -5,21 +5,29 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/iv_happy_places_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_no_records_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/no_saved_places_status"
+        android:textColor="?attr/colorOnSecondary"
+        android:textSize="@dimen/edit_text_text_size" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_happy_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/floating_image_button"
         android:src="@drawable/ic_action_add_24dp" />
-
-    <TextView
-        android:id="@+id/tv_place_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center"
-        android:text="Hello World!"
-        android:textColor="?attr/colorOnSecondary"
-        android:textSize="@dimen/edit_text_text_size" />
-
 </FrameLayout>

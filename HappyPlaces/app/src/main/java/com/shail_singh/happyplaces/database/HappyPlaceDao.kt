@@ -24,5 +24,5 @@ interface HappyPlaceDao {
     fun fetchAll(): Flow<List<HappyPlaceModel>>
 
     @Query("SELECT * FROM `${AppConstants.TABLE_NAME}` WHERE id=:id;")
-    fun fetchRecord(id: Int): Flow<HappyPlaceModel>
+    fun fetchRecord(id: Long): Flow<HappyPlaceModel>
 }

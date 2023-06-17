@@ -3,6 +3,7 @@ package com.shail_singh.happyplaces.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.shail_singh.happyplaces.AppConstants
+import java.io.Serializable
 
 @Entity(tableName = AppConstants.TABLE_NAME)
 data class HappyPlaceModel(
@@ -14,4 +15,4 @@ data class HappyPlaceModel(
     val location: String,
     val latitude: Double,
     val longitude: Double
-)
+) : Serializable
