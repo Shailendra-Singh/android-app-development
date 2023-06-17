@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -31,7 +32,7 @@ android {
         jvmTarget = '17'
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
 }
@@ -49,4 +50,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     // Third-Party Libraries
     implementation 'com.karumi:dexter:6.0.1' // https://github.com/Karumi/Dexter
+    // Room Dependencies
+    implementation 'androidx.room:room-runtime:2.5.1'
+    implementation 'androidx.room:room-ktx:2.5.1'
+    kapt "androidx.room:room-compiler:2.5.1"
+    implementation 'androidx.activity:activity-ktx:1.7.2'
 }

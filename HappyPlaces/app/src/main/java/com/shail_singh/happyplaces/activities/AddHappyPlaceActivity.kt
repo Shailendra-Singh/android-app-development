@@ -19,13 +19,18 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.shail_singh.happyplaces.AppConstants
 import com.shail_singh.happyplaces.R
+import com.shail_singh.happyplaces.database.DatabaseHandler
 import com.shail_singh.happyplaces.databinding.ActivityAddHappyPlaceBinding
+import com.shail_singh.happyplaces.models.HappyPlaceModel
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -42,10 +47,16 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
     private lateinit var galleryActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var cameraActivityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var dbHandler: DatabaseHandler
 
-    companion object {
-        private const val IMAGE_DIRECTORY = "HappyPlacesImages"
-    }
+    // Place data variables
+    private var title: String = ""
+    private var description: String = ""
+    private var dateStr: String = ""
+    private var location: String = ""
+    private var lat: Double = 0.0
+    private var lon: Double = 0.0
+    private var placeBitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,12 +69,16 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+        dbHandler = DatabaseHandler(application)
+
+        dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, month)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             updateDateInView()
         }
+
+        updateDateInView()
 
         binding?.etDate?.setOnClickListener(this)
 
@@ -78,6 +93,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 actionOnCameraActivityResult(it)
             }
 
+        binding?.btnSave?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -106,6 +122,22 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 pictureDialog.show()
+            }
+
+            R.id.btn_save -> {
+                when {
+                    binding?.etTitle?.text.isNullOrEmpty() -> showToast("Title can't be empty!")
+                    binding?.etDesc?.text.isNullOrEmpty() -> showToast("Description can't be empty!")
+                    binding?.etLocation?.text.isNullOrEmpty() -> showToast("Location not provided")
+                    this.placeBitmap == null -> showToast("Please select an image!")
+                    else -> {
+                        this.title = binding?.etTitle?.text.toString()
+                        this.description = binding?.etDesc?.text.toString()
+                        this.dateStr = binding?.etDate?.text.toString()
+                        this.location = binding?.etLocation?.text.toString()
+                        onActionHappyPlaceSave()
+                    }
+                }
             }
         }
     }
@@ -139,14 +171,12 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 try {
                     val inputStream = contentResolver.openInputStream(contentURI!!)
                     val thumbnail = BitmapFactory.decodeStream(inputStream)
+                    this.placeBitmap = thumbnail
                     inputStream!!.close()
-                    val savedThumbnailUri = saveBitmapToStorage(thumbnail)
-                    binding?.ivPlaceImage?.setImageBitmap(thumbnail)
+                    binding?.ivPlaceImage?.setImageBitmap(this.placeBitmap)
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Toast.makeText(
-                        this@AddHappyPlaceActivity, "Couldn't select image!", Toast.LENGTH_LONG
-                    ).show()
+                    showToast("Couldn't select image!")
                 }
             }
         }
@@ -168,7 +198,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             override fun onPermissionRationaleShouldBeShown(
                 permissions: MutableList<PermissionRequest>?, token: PermissionToken?
             ) {
-                showRationalDialogForPermissions("READ/WRITE")
+                showRationalDialogForPermissions("CAMERA")
             }
 
         }).onSameThread().check()
@@ -178,15 +208,13 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         if (result?.resultCode == RESULT_OK) {
             val data = result.data
             if (data != null) {
-                val thumbnail = data.extras?.get("data") as Bitmap
+                @Suppress("DEPRECATION") val thumbnail = data.extras?.get("data") as Bitmap
                 try {
-                    val savedThumbnailUri = saveBitmapToStorage(thumbnail)
-                    binding?.ivPlaceImage?.setImageBitmap(thumbnail)
+                    this.placeBitmap = thumbnail
+                    binding?.ivPlaceImage?.setImageBitmap(this.placeBitmap)
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Toast.makeText(
-                        this@AddHappyPlaceActivity, "Couldn't select image!", Toast.LENGTH_LONG
-                    ).show()
+                    showToast("Couldn't select image!")
                 }
             }
         }
@@ -210,15 +238,14 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateDateInView() {
-        val dateFormat = "MM/dd/yyyy"
-        val sdf = SimpleDateFormat(dateFormat, Locale.getDefault())
+        val sdf = SimpleDateFormat(AppConstants.DATE_FORMAT, Locale.getDefault())
         binding?.etDate?.setText(sdf.format(cal.time).toString())
     }
 
     private fun saveBitmapToStorage(bitmap: Bitmap): Uri {
         val wrapper = ContextWrapper(applicationContext)
-        var directory = wrapper.getDir(IMAGE_DIRECTORY, Context.MODE_PRIVATE)
-        var file = File(directory, "${UUID.randomUUID()}.jpg")
+        val directory = wrapper.getDir(AppConstants.IMAGE_DIRECTORY, Context.MODE_PRIVATE)
+        val file = File(directory, "${UUID.randomUUID()}.jpg")
         try {
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
@@ -229,6 +256,48 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         return Uri.parse(file.absolutePath)
+    }
+
+    private fun onActionHappyPlaceSave() {
+
+        // Persist selected image
+        val placeImgUri = saveBitmapToStorage(this.placeBitmap!!)
+
+        // Create model
+        val place = HappyPlaceModel(
+            title = this.title,
+            description = this.description,
+            imagePath = placeImgUri.toString(),
+            date = this.dateStr,
+            latitude = this.lat,
+            longitude = this.lon,
+            location = this.location
+        )
+
+        // Persist data to storage
+        lifecycleScope.launch {
+            dbHandler.insertPlace(place)
+            showToast("Happy Place Saved")
+        }
+
+        // Reset variables
+        this.title = ""
+        this.description = ""
+        this.location = ""
+        this.lat = 0.0
+        this.lon = 0.0
+        this.placeBitmap = null
+
+        // Reset UI fields
+        binding?.etTitle?.text?.clear()
+        binding?.etDesc?.text?.clear()
+        binding?.etLocation?.text?.clear()
+        binding?.ivPlaceImage?.setImageResource(R.drawable.add_screen_placeholder_image)
+        updateDateInView()
+    }
+
+    private fun showToast(msg: String) {
+        Toast.makeText(this@AddHappyPlaceActivity, msg, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {

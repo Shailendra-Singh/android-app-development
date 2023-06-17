@@ -9,7 +9,6 @@
         <item name="colorPrimaryVariant">@color/pastel_200</item>
         <item name="colorOnPrimary">@color/rp_900</item>
         <item name="colorAccent">@color/rp_600</item>
-<!--        <item name="colorAccent">@color/pastel_100</item>-->
         <!-- Primary Surface brand color. -->
         <item name="colorPrimarySurface">@color/rp_800</item>
         <item name="colorSurface">@color/variant_pastel_500</item>

@@ -1,13 +1,16 @@
 package com.shail_singh.happyplaces.models
 
-import java.util.Date
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.shail_singh.happyplaces.AppConstants
 
+@Entity(tableName = AppConstants.TABLE_NAME)
 data class HappyPlaceModel(
-    val id: Int,
+    @PrimaryKey val id: Long = System.currentTimeMillis(),
     val title: String,
     val imagePath: String,
     val description: String,
-    val date: Date,
+    val date: String,
     val location: String,
     val latitude: Double,
     val longitude: Double

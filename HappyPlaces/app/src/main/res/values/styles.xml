@@ -21,6 +21,6 @@
         <item name="android:textSize">@dimen/edit_text_text_size</item>
     </style>
 
-<!--    Widget.Material3.TextInputEditText.OutlinedBox-->
+    <!--    Widget.Material3.TextInputEditText.OutlinedBox-->
 
 </resources>
