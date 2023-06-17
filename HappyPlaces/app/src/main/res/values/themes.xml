@@ -1,0 +1,31 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HappyPlaces" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- ** Customize your light theme here. ** -->
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimaryDark">@color/pastel_500</item>
+        <item name="colorPrimary">@color/pastel_400</item>
+        <item name="colorPrimaryVariant">@color/pastel_200</item>
+        <item name="colorOnPrimary">@color/rp_900</item>
+        <item name="colorAccent">@color/rp_600</item>
+<!--        <item name="colorAccent">@color/pastel_100</item>-->
+        <!-- Primary Surface brand color. -->
+        <item name="colorPrimarySurface">@color/rp_800</item>
+        <item name="colorSurface">@color/variant_pastel_500</item>
+        <item name="colorSurfaceVariant">@color/rp_700</item>
+        <item name="colorOnPrimarySurface">@color/pastel_100</item>
+        <item name="colorOnSurface">@color/pastel_300</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/variant_pastel_500</item>
+        <item name="colorSecondaryVariant">@color/variant_pastel_300</item>
+        <item name="colorOnSecondary">@color/sob_900</item>
+        <item name="colorSecondaryContainer">@color/variant_pastel_400</item>
+        <item name="colorOnSecondaryContainer">@color/sob_700</item>
+        <!-- Common -->
+        <item name="colorControlNormal">@color/rp_800</item>
+        <item name="colorControlActivated">@color/rp_500</item>
+    </style>
+
+    <style name="Theme.HappyPlaces" parent="Base.Theme.HappyPlaces" />
+</resources>

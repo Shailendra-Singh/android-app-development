@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--    Shades of Blue    -->
+    <color name="sob_900">#011f4b</color>
+    <color name="sob_700">#03396c</color>
+    <color name="sob_500">#005b96</color>
+    <color name="sob_300">#6497b1</color>
+    <color name="sob_100">#b3cde0</color>
+
+    <!--    Red-Purple-->
+    <color name="rp_900">#051e3e</color>
+    <color name="rp_800">#251e3e</color>
+    <color name="rp_700">#451e3e</color>
+    <color name="rp_600">#651e3e</color>
+    <color name="rp_500">#851e3e</color>
+
+    <!--Pastel-->
+    <color name="pastel_500">#fe9c8f</color>
+    <color name="pastel_400">#f9caa7</color>
+    <color name="pastel_300">#feb2a8</color>
+    <color name="pastel_200">#fec8c1</color>
+    <color name="pastel_100">#fad9c1</color>
+
+    <!--Pastel Variant-->
+    <color name="variant_pastel_500">#ff8b94</color>
+    <color name="variant_pastel_400">#ffaaa5</color>
+    <color name="variant_pastel_300">#a8e6cf</color>
+    <color name="variant_pastel_200">#ffd3b6</color>
+    <color name="variant_pastel_100">#dcedc1</color>
+</resources>

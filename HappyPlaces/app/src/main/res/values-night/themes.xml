@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HappyPlaces" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- ** Customize your dark theme here. ** -->
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimaryDark">@color/rp_900</item>
+        <item name="colorPrimary">@color/rp_700</item>
+        <item name="colorPrimaryVariant">@color/sob_700</item>
+        <item name="colorOnPrimary">@color/pastel_300</item>
+        <item name="colorAccent">@color/pastel_500</item>
+        <!-- Primary Surface brand color. -->
+        <item name="colorPrimarySurface">@color/pastel_400</item>
+        <item name="colorSurface">@color/rp_900</item>
+        <item name="colorSurfaceVariant">@color/sob_700</item>
+        <item name="colorOnPrimarySurface">@color/pastel_300</item>
+        <item name="colorOnSurface">@color/pastel_500</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/sob_700</item>
+        <item name="colorSecondaryVariant">@color/sob_900</item>
+        <item name="colorOnSecondary">@color/pastel_200</item>
+        <item name="colorSecondaryContainer">@color/sob_500</item>
+        <item name="colorOnSecondaryContainer">@color/pastel_400</item>
+        <!-- Common -->
+        <item name="colorControlNormal">@color/pastel_500</item>
+        <item name="colorControlActivated">@color/pastel_300</item>
+    </style>
+</resources>
