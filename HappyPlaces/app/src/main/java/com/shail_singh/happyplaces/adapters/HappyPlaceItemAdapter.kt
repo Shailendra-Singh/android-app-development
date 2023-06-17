@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.shail_singh.happyplaces.AppConstants
 import com.shail_singh.happyplaces.databinding.ItemHappyPlaceBinding
 import com.shail_singh.happyplaces.models.HappyPlaceModel
 
@@ -33,7 +34,14 @@ class HappyPlaceItemAdapter(private val happyPlacesList: List<HappyPlaceModel>) 
 
         holder.ivThumbnail.setImageURI(Uri.parse(item.imagePath))
         holder.tvTitle.text = item.title
-        holder.tvDescription.text = item.description
+
+        var descriptionShortened = item.description.toString()
+        if (descriptionShortened.length > AppConstants.DESCRIPTION_SHORT_STRING_LENGTH) {
+            descriptionShortened =
+                descriptionShortened.subSequence(0, AppConstants.DESCRIPTION_SHORT_STRING_LENGTH)
+                    .toString() + "\t..."
+        }
+        holder.tvDescription.text = descriptionShortened
 
         holder.itemView.setOnClickListener {
             if (this.onAdapterItemClickListener != null) {

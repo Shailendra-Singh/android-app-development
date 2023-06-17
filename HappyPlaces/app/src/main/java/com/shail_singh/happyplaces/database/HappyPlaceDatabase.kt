@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.shail_singh.happyplaces.AppConstants
 import com.shail_singh.happyplaces.models.HappyPlaceModel
 
-@Database(entities = [HappyPlaceModel::class], version = 1)
+@Database(entities = [HappyPlaceModel::class], version = 2)
 abstract class HappyPlaceDatabase : RoomDatabase() {
     abstract fun happyPlaceDao(): HappyPlaceDao
 
