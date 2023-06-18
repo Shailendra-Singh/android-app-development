@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dbHandler: DatabaseHandler
     private lateinit var swipeToEditCallbackHandler: SwipeToEditCallback
     private lateinit var swipeToDeleteCallbackHandler: SwipeToDeleteCallback
-    private lateinit var happyPlacesList: List<HappyPlaceModel>
+    private var happyPlacesList: List<HappyPlaceModel>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                         // Do something when a user swept right
                         val intent = Intent(this@MainActivity, AddHappyPlaceActivity::class.java)
                         intent.putExtra(
-                            AppConstants.CURRENT_CARD_ITEM, happyPlacesList[position]
+                            AppConstants.CURRENT_CARD_ITEM, happyPlacesList!![position]
                         )
                         startActivity(intent)
                     }
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         this.swipeToDeleteCallbackHandler = object : SwipeToDeleteCallback(this) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val item = happyPlacesList[position]
+                val item = happyPlacesList!![position]
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
                         // Do something when a user swept left
@@ -104,6 +104,11 @@ class MainActivity : AppCompatActivity() {
             binding?.ivHappyPlacesList?.visibility = View.GONE
             binding?.tvNoRecordsFound?.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (happyPlacesList != null) populateHappyPlacesView(happyPlacesList!!)
     }
 
     override fun onDestroy() {
