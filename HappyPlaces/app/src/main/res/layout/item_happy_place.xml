@@ -52,10 +52,21 @@
                     tools:text="Title" />
 
                 <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="@dimen/item_happy_place_date_textSize"
+                    android:textStyle="italic"
+                    tools:text="01/01/1990" />
+
+                <TextView
                     android:id="@+id/tv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:paddingTop="@dimen/item_happy_place_content_padding"
                     android:textColor="?attr/colorOnSecondary"
                     android:textSize="@dimen/item_happy_place_description_textSize"
                     tools:text="Description" />

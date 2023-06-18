@@ -34,6 +34,7 @@ class HappyPlaceItemAdapter(private val happyPlacesList: List<HappyPlaceModel>) 
 
         holder.ivThumbnail.setImageURI(Uri.parse(item.imagePath))
         holder.tvTitle.text = item.title
+        holder.tvDate.text = item.date
 
         var descriptionShortened = item.description.toString()
         if (descriptionShortened.length > AppConstants.DESCRIPTION_SHORT_STRING_LENGTH) {
@@ -54,6 +55,7 @@ class HappyPlaceItemAdapter(private val happyPlacesList: List<HappyPlaceModel>) 
         val cvHappyPlaceItemCard = binding.cvHappyPlaceItemCard
         val ivThumbnail = binding.ivHappyPlaceThumbnail
         val tvTitle = binding.tvTitle
+        val tvDate = binding.tvDate
         val tvDescription = binding.tvDescription
     }
 

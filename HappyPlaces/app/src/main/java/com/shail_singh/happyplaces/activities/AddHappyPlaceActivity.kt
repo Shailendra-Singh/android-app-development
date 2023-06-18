@@ -10,7 +10,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
@@ -30,6 +32,7 @@ import com.shail_singh.happyplaces.R
 import com.shail_singh.happyplaces.database.DatabaseHandler
 import com.shail_singh.happyplaces.databinding.ActivityAddHappyPlaceBinding
 import com.shail_singh.happyplaces.models.HappyPlaceModel
+import com.shail_singh.happyplaces.utils.StorageOperations
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -41,6 +44,11 @@ import java.util.UUID
 
 
 class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
+
+    private inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
+        Build.VERSION.SDK_INT >= 33 -> getParcelableExtra(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelableExtra(key) as? T
+    }
 
     private var binding: ActivityAddHappyPlaceBinding? = null
     private var cal = Calendar.getInstance()
@@ -57,6 +65,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     private var lat: Double = 0.0
     private var lon: Double = 0.0
     private var placeBitmap: Bitmap? = null
+
+    // Variables for Edit Activity
+    private var happyPlaceEditModel: HappyPlaceModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +105,12 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             }
 
         binding?.btnSave?.setOnClickListener(this)
+
+        // Set variables for Edit action
+        if (intent.hasExtra(AppConstants.CURRENT_CARD_ITEM)) {
+            this.happyPlaceEditModel = intent.parcelable(AppConstants.CURRENT_CARD_ITEM)
+            preFillForEdit(this.happyPlaceEditModel)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -125,6 +142,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btn_save -> {
+
+                val isEditAction = binding?.btnSave?.text == getString(R.string.btn_text_update)
+
                 when {
                     binding?.etTitle?.text.isNullOrEmpty() -> showToast("Title can't be empty!")
                     binding?.etDescription?.text.isNullOrEmpty() -> showToast("Description can't be empty!")
@@ -135,7 +155,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                         this.description = binding?.etDescription?.text.toString()
                         this.dateStr = binding?.etDate?.text.toString()
                         this.location = binding?.etLocation?.text.toString()
-                        onActionHappyPlaceSave()
+                        if (isEditAction) onActionHappyPlaceUpdate()
+                        else onActionHappyPlaceSave()
                     }
                 }
             }
@@ -284,8 +305,63 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         finish()
     }
 
+    private fun onActionHappyPlaceUpdate() {
+        // Persist selected image
+        val placeImgUri = saveBitmapToStorage(this.placeBitmap!!)
+
+        // If new image is different from previously stored, then delete old image
+        StorageOperations.deleteFileFromStorage(this.happyPlaceEditModel?.imagePath!!)
+
+        // Create model
+        val place = HappyPlaceModel(
+            id = this.happyPlaceEditModel?.id!!,
+            title = this.title,
+            description = this.description,
+            imagePath = placeImgUri.toString(),
+            date = this.dateStr,
+            latitude = this.lat,
+            longitude = this.lon,
+            location = this.location
+        )
+
+        // Persist data to storage
+        lifecycleScope.launch {
+            dbHandler.updatePlace(place)
+            showToast("Happy Place UPDATED")
+        }
+
+        // Close activity
+        finish()
+    }
+
     private fun showToast(msg: String) {
         Toast.makeText(this@AddHappyPlaceActivity, msg, Toast.LENGTH_LONG).show()
+    }
+
+    private fun preFillForEdit(item: HappyPlaceModel?) {
+        if (item != null) {
+            val savedImageUri = Uri.parse(item.imagePath)
+
+            binding?.etTitle?.setText(item.title)
+            binding?.etDescription?.setText(item.description)
+            binding?.etDate?.setText(item.date)
+            binding?.etLocation?.setText(item.location)
+            binding?.ivPlaceImage?.setImageURI(savedImageUri)
+            binding?.btnSave?.text = getString(R.string.btn_text_update)
+
+            readPlaceImageFromStorage(savedImageUri!!)
+        }
+    }
+
+    private fun readPlaceImageFromStorage(uri: Uri) {
+        val bitmap = StorageOperations.readBitmapFromStorage(uri)
+        if (bitmap != null) {
+            this.placeBitmap = bitmap
+            binding?.ivPlaceImage?.setImageBitmap(this.placeBitmap)
+        } else {
+            showToast("Couldn't read image!")
+            this.placeBitmap = null
+        }
     }
 
     override fun onDestroy() {

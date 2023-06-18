@@ -26,10 +26,12 @@
     <dimen name="item_happy_place_content_padding">8dp</dimen>
     <dimen name="item_happy_place_circular_image_diameter">75dp</dimen>
     <dimen name="item_happy_place_title_textSize">16sp</dimen>
+    <dimen name="item_happy_place_date_textSize">12sp</dimen>
     <dimen name="item_happy_place_description_textSize">14sp</dimen>
     <dimen name="item_happy_places_content_paddingLeft">15dp</dimen>
     <dimen name="happy_place_details_content_padding">8dp</dimen>
     <dimen name="happy_place_details_scroll_view_marginTop">10dp</dimen>
     <dimen name="happy_place_details_full_image_size">300dp</dimen>
+    <dimen name="ic_edit_icon_diameter">35dp</dimen>
 
 </resources>

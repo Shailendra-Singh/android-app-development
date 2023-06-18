@@ -35,8 +35,8 @@
                 android:layout_height="@dimen/happy_place_details_full_image_size"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/happy_place_original_image"
-                android:scaleType="centerCrop"
-                tools:src="@mipmap/ic_launcher" />
+                android:scaleType="fitCenter"
+                tools:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:id="@+id/tv_date"

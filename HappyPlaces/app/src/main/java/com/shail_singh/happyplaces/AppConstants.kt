@@ -6,5 +6,5 @@ object AppConstants {
     const val DATABASE_NAME: String = "app_db"
     const val DATE_FORMAT: String = "MM/dd/yyyy"
     const val CURRENT_CARD_ITEM: String = "HAPPY_PLACE_MODEL"
-    const val DESCRIPTION_SHORT_STRING_LENGTH: Int = 120
+    const val DESCRIPTION_SHORT_STRING_LENGTH: Int = 72
 }

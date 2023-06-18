@@ -6,6 +6,7 @@
     <string name="edit_text_hint_location">Location</string>
     <string name="text_add_image">ADD IMAGE</string>
     <string name="btn_text_save">SAVE</string>
+    <string name="btn_text_update">UPDATE</string>
     <string name="no_saved_places_status">No saved Happy Places! Kindly add one.</string>
     <string name="happy_place_thumbnail">Happy Place Thumbnail</string>
     <string name="floating_image_button">Floating image button to add happy place activity</string>
