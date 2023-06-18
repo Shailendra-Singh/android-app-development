@@ -39,6 +39,12 @@ class HappyPlaceDetailsActivity : AppCompatActivity() {
         if (currentCardModel != null) {
             populateCardDetails(currentCardModel)
         }
+
+        binding?.btnViewOnMap?.setOnClickListener {
+            val intent = Intent(this@HappyPlaceDetailsActivity, MapActivity::class.java)
+            intent.putExtra(AppConstants.CURRENT_CARD_ITEM, currentCardModel)
+            startActivity(intent)
+        }
     }
 
     private fun populateCardDetails(item: HappyPlaceModel) {
@@ -46,5 +52,6 @@ class HappyPlaceDetailsActivity : AppCompatActivity() {
         binding?.tvDate?.text = item.date
         binding?.tvTitle?.text = item.title
         binding?.tvDescription?.text = item.description
+        binding?.tvLocation?.text = item.location
     }
 }

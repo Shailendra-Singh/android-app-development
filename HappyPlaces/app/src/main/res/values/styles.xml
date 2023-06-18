@@ -20,7 +20,4 @@
         <item name="android:textAppearance">@dimen/edit_text_text_appearance</item>
         <item name="android:textSize">@dimen/edit_text_text_size</item>
     </style>
-
-    <!--    Widget.Material3.TextInputEditText.OutlinedBox-->
-
 </resources>

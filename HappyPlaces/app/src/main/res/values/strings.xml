@@ -11,4 +11,5 @@
     <string name="happy_place_thumbnail">Happy Place Thumbnail</string>
     <string name="floating_image_button">Floating image button to add happy place activity</string>
     <string name="happy_place_original_image">Original image of Happy Place</string>
+    <string name="btn_txt_view_on_map">VIEW ON MAP</string>
 </resources>
