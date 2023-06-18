@@ -22,6 +22,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -55,6 +59,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
     private lateinit var galleryActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var cameraActivityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var placeApiActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var dbHandler: DatabaseHandler
 
     // Place data variables
@@ -80,6 +85,12 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
 
+        if (!Places.isInitialized()) {
+            val mapsApiKey =
+                applicationContext.applicationInfo.metaData.getString("com.google.android.geo.API_KEY")
+            Places.initialize(this@AddHappyPlaceActivity, mapsApiKey!!)
+        }
+
         dbHandler = DatabaseHandler(application)
 
         dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -91,9 +102,6 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
         updateDateInView()
 
-        binding?.etDate?.setOnClickListener(this)
-
-        binding?.tvAddImageBtn?.setOnClickListener(this)
         galleryActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 actionOnGalleryActivityResult(it)
@@ -104,7 +112,15 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 actionOnCameraActivityResult(it)
             }
 
+        placeApiActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                actionOnPlaceApiActivityResult(it)
+            }
+
+        binding?.etDate?.setOnClickListener(this)
+        binding?.tvAddImageBtn?.setOnClickListener(this)
         binding?.btnSave?.setOnClickListener(this)
+        binding?.etLocation?.setOnClickListener(this)
 
         // Set variables for Edit action
         if (intent.hasExtra(AppConstants.CURRENT_CARD_ITEM)) {
@@ -160,6 +176,20 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
+
+            R.id.et_location -> {
+                try {
+                    val fields = listOf(
+                        Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS
+                    )
+                    val intent =
+                        Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+                            .build(this@AddHappyPlaceActivity)
+                    placeApiActivityResultLauncher.launch(intent)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 
@@ -184,6 +214,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         }).onSameThread().check()
     }
 
+    // Gallery Activity
     private fun actionOnGalleryActivityResult(result: ActivityResult?) {
         if (result?.resultCode == RESULT_OK) {
             val data = result.data
@@ -225,6 +256,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         }).onSameThread().check()
     }
 
+    // Camera Activity
     private fun actionOnCameraActivityResult(result: ActivityResult?) {
         if (result?.resultCode == RESULT_OK) {
             val data = result.data
@@ -256,6 +288,20 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         }.setNegativeButton("CANCEL") { dialog, _ ->
             dialog.dismiss()
         }.show()
+    }
+
+    // Place API Activity
+    private fun actionOnPlaceApiActivityResult(result: ActivityResult?) {
+        if (result?.resultCode == RESULT_OK) {
+            val data = result.data
+            if (data != null) {
+                val place: Place = Autocomplete.getPlaceFromIntent(data)
+                this.location = place.address
+                binding?.etLocation?.setText(this.location)
+                this.lat = place.latLng.latitude
+                this.lon = place.latLng.longitude
+            }
+        }
     }
 
     private fun updateDateInView() {
@@ -350,6 +396,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             binding?.btnSave?.text = getString(R.string.btn_text_update)
 
             readPlaceImageFromStorage(savedImageUri!!)
+            supportActionBar?.title = "UPDATE HAPPY PLACE"
         }
     }
 
