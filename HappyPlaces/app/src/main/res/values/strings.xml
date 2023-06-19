@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Happy Places</string>
+    <string name="edit_text_hint_title">Title</string>
+    <string name="edit_text_hint_description">Description</string>
+    <string name="edit_text_hint_date">Date</string>
+    <string name="edit_text_hint_location">Location</string>
+    <string name="text_add_image">ADD IMAGE</string>
+    <string name="btn_text_save">SAVE</string>
+    <string name="btn_text_update">UPDATE</string>
+    <string name="no_saved_places_status">No saved Happy Places! Kindly add one.</string>
+    <string name="happy_place_thumbnail">Happy Place Thumbnail</string>
+    <string name="floating_image_button">Floating image button to add happy place activity</string>
+    <string name="happy_place_original_image">Original image of Happy Place</string>
+    <string name="btn_txt_view_on_map">VIEW ON MAP</string>
+    <string name="btn_use_current_location_text">USE CURRENT LOCATION</string>
+</resources>

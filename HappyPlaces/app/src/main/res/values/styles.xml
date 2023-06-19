@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomToolbarStyle">
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
+        <item name="colorControlNormal">?attr/colorControlNormal</item>
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="HappyPlaceTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">?attr/colorAccent</item>
+        <item name="hintTextColor">?attr/colorAccent</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="HappyPlaceEditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="textFillColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColorHint">?attr/colorAccent</item>
+        <item name="android:textAppearance">@dimen/edit_text_text_appearance</item>
+        <item name="android:textSize">@dimen/edit_text_text_size</item>
+    </style>
+</resources>
