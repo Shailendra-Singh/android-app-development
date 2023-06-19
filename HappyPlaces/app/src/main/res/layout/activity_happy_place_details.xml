@@ -15,88 +15,100 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main_content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/happy_place_details_scroll_view_marginTop"
-        android:fillViewport="true"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tb_show_place_details">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_place_image"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/happy_place_details_full_image_size"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/happy_place_original_image"
-                android:scaleType="fitCenter"
-                tools:src="@drawable/ic_launcher_background" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/happy_place_details_scroll_view_marginTop"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_place_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/happy_place_details_full_image_size"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/happy_place_original_image"
+                    android:scaleType="fitCenter"
+                    tools:src="@drawable/ic_launcher_background" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:gravity="start"
+                        android:padding="@dimen/happy_place_details_content_padding"
+                        android:textAppearance="?textAppearanceCaption"
+                        android:textStyle="italic"
+                        tools:text="Dallas, TX, USA" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:gravity="end"
+                        android:padding="@dimen/happy_place_details_content_padding"
+                        android:textAppearance="?textAppearanceCaption"
+                        android:textStyle="italic"
+                        tools:text="06/18/2023" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_location"
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:gravity="start"
                     android:padding="@dimen/happy_place_details_content_padding"
-                    android:textAppearance="?textAppearanceCaption"
-                    android:textStyle="italic"
-                    tools:text="Dallas, TX, USA" />
+                    android:textAppearance="?textAppearanceHeadline6"
+                    tools:text="The Eiffel Tower" />
 
                 <TextView
-                    android:id="@+id/tv_date"
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="end"
                     android:padding="@dimen/happy_place_details_content_padding"
-                    android:textAppearance="?textAppearanceCaption"
-                    android:textStyle="italic"
-                    tools:text="06/18/2023" />
+                    android:textAppearance="?textAppearanceBodyMedium"
+                    tools:text="The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower." />
             </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/happy_place_details_content_padding"
-                android:textAppearance="?textAppearanceHeadline6"
-                tools:text="The Eiffel Tower" />
+    <Button
+        android:id="@+id/btn_view_on_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/add_screen_btn_save_marginTop"
+        android:background="@drawable/shape_button_rounded"
+        android:gravity="center"
+        android:paddingTop="@dimen/add_screen_btn_save_paddingTopBottom"
+        android:paddingBottom="@dimen/add_screen_btn_save_paddingTopBottom"
+        android:text="@string/btn_txt_view_on_map"
+        android:textSize="@dimen/btn_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/happy_place_details_content_padding"
-                android:textAppearance="?textAppearanceBodyMedium"
-                tools:text="The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower. Locally nicknamed 'La dame de fer', it was constructed from 1887 to 1889 as the centerpiece of the 1889 World's Fair." />
-
-            <Button
-                android:id="@+id/btn_view_on_map"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/add_screen_btn_save_marginTop"
-                android:background="@drawable/shape_button_rounded"
-                android:gravity="center"
-                android:paddingTop="@dimen/add_screen_btn_save_paddingTopBottom"
-                android:paddingBottom="@dimen/add_screen_btn_save_paddingTopBottom"
-                android:text="@string/btn_txt_view_on_map"
-                android:textSize="@dimen/btn_text_size"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sv_content_container" />
-        </LinearLayout>
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -95,6 +95,20 @@
                         android:hint="@string/edit_text_hint_location"
                         android:inputType="textPostalAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_use_current_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/btn_save_current_location_marginTop"
+                    android:background="@drawable/shape_image_view_border"
+                    android:gravity="center"
+                    android:padding="@dimen/btn_use_current_location_padding"
+                    android:text="@string/btn_use_current_location_text"
+                    android:textAppearance="?textAppearanceButton"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="@dimen/btn_use_current_location_textSize" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -119,7 +133,7 @@
 
                 <TextView
                     android:id="@+id/tv_add_image_btn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.25"

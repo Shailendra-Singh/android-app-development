@@ -43,7 +43,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         if (currentCardModel != null) {
-            supportActionBar?.title = currentCardModel.location
+            supportActionBar?.title = currentCardModel.title
             this.happyPlaceModel = currentCardModel
 
             val supportMapFragment: SupportMapFragment =
@@ -56,7 +56,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         val lat = this.happyPlaceModel?.latitude!!
         val lon = this.happyPlaceModel?.longitude!!
-        val position: LatLng = LatLng(lat, lon)
+        val position = LatLng(lat, lon)
         googleMap.addMarker(
             MarkerOptions().position(position).title(this.happyPlaceModel?.location)
         )

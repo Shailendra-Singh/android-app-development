@@ -12,4 +12,5 @@
     <string name="floating_image_button">Floating image button to add happy place activity</string>
     <string name="happy_place_original_image">Original image of Happy Place</string>
     <string name="btn_txt_view_on_map">VIEW ON MAP</string>
+    <string name="btn_use_current_location_text">USE CURRENT LOCATION</string>
 </resources>

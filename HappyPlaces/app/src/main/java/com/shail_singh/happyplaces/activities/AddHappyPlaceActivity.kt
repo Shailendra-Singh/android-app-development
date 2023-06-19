@@ -1,6 +1,7 @@
 package com.shail_singh.happyplaces.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
@@ -9,19 +10,29 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Location
+import android.location.LocationManager
+import android.location.LocationRequest
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.os.Parcelable
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -36,6 +47,7 @@ import com.shail_singh.happyplaces.R
 import com.shail_singh.happyplaces.database.DatabaseHandler
 import com.shail_singh.happyplaces.databinding.ActivityAddHappyPlaceBinding
 import com.shail_singh.happyplaces.models.HappyPlaceModel
+import com.shail_singh.happyplaces.utils.MapsApiOperations
 import com.shail_singh.happyplaces.utils.StorageOperations
 import kotlinx.coroutines.launch
 import java.io.File
@@ -121,6 +133,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         binding?.tvAddImageBtn?.setOnClickListener(this)
         binding?.btnSave?.setOnClickListener(this)
         binding?.etLocation?.setOnClickListener(this)
+        binding?.tvUseCurrentLocation?.setOnClickListener(this)
 
         // Set variables for Edit action
         if (intent.hasExtra(AppConstants.CURRENT_CARD_ITEM)) {
@@ -190,7 +203,86 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                     e.printStackTrace()
                 }
             }
+
+            R.id.tv_use_current_location -> {
+                if (!isLocationAvailable()) {
+                    showToast("Your Location provider is turned off. Please turn it on.")
+                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivity(intent)
+                } else {
+                    getCurrentLocation()
+                }
+            }
         }
+    }
+
+    private fun isLocationAvailable(): Boolean {
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    @SuppressLint("MissingPermission")
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun requestCurrentLocation() {
+
+        val fusedLocationProviderClient: FusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(this)
+
+        val locationRequest = com.google.android.gms.location.LocationRequest.Builder(1000).apply {
+            setMaxUpdates(1)
+            setPriority(LocationRequest.QUALITY_HIGH_ACCURACY)
+        }.build()
+
+        val locationCallback: LocationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                val lastLocation: Location = locationResult.lastLocation!!
+                this@AddHappyPlaceActivity.lat = lastLocation.latitude
+                this@AddHappyPlaceActivity.lon = lastLocation.longitude
+                Log.i("LOC", "Location: [${lastLocation.latitude}, ${lastLocation.longitude}]")
+                val mapsAddressHandler = MapsApiOperations.CoordinateAddressHandler(
+                    this@AddHappyPlaceActivity,
+                    this@AddHappyPlaceActivity.lat,
+                    this@AddHappyPlaceActivity.lon
+                )
+
+                lifecycleScope.launch {
+                    val addressStr = mapsAddressHandler.getAddress()
+                    if (!addressStr.isNullOrEmpty()) {
+                        showToast("Current Location Obtained!")
+                        this@AddHappyPlaceActivity.binding?.etLocation?.setText(addressStr)
+                        this@AddHappyPlaceActivity.location = addressStr
+                    } else {
+                        showToast("Couldn't get current address!")
+                    }
+                }
+            }
+        }
+
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest, locationCallback, Looper.getMainLooper()
+        )
+    }
+
+    private fun getCurrentLocation() {
+        Dexter.withActivity(this).withPermissions(
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
+        ).withListener(object : MultiplePermissionsListener {
+            @RequiresApi(Build.VERSION_CODES.S)
+            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                if (report!!.areAllPermissionsGranted()) {
+                    requestCurrentLocation()
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(
+                permissions: MutableList<PermissionRequest>?, token: PermissionToken?
+            ) {
+                showRationalDialogForPermissions("LOCATION")
+            }
+        }).onSameThread().check()
     }
 
     private fun choosePhotoFromGallery() {
@@ -296,10 +388,10 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             val data = result.data
             if (data != null) {
                 val place: Place = Autocomplete.getPlaceFromIntent(data)
-                this.location = place.address
+                this.location = place.address!!
                 binding?.etLocation?.setText(this.location)
-                this.lat = place.latLng.latitude
-                this.lon = place.latLng.longitude
+                this.lat = place.latLng?.latitude ?: 0.0
+                this.lon = place.latLng?.longitude ?: 0.0
             }
         }
     }
