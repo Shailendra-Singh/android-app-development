@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_grey">#C4C4C4</color>
+    <!--    Light Theme-->
+    <color name="light_primary">#66cccc</color>
+    <color name="light_secondary">#0066cc</color>
+    <color name="light_accent">#66cccc</color>
+    <color name="light_color_control">#cccccc</color>
+    <color name="light_color_activated">#0099cc</color>
+    <color name="light_text_primary">#424153</color>
+    <color name="light_text_secondary">#998877</color>
+    <!--    Dark Theme-->
+    <color name="dark_primary">#424153</color>
+    <color name="dark_secondary">#999999</color>
+    <color name="dark_accent">#abbcda</color>
+    <color name="dark_color_control">#663399</color>
+    <color name="dark_color_activated">#333399</color>
+    <color name="dark_text_primary">#e7d8b1</color>
+    <color name="dark_text_secondary">#cccccc</color>
+</resources>

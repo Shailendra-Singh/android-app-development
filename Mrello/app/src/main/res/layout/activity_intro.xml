@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="@dimen/intro_screen_main_padding"
+    tools:context=".IntroActivity">
+
+    <TextView
+        android:id="@+id/tv_intro_brand_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="?attr/colorSecondary"
+        android:textSize="@dimen/intro_screen_textSize"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/iv_intro_screen_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_intro_screen_icon"
+        android:layout_width="@dimen/intro_screen_image_width"
+        android:layout_height="@dimen/intro_screen_image_height"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/intro_screen_image_marginTop"
+        android:src="@drawable/planning"
+        app:layout_constraintBottom_toTopOf="@id/tv_intro_heading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_intro_brand_name" />
+
+    <TextView
+        android:id="@+id/tv_intro_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/intro_screen_heading_marginTop"
+        android:gravity="center"
+        android:text="@string/intro_screen_heading"
+        android:textSize="@dimen/intro_screen_heading_textSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_intro_screen_icon" />
+
+    <TextView
+        android:id="@+id/tv_intro_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/intro_screen_content_margin_top"
+        android:gravity="center"
+        android:text="@string/intro_screen_description"
+        android:textSize="@dimen/intro_screen_content_textSize"
+        app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_intro_heading" />
+
+    <FrameLayout
+        android:id="@+id/btn_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/intro_screen_sign_in_btn_marginTop"
+        android:background="@drawable/shape_button_rounded_gradient_ripple"
+        android:clickable="true"
+        android:paddingTop="@dimen/intro_screen_frame_container_padding_topBottom"
+        android:paddingBottom="@dimen/intro_screen_frame_container_padding_topBottom"
+        app:layout_constraintBottom_toTopOf="@id/btn_sign_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_intro_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="@dimen/intro_screen_button_paddingTopBottom"
+            android:paddingBottom="@dimen/intro_screen_button_paddingTopBottom"
+            android:text="@string/intro_screen_btn_sign_in"
+            android:textAppearance="?textAllCaps"
+            android:textSize="@dimen/intro_screen_button_textSize" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/btn_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/intro_screen_btn_signup_marginTop"
+        android:background="@drawable/shape_button_rounded_ripple"
+        android:clickable="true"
+        android:paddingTop="@dimen/intro_screen_frame_container_padding_topBottom"
+        android:paddingBottom="@dimen/intro_screen_frame_container_padding_topBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_sign_in">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="@dimen/intro_screen_button_paddingTopBottom"
+            android:paddingBottom="@dimen/intro_screen_button_paddingTopBottom"
+            android:text="@string/intro_screen_btn_sign_up"
+            android:textAppearance="?textAllCaps"
+            android:textSize="@dimen/intro_screen_button_textSize" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
