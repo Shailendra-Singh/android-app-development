@@ -32,8 +32,11 @@ class WeatherApiHandler(
 
             val service: WeatherService = retrofit.create(WeatherService::class.java)
 
+            val apiKey =
+                context.applicationContext.applicationInfo.metaData.getString("org.openweathermap.currentweather.API_KEY")
+
             val listCall: Call<WeatherApiModel.WeatherResponse> = service.getWeather(
-                latitude, longitude, AppConstants.UNIT, AppConstants.APP_ID
+                latitude, longitude, AppConstants.UNIT, apiKey
             )
 
             listCall.enqueue(object : Callback<WeatherApiModel.WeatherResponse> {

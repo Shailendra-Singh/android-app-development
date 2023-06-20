@@ -9,8 +9,6 @@ import java.util.Date
 import java.util.Locale
 
 object AppConstants {
-
-    const val APP_ID: String = "28fb82c4ae1defb2d21d7ca19b735a23"
     const val BASE_URL: String = "https://api.openweathermap.org/data/"
     const val UNIT: String = "metric"
     const val LOG_API_TAG: String = "API"
