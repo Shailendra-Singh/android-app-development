@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Main Screen-->
+    <dimen name="main_screen_content_padding">16dp</dimen>
+    <!--    Progress Bar-->
+    <dimen name="progress_bar_size">50dp</dimen>
+    <dimen name="progress_bar_text_marginStartEnd">10dp</dimen>
+    <dimen name="progress_bar_container_padding">14dp</dimen>
+    <dimen name="progress_bar_text_size">16sp</dimen>
+    <!--    Card View-->
+    <dimen name="card_marginStartEnd">10dp</dimen>
+    <dimen name="card_marginTop">10dp</dimen>
+    <dimen name="card_cornerRadius">8dp</dimen>
+    <dimen name="card_elevation">5dp</dimen>
+    <dimen name="card_content_padding">5dp</dimen>
+    <dimen name="card_padding_left_right">2dp</dimen>
+    <!--    Identification Image-->
+    <dimen name="identification_image_size">64dp</dimen>
+    <dimen name="identification_image_padding">10dp</dimen>
+    <dimen name="identification_image_marginEnd">5dp</dimen>
+    <!--    Divider    -->
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_margin">16dp</dimen>
+    <!--    General-->
+    <dimen name="label_text_size">15sp</dimen>
+    <dimen name="value_text_size">12sp</dimen>
+</resources>
