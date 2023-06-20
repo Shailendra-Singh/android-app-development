@@ -3,9 +3,7 @@ package com.shail_singh.weatherapp.utils
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.location.LocationManager
 import android.location.LocationRequest
 import android.os.Build
 import android.os.Looper
@@ -16,6 +14,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.shail_singh.weatherapp.AppConstants
 
 class WeatherLocationHandler(private val activity: Activity) {
 
@@ -54,7 +53,7 @@ class WeatherLocationHandler(private val activity: Activity) {
     // region Initialize Location
     @RequiresApi(Build.VERSION_CODES.S)
     private fun getLocationPermissionManager(): PermissionsManager? {
-        if (!isLocationAvailable()) {
+        if (!AppConstants.isLocationAvailable(activity)) {
             Toast.makeText(
                 activity,
                 "Your Location provider is turned off." + " Please turn it on in settings",
@@ -70,14 +69,6 @@ class WeatherLocationHandler(private val activity: Activity) {
             )
         }
         return null
-    }
-
-    private fun isLocationAvailable(): Boolean {
-        val locationManager: LocationManager =
-            activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
     }
     // endregion
 }

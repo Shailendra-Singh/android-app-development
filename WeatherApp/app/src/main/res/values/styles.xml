@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="text_view_label" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorControlActivated</item>
+        <item name="android:textAppearance">?textAppearanceLabelLarge</item>
+    </style>
+
+    <style name="text_view_value" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/value_text_size</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:textAppearance">?textAppearanceDisplayMedium</item>
+    </style>
+</resources>
