@@ -1,22 +1,24 @@
-package com.shail_singh.mrello
+package com.shail_singh.mrello.activities
 
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.shail_singh.mrello.R
+import com.shail_singh.mrello.databinding.ActivityIntroBinding
 
-class SplashActivity : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.R)
+class IntroActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityIntroBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        binding = ActivityIntroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -28,12 +30,14 @@ class SplashActivity : AppCompatActivity() {
 
         val typeFace: Typeface =
             Typeface.createFromAsset(assets, "kablammo-regular-variable-font.ttf")
-        val view: TextView = findViewById(R.id.tv_splash_brand_name)
+        val view: TextView = findViewById(R.id.tv_intro_brand_name)
         view.typeface = typeFace
+        binding.btnSignIn.setOnClickListener {
+            startActivity(Intent(this, SignInActivity::class.java))
+        }
+        binding.btnSignUp.setOnClickListener {
+            startActivity(Intent(this, SignUpActivity::class.java))
+        }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, IntroActivity::class.java))
-            finish()
-        }, 2500)
     }
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash_background"
     android:gravity="center"
-    tools:context=".SplashActivity">
+    tools:context=".activities.SplashActivity">
 
     <androidx.appcompat.widget.AppCompatCheckedTextView
         android:id="@+id/tv_splash_brand_name"

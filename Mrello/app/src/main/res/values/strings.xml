@@ -10,4 +10,9 @@
     <string name="signup_field_email_text">Email</string>
     <string name="signup_field_password_text">Password</string>
     <string name="sign_in_content_text">Welcome Back! Login to continue</string>
+    <string name="please_wait">Please Wait &#8230;></string>
+    <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
+    <string name="registered_success">, you have successfully registered the email address: </string>
+    <string name="error_signing_up">Registration Failed!</string>
+    <string name="error_signing_in">Login Failed!</string>
 </resources>

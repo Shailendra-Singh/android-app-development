@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/screen_main_padding"
     android:paddingRight="@dimen/screen_main_padding"
-    tools:context=".SignInActivity">
+    tools:context=".activities.SignInActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_signup_toolbar"
@@ -51,11 +51,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/signup_fields_marginTop"
                 app:boxStrokeColor="?attr/colorAccent"
-                app:hintTextColor="?attr/hintTextColor"
-                android:layout_marginTop="@dimen/signup_fields_marginTop">
+                app:hintTextColor="?attr/hintTextColor">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/signup_field_email_text"
@@ -65,11 +66,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/signup_fields_marginTop"
                 app:boxStrokeColor="?attr/colorAccent"
-                app:hintTextColor="?attr/hintTextColor"
-                android:layout_marginTop="@dimen/signup_fields_marginTop">
+                app:hintTextColor="?attr/hintTextColor">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/signup_field_password_text"

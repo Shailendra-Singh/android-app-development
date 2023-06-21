@@ -28,5 +28,9 @@
     <dimen name="signup_input_card_corner_radius">8dp</dimen>
     <dimen name="signup_content_text_marginTop">25dp</dimen>
     <dimen name="toolbar_padding">4dp</dimen>
+    <dimen name="progress_bar_container_padding">14dp</dimen>
+    <dimen name="progress_bar_size">50dp</dimen>
+    <dimen name="progress_bar_text_marginStartEnd">10dp</dimen>
+    <dimen name="progress_bar_text_size">16sp</dimen>
 
 </resources>
