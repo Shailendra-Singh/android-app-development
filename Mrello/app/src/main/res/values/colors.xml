@@ -11,6 +11,7 @@
     <color name="light_color_activated">#0099cc</color>
     <color name="light_text_primary">#424153</color>
     <color name="light_text_secondary">#998877</color>
+    <color name="light_color_surface">#eee6ff</color>
     <!--    Dark Theme-->
     <color name="dark_primary">#424153</color>
     <color name="dark_secondary">#999999</color>
@@ -19,4 +20,5 @@
     <color name="dark_color_activated">#333399</color>
     <color name="dark_text_primary">#e7d8b1</color>
     <color name="dark_text_secondary">#cccccc</color>
+    <color name="dark_color_surface">@color/black</color>
 </resources>

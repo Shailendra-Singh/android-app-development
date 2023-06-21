@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="@dimen/intro_screen_main_padding"
+    android:padding="@dimen/screen_main_padding"
     tools:context=".IntroActivity">
 
     <TextView
@@ -29,8 +29,8 @@
         android:layout_height="@dimen/intro_screen_image_height"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/intro_screen_image_marginTop"
-        android:src="@drawable/planning"
         android:contentDescription="@string/content_description"
+        android:src="@drawable/planning"
         app:layout_constraintBottom_toTopOf="@id/tv_intro_heading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

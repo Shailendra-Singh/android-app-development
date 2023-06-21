@@ -5,4 +5,9 @@
     <string name="intro_screen_btn_sign_in">SIGN IN</string>
     <string name="intro_screen_btn_sign_up">SIGN UP</string>
     <string name="content_description">image</string>
+    <string name="signup_description_text">Enter you name, email-id, and password to register with us.</string>
+    <string name="signup_field_name_text">Name</string>
+    <string name="signup_field_email_text">Email</string>
+    <string name="signup_field_password_text">Password</string>
+    <string name="sign_in_content_text">Welcome Back! Login to continue</string>
 </resources>
