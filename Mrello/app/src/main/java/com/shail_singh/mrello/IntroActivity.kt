@@ -1,7 +1,10 @@
 package com.shail_singh.mrello
 
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 

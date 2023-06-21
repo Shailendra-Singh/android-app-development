@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@drawable/splash_background"
     android:gravity="center"
     tools:context=".SplashActivity">
 
@@ -16,5 +16,4 @@
         android:textColor="@color/white"
         android:textSize="@dimen/splash_screen_textSize"
         android:textStyle="bold" />
-
 </LinearLayout>
