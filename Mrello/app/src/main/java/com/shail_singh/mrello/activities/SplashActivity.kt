@@ -1,5 +1,6 @@
 package com.shail_singh.mrello.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Build
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.firebase.MrelloFirestore
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     @Suppress("DEPRECATION")
     @RequiresApi(Build.VERSION_CODES.R)

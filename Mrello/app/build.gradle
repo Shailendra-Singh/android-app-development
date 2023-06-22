@@ -54,4 +54,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     // https://github.com/bumptech/glide
     implementation 'com.github.bumptech.glide:glide:4.15.1'
+    // https://github.com/Karumi/Dexter
+    implementation 'com.karumi:dexter:6.0.1'
 }

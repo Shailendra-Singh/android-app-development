@@ -43,7 +43,7 @@ class SignInActivity : AuthActivity() {
                 .addOnCompleteListener { task ->
                     super.dismissProgressDialog()
                     if (task.isSuccessful) {
-                        MrelloFirestore().loginUser(this)
+                        MrelloFirestore().loadUserData(this)
                     } else {
                         Toast.makeText(
                             this@SignInActivity,

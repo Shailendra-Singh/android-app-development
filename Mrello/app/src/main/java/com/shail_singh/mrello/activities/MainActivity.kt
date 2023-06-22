@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
@@ -27,7 +25,10 @@ class MainActivity : BaseActivity() {
         initializeActionBar()
         binding.navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_my_profile -> Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
+                R.id.nav_my_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                }
+
                 R.id.nav_sign_out -> {
                     FirebaseAuth.getInstance().signOut()
                     val intent = Intent(this, IntroActivity::class.java)
@@ -40,7 +41,7 @@ class MainActivity : BaseActivity() {
             true
         }
 
-        MrelloFirestore().loginUser(this)
+        MrelloFirestore().loadUserData(this)
     }
 
     private fun initializeActionBar() {
@@ -76,20 +77,12 @@ class MainActivity : BaseActivity() {
             .placeholder(R.drawable.ic_default_profile_pic).into(ivUserProfileThumbnail)
     }
 
-//    override fun onBackPressed() {
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START)
-//        } else {
-//            super.doubleBackToExit()
-//        }
-//    }
-
-    override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
             super.doubleBackToExit()
         }
-        return super.getOnBackInvokedDispatcher()
     }
 }

@@ -28,7 +28,7 @@
             android:layout_height="@dimen/circular_thumbnail_image_diameter"
             android:contentDescription="@string/profile_pic_thumbnail"
             android:src="@drawable/ic_default_profile_pic"
-            app:civ_border_color="?attr/colorControlNormal"
+            app:civ_border_color="?android:textColor"
             app:civ_border_width="@dimen/nav_bar_thumbnail_border_width" />
 
         <TextView

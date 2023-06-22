@@ -43,5 +43,6 @@
     <dimen name="nav_bar_divider_padding">8dp</dimen>
     <dimen name="nav_bar_thumbnail_border_width">2dp</dimen>
     <dimen name="nav_bar_user_name_marginTop">15dp</dimen>
-
+    <dimen name="profile_screen_image_marginBottom">25dp</dimen>
+    <dimen name="profile_screen_image_size">150dp</dimen>
 </resources>

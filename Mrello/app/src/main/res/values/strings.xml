@@ -12,8 +12,9 @@
     <string name="sign_in_content_text">Welcome Back! Login to continue</string>
     <string name="please_wait">Please Wait &#8230;></string>
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
-    <string name="registered_success">, you have successfully registered the email address: </string>
+    <string name="registered_success">Registration Success!</string>
     <string name="error_signing_up">Registration Failed!</string>
+    <string name="error_profile_image_setup">Could not set profile image!</string>
     <string name="error_signing_in">Login Failed!</string>
     <string name="error_firestore_add_collection">Error while writing to firestore collection!</string>
     <string name="error_firestore_fetch_collection">Error while reading from firestore collection!</string>
@@ -21,4 +22,8 @@
     <string name="nav_text_my_profile">My Profile</string>
     <string name="nav_text_sign_out">Sign Out</string>
     <string name="close_drawer_button">Close drawer button</string>
+    <string name="profile_screen_update_button_text">UPDATE</string>
+    <string name="update_field_phone_text">Mobile</string>
+    <string name="action_select_photo_gallery">Select Photo from Gallery</string>
+    <string name="action_capture_photo_camera">Capture photo from Camera</string>
 </resources>

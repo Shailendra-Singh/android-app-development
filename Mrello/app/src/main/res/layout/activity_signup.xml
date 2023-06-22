@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorTertiary"
     android:paddingLeft="@dimen/screen_main_padding"
     android:paddingRight="@dimen/screen_main_padding"
     tools:context=".activities.SignUpActivity">

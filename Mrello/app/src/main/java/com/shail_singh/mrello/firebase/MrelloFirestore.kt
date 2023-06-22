@@ -8,6 +8,7 @@ import com.shail_singh.mrello.Constants
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.activities.BaseActivity
 import com.shail_singh.mrello.activities.MainActivity
+import com.shail_singh.mrello.activities.ProfileActivity
 import com.shail_singh.mrello.activities.SignInActivity
 import com.shail_singh.mrello.activities.SignUpActivity
 import com.shail_singh.mrello.models.MrelloUser
@@ -28,7 +29,7 @@ class MrelloFirestore {
             }
     }
 
-    fun loginUser(activity: BaseActivity) {
+    fun loadUserData(activity: BaseActivity) {
         firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME).document(getCurrentId())
             .get().addOnSuccessListener { document ->
                 val loggedInUser = document.toObject(MrelloUser::class.java)
@@ -36,6 +37,7 @@ class MrelloFirestore {
                     when (activity) {
                         is SignInActivity -> activity.onUserLoginSuccess()
                         is MainActivity -> activity.updateNavigationUserDetails(loggedInUser)
+                        is ProfileActivity -> activity.setUserDataInUI(loggedInUser)
                     }
                 }
             }.addOnFailureListener {
