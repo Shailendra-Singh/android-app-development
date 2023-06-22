@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_header_layout"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="@drawable/nav_header_main_background"
+    android:orientation="vertical"
+    android:padding="@dimen/nav_bar_content_padding"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/cv_profile_thumbnail_marginStartEnd"
+        android:layout_marginEnd="@dimen/cv_profile_thumbnail_marginStartEnd"
+        android:gravity="bottom|start"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_user_profile_image_thumbnail"
+            android:layout_width="@dimen/circular_thumbnail_image_diameter"
+            android:layout_height="@dimen/circular_thumbnail_image_diameter"
+            android:contentDescription="@string/profile_pic_thumbnail"
+            android:src="@drawable/ic_default_profile_pic"
+            app:civ_border_color="?attr/colorControlNormal"
+            app:civ_border_width="@dimen/nav_bar_thumbnail_border_width" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/nav_bar_user_name_marginTop"
+            android:padding="@dimen/nav_bar_content_padding"
+            android:textAppearance="?textAppearanceHeadlineMedium"
+            android:textColor="?android:textColor"
+            android:textSize="@dimen/nav_header_user_name_textSize"
+            android:textStyle="bold"
+            tools:text="User Name" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_bar_divider_height"
+        android:layout_marginTop="@dimen/nav_bar_divider_marginTopBottom"
+        android:layout_marginBottom="@dimen/nav_bar_divider_marginTopBottom"
+        android:padding="@dimen/nav_bar_divider_padding" />
+
+</LinearLayout>

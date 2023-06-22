@@ -15,4 +15,10 @@
     <string name="registered_success">, you have successfully registered the email address: </string>
     <string name="error_signing_up">Registration Failed!</string>
     <string name="error_signing_in">Login Failed!</string>
+    <string name="error_firestore_add_collection">Error while writing to firestore collection!</string>
+    <string name="error_firestore_fetch_collection">Error while reading from firestore collection!</string>
+    <string name="profile_pic_thumbnail">Profile Pic Thumbnail\n</string>
+    <string name="nav_text_my_profile">My Profile</string>
+    <string name="nav_text_sign_out">Sign Out</string>
+    <string name="close_drawer_button">Close drawer button</string>
 </resources>

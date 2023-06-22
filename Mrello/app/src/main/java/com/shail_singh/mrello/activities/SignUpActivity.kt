@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ActivitySignupBinding
+import com.shail_singh.mrello.firebase.MrelloFirestore
+import com.shail_singh.mrello.models.MrelloUser
 
 class SignUpActivity : AuthActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -16,6 +17,12 @@ class SignUpActivity : AuthActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeActionBar()
+
+        binding.btnSignUp.setOnClickListener { registerUser() }
+    }
+
+    private fun initializeActionBar() {
         setSupportActionBar(binding.tbSignupToolbar)
         binding.tbSignupToolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -26,8 +33,6 @@ class SignUpActivity : AuthActivity() {
             actionBar.title = "Sign Up"
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back)
         }
-
-        binding.btnSignUp.setOnClickListener { registerUser() }
     }
 
 
@@ -43,16 +48,8 @@ class SignUpActivity : AuthActivity() {
                     super.dismissProgressDialog()
                     if (task.isSuccessful) {
                         val firebaseUser: FirebaseUser = task.result!!.user!!
-                        val registeredEmail = firebaseUser.email
-                        Toast.makeText(
-                            this@SignUpActivity,
-                            "$name${resources.getString(R.string.registered_success)}$registeredEmail",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        FirebaseAuth.getInstance().signOut()
-                        Log.e("FIREBASE - Sign Up: ", "Success")
-                        startActivity(Intent(this, SignInActivity::class.java))
-                        finish()
+                        val userInfo = MrelloUser(firebaseUser.uid, name, email)
+                        MrelloFirestore().registerUser(this, userInfo)
                     } else {
                         Toast.makeText(
                             this@SignUpActivity,
@@ -63,5 +60,14 @@ class SignUpActivity : AuthActivity() {
                     }
                 }
         }
+    }
+
+    fun onUserRegisteredSuccess() {
+        Toast.makeText(this, resources.getString(R.string.registered_success), Toast.LENGTH_LONG)
+            .show()
+        super.firebaseAuth.signOut()
+        Log.i("FIREBASE - Sign Up: ", "Success")
+        startActivity(Intent(this, SignInActivity::class.java))
+        finish()
     }
 }

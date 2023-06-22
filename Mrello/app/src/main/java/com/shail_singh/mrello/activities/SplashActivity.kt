@@ -12,8 +12,10 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.firebase.MrelloFirestore
 
 class SplashActivity : AppCompatActivity() {
+    @Suppress("DEPRECATION")
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +34,13 @@ class SplashActivity : AppCompatActivity() {
         val view: TextView = findViewById(R.id.tv_splash_brand_name)
         view.typeface = typeFace
 
+        val currentUserId = MrelloFirestore().getCurrentId()
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, IntroActivity::class.java))
+            if (currentUserId.isNotEmpty()) {
+                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                startActivity(Intent(this, IntroActivity::class.java))
+            }
             finish()
         }, 2500)
     }

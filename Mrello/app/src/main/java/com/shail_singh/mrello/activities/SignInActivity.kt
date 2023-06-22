@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ActivitySignInBinding
+import com.shail_singh.mrello.firebase.MrelloFirestore
 
 class SignInActivity : AuthActivity() {
     private lateinit var binding: ActivitySignInBinding
@@ -14,6 +15,12 @@ class SignInActivity : AuthActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeActionBar()
+
+        binding.btnSignIn.setOnClickListener { loginUser() }
+    }
+
+    private fun initializeActionBar() {
         setSupportActionBar(binding.tbSignupToolbar)
         binding.tbSignupToolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -24,8 +31,6 @@ class SignInActivity : AuthActivity() {
             actionBar.title = "Sign In"
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back)
         }
-
-        binding.btnSignIn.setOnClickListener { loginUser() }
     }
 
     private fun loginUser() {
@@ -38,11 +43,7 @@ class SignInActivity : AuthActivity() {
                 .addOnCompleteListener { task ->
                     super.dismissProgressDialog()
                     if (task.isSuccessful) {
-                        Toast.makeText(this@SignInActivity, "Welcome back!", Toast.LENGTH_LONG)
-                            .show()
-                        Log.e("FIREBASE - Sign In: ", "Success")
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
+                        MrelloFirestore().loginUser(this)
                     } else {
                         Toast.makeText(
                             this@SignInActivity,
@@ -53,5 +54,12 @@ class SignInActivity : AuthActivity() {
                     }
                 }
         }
+    }
+
+    fun onUserLoginSuccess() {
+        Toast.makeText(this@SignInActivity, "Welcome back!", Toast.LENGTH_LONG).show()
+        Log.i("FIREBASE - Sign In: ", "Success")
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

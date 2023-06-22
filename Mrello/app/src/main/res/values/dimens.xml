@@ -32,5 +32,16 @@
     <dimen name="progress_bar_size">50dp</dimen>
     <dimen name="progress_bar_text_marginStartEnd">10dp</dimen>
     <dimen name="progress_bar_text_size">16sp</dimen>
+    <dimen name="cv_profile_thumbnail_marginStartEnd">8dp</dimen>
+    <dimen name="cv_profile_thumbnail_corner_radius">3dp</dimen>
+    <dimen name="circular_thumbnail_image_diameter">95dp</dimen>
+    <dimen name="nav_bar_header_content_paddingLeft">25dp</dimen>
+    <dimen name="nav_header_user_name_textSize">16sp</dimen>
+    <dimen name="nav_bar_content_padding">8dp</dimen>
+    <dimen name="nav_bar_divider_height">0.5dp</dimen>
+    <dimen name="nav_bar_divider_marginTopBottom">10dp</dimen>
+    <dimen name="nav_bar_divider_padding">8dp</dimen>
+    <dimen name="nav_bar_thumbnail_border_width">2dp</dimen>
+    <dimen name="nav_bar_user_name_marginTop">15dp</dimen>
 
 </resources>
