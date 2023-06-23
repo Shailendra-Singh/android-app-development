@@ -97,7 +97,7 @@
                         android:paddingTop="@dimen/intro_screen_button_paddingTopBottom"
                         android:paddingBottom="@dimen/intro_screen_button_paddingTopBottom"
                         android:text="@string/button_create_text"
-                        android:textAppearance="?textAllCaps"
+                        android:textAllCaps="true"
                         android:textSize="@dimen/intro_screen_button_textSize" />
                 </FrameLayout>
 

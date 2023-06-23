@@ -17,24 +17,12 @@ class SignUpActivity : AuthActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initializeActionBar()
+        super.initializeActionBar(
+            binding.activityToolbar, resources.getString(R.string.sign_up)
+        )
 
         binding.btnSignUp.setOnClickListener { registerUser() }
     }
-
-    private fun initializeActionBar() {
-        setSupportActionBar(binding.activityToolbar)
-        binding.activityToolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.title = "Sign Up"
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_back)
-        }
-    }
-
 
     private fun registerUser() {
         val name: String = binding.etName.text.toString().trim { it <= ' ' }

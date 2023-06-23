@@ -15,22 +15,11 @@ class SignInActivity : AuthActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initializeActionBar()
+        super.initializeActionBar(
+            binding.activityToolbar, resources.getString(R.string.sign_in)
+        )
 
         binding.btnSignIn.setOnClickListener { loginUser() }
-    }
-
-    private fun initializeActionBar() {
-        setSupportActionBar(binding.activityToolbar)
-        binding.activityToolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.title = "Sign In"
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_back)
-        }
     }
 
     private fun loginUser() {

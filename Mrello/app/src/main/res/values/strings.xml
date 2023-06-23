@@ -2,8 +2,9 @@
     <string name="app_name">Mrello</string>
     <string name="intro_screen_heading">Let\'s get started</string>
     <string name="intro_screen_description">Collaborate and Plan Together Across Multiple Devices on Mrello\'s Minimalistic Interface.</string>
-    <string name="button_sign_in_text">SIGN IN</string>
-    <string name="button_sign_up_text">SIGN UP</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_out">Sign Out</string>
     <string name="button_create_text">CREATE</string>
     <string name="button_update_text">UPDATE</string>
     <string name="content_description">image</string>
@@ -24,8 +25,7 @@
     <string name="error_firestore_add_collection">Error while writing to firestore collection!</string>
     <string name="error_firestore_fetch_collection">Error while reading from firestore collection!</string>
     <string name="profile_pic_thumbnail">Profile Pic Thumbnail\n</string>
-    <string name="nav_text_my_profile">My Profile</string>
-    <string name="nav_text_sign_out">Sign Out</string>
+    <string name="my_profile">My Profile</string>
     <string name="close_drawer_button">Close drawer button</string>
     <string name="update_field_phone_text">Mobile</string>
     <string name="action_select_photo_gallery">Select Photo from Gallery</string>
