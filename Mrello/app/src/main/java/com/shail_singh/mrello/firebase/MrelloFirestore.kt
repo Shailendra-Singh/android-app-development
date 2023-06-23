@@ -1,6 +1,7 @@
 package com.shail_singh.mrello.firebase
 
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -47,6 +48,40 @@ class MrelloFirestore {
                     activity.resources.getString(R.string.error_firestore_fetch_collection)
                 )
             }
+    }
+
+    fun updateUserProfileData(
+        activity: ProfileActivity, userUpdatesHashMap: HashMap<String, Any>?
+    ) {
+
+        if (!userUpdatesHashMap.isNullOrEmpty()) {
+
+            firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME).document(getCurrentId())
+                .update(userUpdatesHashMap).addOnSuccessListener {
+                    activity.updateProfileDataSuccess()
+                    Toast.makeText(
+                        activity,
+                        activity.resources.getString(R.string.profile_update_success),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }.addOnFailureListener {
+                    activity.dismissProgressDialog()
+                    Toast.makeText(
+                        activity,
+                        activity.resources.getString(R.string.profile_update_failure),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.e("PROFILE UPDATE", it.toString())
+                }
+        } else {
+            // Return! No need to call FireStore
+            activity.updateProfileDataSuccess()
+            Toast.makeText(
+                activity,
+                activity.resources.getString(R.string.profile_no_changes),
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     fun getCurrentId(): String {

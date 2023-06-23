@@ -20,6 +20,7 @@ open class BaseActivity : AppCompatActivity() {
     private var doubleBackToExitPressed = false
     private lateinit var progressDialog: Dialog
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
