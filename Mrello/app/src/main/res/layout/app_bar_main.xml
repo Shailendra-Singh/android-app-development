@@ -10,7 +10,7 @@
         android:theme="@style/AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_main_activity"
+            android:id="@+id/activity_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="?attr/colorPrimary"

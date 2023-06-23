@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorTertiary"
-    tools:context=".activities.SignInActivity">
+    tools:context=".activities.CreateBoardActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar_container"
@@ -25,22 +25,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <TextView
-        android:id="@+id/tv_signup_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/signup_content_text_marginTop"
-        android:gravity="center"
-        android:padding="@dimen/screen_main_padding"
-        android:text="@string/sign_in_content_text"
-        android:textAppearance="?textAppearanceBodyMedium"
-        android:textSize="@dimen/signup_activity_content_textSize"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_container" />
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_container"
         style="@style/AppBarOverlay"
@@ -52,7 +36,7 @@
         android:background="?attr/colorTertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_signup_description">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_container">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -62,10 +46,22 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="@dimen/signup_input_card_content_padding">
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_board_image"
+                    android:layout_width="@dimen/profile_screen_image_size"
+                    android:layout_height="@dimen/profile_screen_image_size"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/signup_fields_marginTop"
+                    android:layout_marginBottom="@dimen/profile_screen_image_marginBottom"
+                    android:contentDescription="@string/board_image"
+                    android:src="@drawable/ic_space_dashboard_24"
+                    app:civ_border_color="?android:textColor"
+                    app:civ_border_width="@dimen/nav_bar_thumbnail_border_width" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,30 +70,15 @@
                     app:hintTextColor="?attr/hintTextColor">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_email"
+                        android:id="@+id/et_board_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/signup_field_email_text"
-                        android:inputType="textEmailAddress" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/signup_fields_marginTop"
-                    app:boxStrokeColor="?attr/colorAccent"
-                    app:hintTextColor="?attr/hintTextColor">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/signup_field_password_text"
-                        android:inputType="textPassword" />
+                        android:hint="@string/et_board_name_hint"
+                        android:inputType="textPersonName" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <FrameLayout
-                    android:id="@+id/btn_sign_in"
+                    android:id="@+id/btn_create"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -115,14 +96,15 @@
                         android:gravity="center"
                         android:paddingTop="@dimen/intro_screen_button_paddingTopBottom"
                         android:paddingBottom="@dimen/intro_screen_button_paddingTopBottom"
-                        android:text="@string/button_sign_in_text"
+                        android:text="@string/button_create_text"
                         android:textAppearance="?textAllCaps"
                         android:textSize="@dimen/intro_screen_button_textSize" />
                 </FrameLayout>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </com.google.android.material.appbar.AppBarLayout>
 
+        </androidx.cardview.widget.CardView>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

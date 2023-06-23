@@ -45,4 +45,8 @@
     <dimen name="nav_bar_user_name_marginTop">15dp</dimen>
     <dimen name="profile_screen_image_marginBottom">25dp</dimen>
     <dimen name="profile_screen_image_size">150dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="app_bar_marginTop">30dp</dimen>
+    <dimen name="card_view_default_elevation">3dp</dimen>
+    <dimen name="card_image_icon_padding">12dp</dimen>
 </resources>

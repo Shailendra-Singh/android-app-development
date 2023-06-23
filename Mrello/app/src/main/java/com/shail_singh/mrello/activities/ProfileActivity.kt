@@ -1,6 +1,7 @@
 package com.shail_singh.mrello.activities
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
@@ -78,8 +79,8 @@ class ProfileActivity : BaseActivity(), ActivityResultHandler.OnActivityResultLi
     }
 
     private fun initializeActionBar() {
-        setSupportActionBar(binding.tbProfileToolbar)
-        binding.tbProfileToolbar.setNavigationOnClickListener {
+        setSupportActionBar(binding.activityToolbar)
+        binding.activityToolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
         val actionBar = supportActionBar
@@ -240,9 +241,13 @@ class ProfileActivity : BaseActivity(), ActivityResultHandler.OnActivityResultLi
             userUpdatesHashMap[Constants.MRELLO_USER_IMAGE] = this.updatedUser!!.image
         }
 
-        if (userUpdatesHashMap.isEmpty()) MrelloFirestore().updateUserProfileData(this, null)
-
-        MrelloFirestore().updateUserProfileData(this, userUpdatesHashMap)
+        if (userUpdatesHashMap.isEmpty()) {
+            setResult(Activity.RESULT_CANCELED)
+            MrelloFirestore().updateUserProfileData(this, null)
+        } else {
+            setResult(Activity.RESULT_OK)
+            MrelloFirestore().updateUserProfileData(this, userUpdatesHashMap)
+        }
     }
 
     fun updateProfileDataSuccess() {

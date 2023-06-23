@@ -21,8 +21,8 @@ class SignInActivity : AuthActivity() {
     }
 
     private fun initializeActionBar() {
-        setSupportActionBar(binding.tbSignupToolbar)
-        binding.tbSignupToolbar.setNavigationOnClickListener {
+        setSupportActionBar(binding.activityToolbar)
+        binding.activityToolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
         val actionBar = supportActionBar

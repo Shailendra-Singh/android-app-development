@@ -2,8 +2,10 @@
     <string name="app_name">Mrello</string>
     <string name="intro_screen_heading">Let\'s get started</string>
     <string name="intro_screen_description">Collaborate and Plan Together Across Multiple Devices on Mrello\'s Minimalistic Interface.</string>
-    <string name="intro_screen_btn_sign_in">SIGN IN</string>
-    <string name="intro_screen_btn_sign_up">SIGN UP</string>
+    <string name="button_sign_in_text">SIGN IN</string>
+    <string name="button_sign_up_text">SIGN UP</string>
+    <string name="button_create_text">CREATE</string>
+    <string name="button_update_text">UPDATE</string>
     <string name="content_description">image</string>
     <string name="signup_description_text">Enter you name, email-id, and password to register with us.</string>
     <string name="signup_field_name_text">Name</string>
@@ -25,8 +27,11 @@
     <string name="nav_text_my_profile">My Profile</string>
     <string name="nav_text_sign_out">Sign Out</string>
     <string name="close_drawer_button">Close drawer button</string>
-    <string name="profile_screen_update_button_text">UPDATE</string>
     <string name="update_field_phone_text">Mobile</string>
     <string name="action_select_photo_gallery">Select Photo from Gallery</string>
     <string name="action_capture_photo_camera">Capture photo from Camera</string>
+    <string name="floating_image_button">Add button</string>
+    <string name="board_image">Board icon \nimage</string>
+    <string name="et_board_name_hint">Board Name</string>
+    <string name="create_board">Create Board</string>
 </resources>

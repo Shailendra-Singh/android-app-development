@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
@@ -12,21 +13,33 @@ import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ActivityMainBinding
 import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloUser
+import com.shail_singh.mrello.utils.ActivityResultHandler
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), ActivityResultHandler.OnActivityResultListener {
+
+    companion object ActivityType {
+        const val PROFILE: Int = 1
+    }
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawer: DrawerLayout
+    private lateinit var profileActivityResultHandler: ActivityResultHandler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         drawer = binding.mainDrawer
         setContentView(binding.root)
 
+        profileActivityResultHandler = ActivityResultHandler(this)
+
         initializeActionBar()
         binding.navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_my_profile -> {
-                    startActivity(Intent(this, ProfileActivity::class.java))
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    this.profileActivityResultHandler.launchIntent(
+                        intent, this, PROFILE
+                    )
                 }
 
                 R.id.nav_sign_out -> {
@@ -41,11 +54,16 @@ class MainActivity : BaseActivity() {
             true
         }
 
+        val fabButton = binding.mainActivity.contentMainActivity.fabAddBoard
+        fabButton.setOnClickListener {
+            startActivity(Intent(this, CreateBoardActivity::class.java))
+        }
+
         MrelloFirestore().loadUserData(this)
     }
 
     private fun initializeActionBar() {
-        val actionBarView = binding.mainActivity.toolbarMainActivity
+        val actionBarView = binding.mainActivity.activityToolbar
         setSupportActionBar(actionBarView)
         actionBarView.setNavigationIcon(R.drawable.ic_menu_icon_open)
         actionBarView.setNavigationOnClickListener {
@@ -83,6 +101,16 @@ class MainActivity : BaseActivity() {
             drawer.closeDrawer(GravityCompat.START)
         } else {
             super.doubleBackToExit()
+        }
+    }
+
+    override fun onActivityResult(customActivityCode: Int, result: ActivityResult?) {
+        if (result?.resultCode == RESULT_OK) {
+            when (customActivityCode) {
+                PROFILE -> {
+                    MrelloFirestore().loadUserData(this)
+                }
+            }
         }
     }
 }
