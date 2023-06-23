@@ -39,11 +39,7 @@ class SignUpActivity : AuthActivity() {
                         val userInfo = MrelloUser(firebaseUser.uid, name, email)
                         MrelloFirestore().registerUser(this, userInfo)
                     } else {
-                        Toast.makeText(
-                            this@SignUpActivity,
-                            resources.getString(R.string.error_signing_up),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        super.showErrorSnackBar(resources.getString(R.string.error_signing_up))
                         Log.e("FIREBASE - Sign Up: ", task.exception.toString())
                     }
                 }

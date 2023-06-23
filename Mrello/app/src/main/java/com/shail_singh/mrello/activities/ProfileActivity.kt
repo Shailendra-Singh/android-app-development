@@ -4,8 +4,6 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.webkit.MimeTypeMap
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -16,7 +14,6 @@ import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloUser
 import com.shail_singh.mrello.utils.ImageSelectionHandler
 import com.shail_singh.mrello.utils.Utilities
-import java.util.UUID
 
 
 class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionListener {
@@ -70,8 +67,7 @@ class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionList
         val newMobile = this.binding.etMobile.text?.toString()
 
         if (newName.isNullOrEmpty()) {
-            Toast.makeText(this, "Name cannot be empty!", Toast.LENGTH_LONG).show()
-            super.dismissProgressDialog()
+            super.showErrorSnackBar(resources.getString(R.string.error_empty_name))
             return
         } else {
             this.updatedUser?.name = newName
@@ -84,7 +80,7 @@ class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionList
         }
 
         val fileExtension = if (this.userProfileImageUri != null) {
-            getFileExtension(this.userProfileImageUri!!)!!.toString()
+            Utilities.getFileExtension(this.userProfileImageUri!!)!!.toString()
         } else {
             "jpg"
         }
@@ -102,7 +98,10 @@ class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionList
         }
 
         if (inputBytes != null) {
-            val firebaseStorageImagePath = "USER_IMAGE_${UUID.randomUUID()}.${fileExtension}"
+            val firebaseStorageImagePath = Utilities.generateFileName(
+                Constants.USER_IMAGE_PREFIX, fileExtension
+            )
+
             val sRef: StorageReference =
                 FirebaseStorage.getInstance().reference.child(firebaseStorageImagePath)
 
@@ -118,7 +117,7 @@ class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionList
                     persistToFireStore()
                 }
             }.addOnFailureListener {
-                Toast.makeText(this, "Couldn't upload image to server!", Toast.LENGTH_LONG).show()
+                super.showErrorSnackBar(resources.getString(R.string.error_image_upload))
             }
         } else {
             persistToFireStore()
@@ -152,11 +151,6 @@ class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionList
     fun updateProfileDataSuccess() {
         super.dismissProgressDialog()
         finish()
-    }
-
-    private fun getFileExtension(uri: Uri?): String? {
-        val uriString: String = uri?.toString()!!
-        return MimeTypeMap.getFileExtensionFromUrl(uriString)
     }
 
     override fun onPickFromGallery(contentURI: Uri?) {

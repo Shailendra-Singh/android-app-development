@@ -34,11 +34,7 @@ class SignInActivity : AuthActivity() {
                     if (task.isSuccessful) {
                         MrelloFirestore().loadUserData(this)
                     } else {
-                        Toast.makeText(
-                            this@SignInActivity,
-                            resources.getString(R.string.error_signing_in),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        super.showErrorSnackBar(resources.getString(R.string.error_signing_in))
                         Log.e("FIREBASE - Sign In: ", task.exception.toString())
                     }
                 }

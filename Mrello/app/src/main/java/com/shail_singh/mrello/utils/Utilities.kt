@@ -3,7 +3,12 @@ package com.shail_singh.mrello.utils
 import android.app.Activity
 import android.graphics.Bitmap
 import android.net.Uri
+import android.webkit.MimeTypeMap
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.UUID
 
 object Utilities {
     fun getImageBytes(bitmap: Bitmap): ByteArray {
@@ -19,5 +24,22 @@ object Utilities {
         val inputBytes = stream?.readBytes()
         stream?.close()
         return inputBytes!!
+    }
+
+    fun generateFileName(
+        prefix: String, fileExtension: String
+    ): String {
+        return "${prefix}${UUID.randomUUID()}.${fileExtension}"
+    }
+
+    fun getTodayDateString(): String {
+        val date = Date()
+        val sdf = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+        return sdf.format(date)
+    }
+
+    fun getFileExtension(uri: Uri?): String? {
+        val uriString: String = uri?.toString()!!
+        return MimeTypeMap.getFileExtensionFromUrl(uriString)
     }
 }

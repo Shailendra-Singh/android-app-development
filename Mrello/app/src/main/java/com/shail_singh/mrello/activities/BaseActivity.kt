@@ -98,6 +98,7 @@ open class BaseActivity : AppCompatActivity() {
             )
         )
 
+        this.dismissProgressDialog()
         snackBar.show()
     }
 }

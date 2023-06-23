@@ -34,4 +34,10 @@
     <string name="board_image">Board icon \nimage</string>
     <string name="et_board_name_hint">Board Name</string>
     <string name="create_board">Create Board</string>
+    <string name="error_gallery_image_select_action">Couldn\'t get image from gallery!</string>
+    <string name="error_camera_image_capture_action">Couldn\'t get image camera!</string>
+    <string name="error_image_upload">Couldn\'t upload image to server!</string>
+    <string name="error_empty_name">Name cannot be empty!</string>
+    <string name="error_empty_password">Please enter a password!</string>
+    <string name="error_empty_email">Please enter an email!</string>
 </resources>

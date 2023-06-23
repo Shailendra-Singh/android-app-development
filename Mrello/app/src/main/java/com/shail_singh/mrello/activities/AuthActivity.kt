@@ -3,6 +3,7 @@ package com.shail_singh.mrello.activities
 import android.os.Bundle
 import android.text.TextUtils
 import com.google.firebase.auth.FirebaseAuth
+import com.shail_singh.mrello.R
 
 open class AuthActivity : BaseActivity() {
 
@@ -17,12 +18,12 @@ open class AuthActivity : BaseActivity() {
     fun validateForm(email: String, password: String): Boolean {
         return when {
             TextUtils.isEmpty(email) -> {
-                showErrorSnackBar("Please enter an email!")
+                super.showErrorSnackBar(resources.getString(R.string.error_empty_email))
                 false
             }
 
             TextUtils.isEmpty(password) -> {
-                showErrorSnackBar("Please enter a password!")
+                super.showErrorSnackBar(resources.getString(R.string.error_empty_password))
                 false
             }
 
@@ -33,7 +34,7 @@ open class AuthActivity : BaseActivity() {
     fun validateForm(name: String, email: String, password: String): Boolean {
         return when {
             TextUtils.isEmpty(name) -> {
-                showErrorSnackBar("Please enter a name!")
+                super.showErrorSnackBar(resources.getString(R.string.error_empty_name))
                 false
             }
 

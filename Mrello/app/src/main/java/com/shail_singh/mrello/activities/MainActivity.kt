@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.shail_singh.mrello.Constants
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ActivityMainBinding
 import com.shail_singh.mrello.firebase.MrelloFirestore
@@ -24,6 +25,7 @@ class MainActivity : BaseActivity(), ActivityResultHandler.OnActivityResultListe
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawer: DrawerLayout
     private lateinit var profileActivityResultHandler: ActivityResultHandler
+    private lateinit var userName: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -56,7 +58,9 @@ class MainActivity : BaseActivity(), ActivityResultHandler.OnActivityResultListe
 
         val fabButton = binding.mainActivity.contentMainActivity.fabAddBoard
         fabButton.setOnClickListener {
-            startActivity(Intent(this, CreateBoardActivity::class.java))
+            val intent = Intent(this, CreateBoardActivity::class.java)
+            intent.putExtra(Constants.MRELLO_USER_NAME, this.userName)
+            startActivity(intent)
         }
 
         MrelloFirestore().loadUserData(this)
@@ -85,6 +89,8 @@ class MainActivity : BaseActivity(), ActivityResultHandler.OnActivityResultListe
     }
 
     fun updateNavigationUserDetails(loggedInUser: MrelloUser) {
+        this.userName = loggedInUser.name
+
         // Update header layout
         val tvUserName = findViewById<TextView>(R.id.tv_user_name)
         val ivUserProfileThumbnail = findViewById<ImageView>(R.id.iv_user_profile_image_thumbnail)
