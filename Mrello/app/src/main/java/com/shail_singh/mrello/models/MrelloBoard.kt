@@ -10,7 +10,8 @@ data class MrelloBoard(
     val image: String = "",
     val createdBy: String = "",
     val createdDate: String = Utilities.getTodayDateString(),
-    val assignedTo: ArrayList<String> = ArrayList()
+    val assignedTo: ArrayList<String> = ArrayList(),
+    var taskList: ArrayList<MrelloTask> = ArrayList()
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -18,7 +19,8 @@ data class MrelloBoard(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.createStringArrayList()!!
+        parcel.createStringArrayList()!!,
+        parcel.createTypedArrayList<MrelloTask>(MrelloTask.CREATOR)!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) = with(parcel) {
@@ -28,6 +30,7 @@ data class MrelloBoard(
         parcel.writeString(createdBy)
         parcel.writeString(createdDate)
         parcel.writeStringList(assignedTo)
+        parcel.writeTypedList(taskList)
     }
 
     override fun describeContents(): Int {

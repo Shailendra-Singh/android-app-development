@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.shail_singh.mrello.Constants
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.activities.splash.IntroActivity
 import com.shail_singh.mrello.adapters.BoardListItemAdapter
 import com.shail_singh.mrello.databinding.ActivityMainBinding
 import com.shail_singh.mrello.firebase.MrelloFirestore
@@ -102,10 +103,11 @@ class MainActivity : BaseActivity(), ActivityResultHandler.OnActivityResultListe
             // On-Click Listener
             boardListAdapter.setOnClickListener(object :
                 BoardListItemAdapter.OnAdapterItemClickListener {
-                override fun onClickItem(position: Int, model: MrelloBoard) {
-                    this@MainActivity.showInfoToast("${model.name} Clicked !")
+                override fun onClickItem(position: Int, board: MrelloBoard) {
+                    val intent = Intent(this@MainActivity, TaskActivity::class.java)
+                    intent.putExtra(Constants.ID, board.id)
+                    startActivity(intent)
                 }
-
             })
 
         } else {

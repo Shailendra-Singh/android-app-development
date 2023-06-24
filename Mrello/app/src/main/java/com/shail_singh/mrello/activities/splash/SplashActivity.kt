@@ -1,4 +1,4 @@
-package com.shail_singh.mrello.activities
+package com.shail_singh.mrello.activities.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.activities.MainActivity
 import com.shail_singh.mrello.firebase.MrelloFirestore
 
 @SuppressLint("CustomSplashScreen")

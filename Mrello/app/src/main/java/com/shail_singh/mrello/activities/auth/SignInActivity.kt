@@ -1,9 +1,10 @@
-package com.shail_singh.mrello.activities
+package com.shail_singh.mrello.activities.auth
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.activities.MainActivity
 import com.shail_singh.mrello.databinding.ActivitySignInBinding
 import com.shail_singh.mrello.firebase.MrelloFirestore
 

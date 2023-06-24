@@ -1,9 +1,10 @@
-package com.shail_singh.mrello.activities
+package com.shail_singh.mrello.activities.auth
 
 import android.os.Bundle
 import android.text.TextUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.activities.BaseActivity
 
 open class AuthActivity : BaseActivity() {
 

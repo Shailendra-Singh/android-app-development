@@ -10,8 +10,9 @@ import com.shail_singh.mrello.activities.BaseActivity
 import com.shail_singh.mrello.activities.CreateBoardActivity
 import com.shail_singh.mrello.activities.MainActivity
 import com.shail_singh.mrello.activities.ProfileActivity
-import com.shail_singh.mrello.activities.SignInActivity
-import com.shail_singh.mrello.activities.SignUpActivity
+import com.shail_singh.mrello.activities.TaskActivity
+import com.shail_singh.mrello.activities.auth.SignInActivity
+import com.shail_singh.mrello.activities.auth.SignUpActivity
 import com.shail_singh.mrello.models.MrelloBoard
 import com.shail_singh.mrello.models.MrelloUser
 
@@ -67,6 +68,21 @@ class MrelloFirestore {
             it.printStackTrace()
             activity.dismissProgressDialog()
         }
+    }
+
+    fun getBoard(activity: TaskActivity, boardId: String) {
+        firestore.collection(Constants.FIRESTORE_BOARDS_COLLECTION_NAME).document(boardId).get()
+            .addOnSuccessListener { document ->
+                val board: MrelloBoard = document.toObject(MrelloBoard::class.java)!!
+                activity.onBoardDetailsSuccess(board)
+            }.addOnFailureListener {
+                Log.e(
+                    activity.javaClass.simpleName,
+                    activity.resources.getString(R.string.error_firestore_fetch_collection)
+                )
+                it.printStackTrace()
+                activity.dismissProgressDialog()
+            }
     }
 
     fun loadUserData(activity: BaseActivity, readBoardsList: Boolean) {

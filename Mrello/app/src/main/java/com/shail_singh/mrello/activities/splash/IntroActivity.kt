@@ -1,4 +1,4 @@
-package com.shail_singh.mrello.activities
+package com.shail_singh.mrello.activities.splash
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -9,6 +9,8 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.activities.auth.SignInActivity
+import com.shail_singh.mrello.activities.auth.SignUpActivity
 import com.shail_singh.mrello.databinding.ActivityIntroBinding
 
 class IntroActivity : AppCompatActivity() {

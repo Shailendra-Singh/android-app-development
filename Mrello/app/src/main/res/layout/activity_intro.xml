@@ -7,7 +7,7 @@
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
     android:padding="@dimen/screen_main_padding"
-    tools:context=".activities.IntroActivity">
+    tools:context=".activities.splash.IntroActivity">
 
     <TextView
         android:id="@+id/tv_intro_brand_name"

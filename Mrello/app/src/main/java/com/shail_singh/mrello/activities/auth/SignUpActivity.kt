@@ -1,4 +1,4 @@
-package com.shail_singh.mrello.activities
+package com.shail_singh.mrello.activities.auth
 
 import android.content.Intent
 import android.os.Bundle

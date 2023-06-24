@@ -51,7 +51,7 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showProgressDialog(message: String) {
+    fun showProgressDialog(message: String = resources.getString(R.string.please_wait)) {
         progressDialog = Dialog(this)
         // Set screen content from layout resource.
         // This view will be inflated, adding all top-level views to the screen

@@ -23,6 +23,9 @@
         android:theme="@style/Theme.Mrello"
         tools:targetApi="31">
         <activity
+            android:name=".activities.TaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.CreateBoardActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -47,24 +50,24 @@
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activities.SignInActivity"
+            android:name=".activities.auth.SignInActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activities.SignUpActivity"
+            android:name=".activities.auth.SignUpActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activities.IntroActivity"
+            android:name=".activities.splash.IntroActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".activities.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
