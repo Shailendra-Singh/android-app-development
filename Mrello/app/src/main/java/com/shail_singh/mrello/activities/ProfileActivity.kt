@@ -34,7 +34,7 @@ class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionList
             binding.activityToolbar, resources.getString(R.string.my_profile)
         )
 
-        MrelloFirestore().loadUserData(this)
+        MrelloFirestore().loadUserData(this, false)
         binding.btnUpdate.setOnClickListener {
             updatedUser = savedUser?.copy()
             updateProfileData()
@@ -128,15 +128,15 @@ class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionList
         val userUpdatesHashMap: HashMap<String, Any> = HashMap()
 
         if (this.savedUser!!.name != this.updatedUser!!.name) {
-            userUpdatesHashMap[Constants.MRELLO_USER_NAME] = this.updatedUser!!.name
+            userUpdatesHashMap[Constants.NAME] = this.updatedUser!!.name
         }
 
         if (this.savedUser!!.mobile != this.updatedUser!!.mobile) {
-            userUpdatesHashMap[Constants.MRELLO_USER_MOBILE] = this.updatedUser!!.mobile
+            userUpdatesHashMap[Constants.MOBILE] = this.updatedUser!!.mobile
         }
 
         if (this.savedUser!!.image != this.updatedUser!!.image) {
-            userUpdatesHashMap[Constants.MRELLO_USER_IMAGE] = this.updatedUser!!.image
+            userUpdatesHashMap[Constants.IMAGE] = this.updatedUser!!.image
         }
 
         if (userUpdatesHashMap.isEmpty()) {

@@ -3,7 +3,6 @@ package com.shail_singh.mrello.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseUser
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ActivitySignupBinding
@@ -33,7 +32,6 @@ class SignUpActivity : AuthActivity() {
             super.showProgressDialog(resources.getString(R.string.please_wait))
             super.firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
-                    super.dismissProgressDialog()
                     if (task.isSuccessful) {
                         val firebaseUser: FirebaseUser = task.result!!.user!!
                         val userInfo = MrelloUser(firebaseUser.uid, name, email)
@@ -47,8 +45,8 @@ class SignUpActivity : AuthActivity() {
     }
 
     fun onUserRegisteredSuccess() {
-        Toast.makeText(this, resources.getString(R.string.registered_success), Toast.LENGTH_LONG)
-            .show()
+        super.dismissProgressDialog()
+        super.showInfoToast(resources.getString(R.string.registered_success))
         super.firebaseAuth.signOut()
         Log.i("FIREBASE - Sign Up: ", "Success")
         startActivity(Intent(this, SignInActivity::class.java))

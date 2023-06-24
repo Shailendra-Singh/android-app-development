@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/item_board_main_marginStartEnd"
+    android:layout_marginEnd="@dimen/item_board_main_marginStartEnd"
+    android:layout_marginTop="@dimen/item_board_main_marginStartEnd"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_container"
+        style="@style/AppBarOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorTertiary"
+        app:cardCornerRadius="@dimen/item_board_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/card_view_default_elevation"
+            app:cardCornerRadius="@dimen/signup_input_card_corner_radius">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/item_board_content_padding">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/colorControlNormal"
+                    android:foreground="@drawable/image_background_rounded_square"
+                    android:padding="@dimen/thumbnail_border_width">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/iv_board_image"
+                        android:layout_width="@dimen/thumbnail_image_size_small"
+                        android:layout_height="@dimen/thumbnail_image_size_small"
+                        android:contentDescription="@string/board_image"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_space_dashboard_24"
+                        app:civ_border_width="@dimen/thumbnail_border_width" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/item_board_content_paddingLeft">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/item_board_title_textSize"
+                        android:textStyle="bold"
+                        tools:text="Title" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/item_board_date_textSize"
+                        android:textStyle="italic"
+                        tools:text="01/01/1990" />
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingTop="@dimen/item_board_content_padding"
+                        android:textSize="@dimen/item_board_description_textSize"
+                        tools:text="Description" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

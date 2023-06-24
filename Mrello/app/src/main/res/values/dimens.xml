@@ -41,7 +41,7 @@
     <dimen name="nav_bar_divider_height">0.5dp</dimen>
     <dimen name="nav_bar_divider_marginTopBottom">10dp</dimen>
     <dimen name="nav_bar_divider_padding">8dp</dimen>
-    <dimen name="nav_bar_thumbnail_border_width">2dp</dimen>
+    <dimen name="thumbnail_border_width">2.5dp</dimen>
     <dimen name="nav_bar_user_name_marginTop">15dp</dimen>
     <dimen name="profile_screen_image_marginBottom">25dp</dimen>
     <dimen name="profile_screen_image_size">150dp</dimen>
@@ -49,4 +49,15 @@
     <dimen name="app_bar_marginTop">30dp</dimen>
     <dimen name="card_view_default_elevation">3dp</dimen>
     <dimen name="card_image_icon_padding">12dp</dimen>
+    <dimen name="square_round_border_radius">8dp</dimen>
+    <dimen name="no_saved_places_text_size">16sp</dimen>
+    <dimen name="thumbnail_image_size_small">75dp</dimen>
+    <dimen name="item_board_content_paddingLeft">15dp</dimen>
+    <dimen name="item_board_title_textSize">16sp</dimen>
+    <dimen name="item_board_date_textSize">12sp</dimen>
+    <dimen name="item_board_content_padding">8dp</dimen>
+    <dimen name="item_board_description_textSize">14sp</dimen>
+    <dimen name="item_board_main_marginStartEnd">8dp</dimen>
+    <dimen name="item_board_corner_radius">3dp</dimen>
+    <!--    <dimen name="small_image_container_padding">2.5dp</dimen>-->
 </resources>

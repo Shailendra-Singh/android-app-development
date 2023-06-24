@@ -40,4 +40,10 @@
     <string name="error_empty_name">Name cannot be empty!</string>
     <string name="error_empty_password">Please enter a password!</string>
     <string name="error_empty_email">Please enter an email!</string>
+    <string name="no_saved_boards">No boards available!</string>
+    <string name="created_by">"Created by: "</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="created">Board Created</string>
+    <string name="refreshing_boards">Refreshing Boards &#8230;</string>
+    <string name="boards">Boards</string>
 </resources>

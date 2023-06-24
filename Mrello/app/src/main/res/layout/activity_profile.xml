@@ -60,7 +60,7 @@
                     android:contentDescription="@string/profile_pic_thumbnail"
                     android:src="@drawable/ic_default_profile_pic"
                     app:civ_border_color="?android:textColor"
-                    app:civ_border_width="@dimen/nav_bar_thumbnail_border_width" />
+                    app:civ_border_width="@dimen/thumbnail_border_width" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

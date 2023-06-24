@@ -1,7 +1,6 @@
 package com.shail_singh.mrello.firebase
 
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -48,14 +47,39 @@ class MrelloFirestore {
             }
     }
 
-    fun loadUserData(activity: BaseActivity) {
+    fun getBoardsList(activity: MainActivity) {
+        firestore.collection(Constants.FIRESTORE_BOARDS_COLLECTION_NAME).whereArrayContains(
+            Constants.ASSIGNED_TO, getCurrentId()
+        ).get().addOnSuccessListener { document ->
+            val boardList: ArrayList<MrelloBoard> = ArrayList()
+            for (doc in document.documents) {
+                val board = doc.toObject(MrelloBoard::class.java)
+                board?.id = doc.id
+                boardList.add(board!!)
+            }
+
+            activity.populateBoardsListAdapter(boardList)
+        }.addOnFailureListener {
+            Log.e(
+                activity.javaClass.simpleName,
+                activity.resources.getString(R.string.error_firestore_fetch_collection)
+            )
+            it.printStackTrace()
+            activity.dismissProgressDialog()
+        }
+    }
+
+    fun loadUserData(activity: BaseActivity, readBoardsList: Boolean) {
         firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME).document(getCurrentId())
             .get().addOnSuccessListener { document ->
                 val loggedInUser = document.toObject(MrelloUser::class.java)
                 loggedInUser?.let {
                     when (activity) {
                         is SignInActivity -> activity.onUserLoginSuccess()
-                        is MainActivity -> activity.updateNavigationUserDetails(loggedInUser)
+                        is MainActivity -> activity.updateNavigationUserDetails(
+                            loggedInUser, readBoardsList
+                        )
+
                         is ProfileActivity -> activity.setUserDataInUI(loggedInUser)
                     }
                 }
@@ -72,35 +96,21 @@ class MrelloFirestore {
     fun updateUserProfileData(
         activity: ProfileActivity, userUpdatesHashMap: HashMap<String, Any>?
     ) {
-
         if (!userUpdatesHashMap.isNullOrEmpty()) {
 
             firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME).document(getCurrentId())
                 .update(userUpdatesHashMap).addOnSuccessListener {
                     activity.updateProfileDataSuccess()
-                    Toast.makeText(
-                        activity,
-                        activity.resources.getString(R.string.profile_update_success),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    activity.showInfoToast(activity.resources.getString(R.string.profile_update_success))
                 }.addOnFailureListener {
-                    activity.dismissProgressDialog()
-                    Toast.makeText(
-                        activity,
-                        activity.resources.getString(R.string.profile_update_failure),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    activity.showErrorSnackBar(activity.resources.getString(R.string.profile_update_failure))
                     Log.e("PROFILE UPDATE", it.toString())
                     it.printStackTrace()
                 }
         } else {
             // Return! No need to call FireStore
             activity.updateProfileDataSuccess()
-            Toast.makeText(
-                activity,
-                activity.resources.getString(R.string.profile_no_changes),
-                Toast.LENGTH_LONG
-            ).show()
+            activity.showInfoToast(activity.resources.getString(R.string.profile_no_changes))
         }
     }
 

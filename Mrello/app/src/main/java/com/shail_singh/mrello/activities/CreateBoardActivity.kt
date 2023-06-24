@@ -1,10 +1,10 @@
 package com.shail_singh.mrello.activities
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -42,8 +42,8 @@ class CreateBoardActivity : BaseActivity(), ImageSelectionHandler.ImageSelection
             imageSelectionHandler.showSelectionDialog()
         }
 
-        if (intent.hasExtra(Constants.MRELLO_USER_NAME)) {
-            this.userName = intent.getStringExtra(Constants.MRELLO_USER_NAME)!!
+        if (intent.hasExtra(Constants.NAME)) {
+            this.userName = intent.getStringExtra(Constants.NAME)!!
         }
     }
 
@@ -74,6 +74,7 @@ class CreateBoardActivity : BaseActivity(), ImageSelectionHandler.ImageSelection
                             createdBy = this.userName,
                             createdDate = Utilities.getTodayDateString()
                         )
+                        board.assignedTo.add(MrelloFirestore().getCurrentId())
 
                         // persist data in firebase
                         persistToFireStore(board)
@@ -87,18 +88,21 @@ class CreateBoardActivity : BaseActivity(), ImageSelectionHandler.ImageSelection
                     createdBy = this.userName,
                     createdDate = Utilities.getTodayDateString()
                 )
+                board.assignedTo.add(MrelloFirestore().getCurrentId())
                 persistToFireStore(board)
             }
         }
     }
 
     private fun persistToFireStore(board: MrelloBoard) {
+        super.showProgressDialog(resources.getString(R.string.please_wait))
         MrelloFirestore().createBoard(this, board)
     }
 
     fun updateBoardDataSuccess() {
-        Toast.makeText(this, "CREATED", Toast.LENGTH_LONG).show()
         super.dismissProgressDialog()
+        super.showInfoToast(resources.getString(R.string.created))
+        setResult(Activity.RESULT_OK)
         finish()
     }
 

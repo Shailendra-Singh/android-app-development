@@ -101,4 +101,8 @@ open class BaseActivity : AppCompatActivity() {
         this.dismissProgressDialog()
         snackBar.show()
     }
+
+    fun showInfoToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 }

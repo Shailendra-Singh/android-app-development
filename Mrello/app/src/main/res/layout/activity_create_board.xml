@@ -50,17 +50,17 @@
                 android:orientation="vertical"
                 android:padding="@dimen/signup_input_card_content_padding">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_board_image"
                     android:layout_width="@dimen/profile_screen_image_size"
                     android:layout_height="@dimen/profile_screen_image_size"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/signup_fields_marginTop"
                     android:layout_marginBottom="@dimen/profile_screen_image_marginBottom"
+                    android:background="@drawable/image_background_rounded_square"
                     android:contentDescription="@string/board_image"
-                    android:src="@drawable/ic_space_dashboard_24"
-                    app:civ_border_color="?android:textColor"
-                    app:civ_border_width="@dimen/nav_bar_thumbnail_border_width" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_space_dashboard_24" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
