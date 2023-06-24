@@ -82,9 +82,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_cancel"
-                        app:layout_constraintBottom_toBottomOf="@id/et_add_list"
+                        app:layout_constraintBottom_toBottomOf="@id/et_add_list_layout"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/et_add_list"
+                        app:layout_constraintTop_toTopOf="@id/et_add_list_layout"
                         tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck">
 
                         <ImageView
@@ -95,7 +95,7 @@
                     </FrameLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/et_add_list"
+                        android:id="@+id/et_add_list_layout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -108,7 +108,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_list"
+                            android:id="@+id/et_add_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/list"
@@ -121,9 +121,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_add"
-                        app:layout_constraintBottom_toBottomOf="@id/et_add_list"
+                        app:layout_constraintBottom_toBottomOf="@id/et_add_list_layout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/et_add_list"
+                        app:layout_constraintTop_toTopOf="@id/et_add_list_layout"
                         tools:ignore="TouchTargetSizeCheck">
 
                         <ImageView
@@ -151,9 +151,11 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:padding="5dp"
-                        android:text="Hello World"
+                        tools:text="Hello World"
+                        android:textAppearance="?textAppearanceHeadlineMedium"
+                        android:textStyle="bold"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/dividerH"
                         app:layout_constraintEnd_toStartOf="@id/btn_list_edit"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -165,7 +167,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_edit"
                         app:layout_constraintBottom_toBottomOf="@id/tv_list"
-                        app:layout_constraintEnd_toStartOf="@id/divider"
+                        app:layout_constraintEnd_toStartOf="@id/dividerV"
                         app:layout_constraintStart_toEndOf="@id/tv_list"
                         app:layout_constraintTop_toTopOf="@id/tv_list"
                         tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck">
@@ -178,7 +180,7 @@
                     </FrameLayout>
 
                     <View
-                        android:id="@+id/divider"
+                        android:id="@+id/dividerV"
                         android:layout_width="2dp"
                         android:layout_height="0dp"
                         android:layout_margin="5dp"
@@ -206,6 +208,17 @@
                             android:src="@drawable/baseline_delete_24" />
                     </FrameLayout>
 
+                    <View
+                        android:id="@+id/dividerH"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:layout_margin="5dp"
+                        android:background="?attr/colorTertiary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_list" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -224,9 +237,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_cancel"
-                        app:layout_constraintBottom_toBottomOf="@id/et_edit_list"
+                        app:layout_constraintBottom_toBottomOf="@id/et_edit_list_layout"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/et_edit_list"
+                        app:layout_constraintTop_toTopOf="@id/et_edit_list_layout"
                         tools:ignore="TouchTargetSizeCheck">
 
                         <ImageView
@@ -237,7 +250,7 @@
                     </FrameLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/et_edit_list"
+                        android:id="@+id/et_edit_list_layout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -250,7 +263,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_board_name"
+                            android:id="@+id/et_edit_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/list"
@@ -263,9 +276,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_add"
-                        app:layout_constraintBottom_toBottomOf="@id/et_edit_list"
+                        app:layout_constraintBottom_toBottomOf="@id/et_edit_list_layout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/et_edit_list"
+                        app:layout_constraintTop_toTopOf="@id/et_edit_list_layout"
                         tools:ignore="TouchTargetSizeCheck">
 
                         <ImageView
@@ -299,9 +312,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_cancel"
-                        app:layout_constraintBottom_toBottomOf="@id/et_add_card"
+                        app:layout_constraintBottom_toBottomOf="@id/et_add_card_layout"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/et_add_card"
+                        app:layout_constraintTop_toTopOf="@id/et_add_card_layout"
                         tools:ignore="TouchTargetSizeCheck">
 
                         <ImageView
@@ -312,7 +325,7 @@
                     </FrameLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/et_add_card"
+                        android:id="@+id/et_add_card_layout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -325,7 +338,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_task"
+                            android:id="@+id/et_add_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/card"
@@ -338,9 +351,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_add"
-                        app:layout_constraintBottom_toBottomOf="@id/et_add_card"
+                        app:layout_constraintBottom_toBottomOf="@id/et_add_card_layout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/et_add_card"
+                        app:layout_constraintTop_toTopOf="@id/et_add_card_layout"
                         tools:ignore="TouchTargetSizeCheck">
 
                         <ImageView
