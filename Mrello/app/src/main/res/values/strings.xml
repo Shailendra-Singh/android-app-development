@@ -46,4 +46,14 @@
     <string name="created">Board Created</string>
     <string name="refreshing_boards">Refreshing Boards &#8230;</string>
     <string name="boards">Boards</string>
+    <string name="list">List</string>
+    <string name="et_edit_task_list_hint">Title</string>
+    <string name="action_add">Action add</string>
+    <string name="action_cancel">Action cancel</string>
+    <string name="action_edit">Action edit</string>
+    <string name="action_delete">Action delete</string>
+    <string name="action_image">Action image</string>
+    <string name="button_add_card_text">Add Card</string>
+    <string name="button_add_list_text">Add List</string>
+    <string name="card">Card</string>
 </resources>

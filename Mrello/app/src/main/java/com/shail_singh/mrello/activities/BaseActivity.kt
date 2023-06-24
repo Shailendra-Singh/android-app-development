@@ -47,7 +47,7 @@ open class BaseActivity : AppCompatActivity() {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.title = title
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_back)
+            actionBar.setHomeAsUpIndicator(R.drawable.baseline_back)
         }
     }
 

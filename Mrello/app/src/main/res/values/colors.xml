@@ -13,6 +13,7 @@
     <color name="light_text_secondary">#998877</color>
     <color name="light_color_surface">#eee6ff</color>
     <color name="light_tertiary">#ECEFF1</color>
+    <color name="light_secondary_container">@color/white</color>
     <!--    Dark Theme-->
     <color name="dark_primary">#424153</color>
     <color name="dark_secondary">#999999</color>
@@ -23,4 +24,5 @@
     <color name="dark_text_secondary">#cccccc</color>
     <color name="dark_color_surface">@color/black</color>
     <color name="dark_tertiary">@color/black</color>
+    <color name="dark_secondary_container">#212121</color>
 </resources>

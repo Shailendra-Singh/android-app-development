@@ -13,5 +13,6 @@
         <item name="hintTextColor">@color/dark_accent</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorTertiary">@color/black</item>
+        <item name="colorSecondaryContainer">@color/dark_secondary_container</item>
     </style>
 </resources>

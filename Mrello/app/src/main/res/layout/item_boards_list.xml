@@ -24,6 +24,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="?attr/colorSecondaryContainer"
             android:elevation="@dimen/card_view_default_elevation"
             app:cardCornerRadius="@dimen/signup_input_card_corner_radius">
 

@@ -30,8 +30,6 @@ class TaskActivity : BaseActivity() {
     fun onBoardDetailsSuccess(board: MrelloBoard) {
         this.board = board
         this.dismissProgressDialog()
-        binding.tvTest.text = board.createdBy
         supportActionBar?.title = board.name
     }
-
 }

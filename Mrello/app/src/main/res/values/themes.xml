@@ -13,6 +13,7 @@
         <item name="hintTextColor">@color/light_color_activated</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorTertiary">@color/light_tertiary</item>
+        <item name="colorSecondaryContainer">@color/light_secondary_container</item>
     </style>
 
     <style name="Theme.Mrello" parent="Base.Theme.Mrello" />
