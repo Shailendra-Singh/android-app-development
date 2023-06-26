@@ -62,5 +62,7 @@
     <dimen name="card_fields_marginTop">5dp</dimen>
     <dimen name="card_button_background_border_width">2dp</dimen>
     <dimen name="card_container_padding_TopBottom">5dp</dimen>
+    <dimen name="item_card_marginTop">20dp</dimen>
+    <dimen name="item_card_marginEnd">20dp</dimen>
     <!--    <dimen name="small_image_container_padding">2.5dp</dimen>-->
 </resources>

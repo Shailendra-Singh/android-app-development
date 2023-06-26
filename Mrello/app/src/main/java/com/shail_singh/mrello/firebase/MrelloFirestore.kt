@@ -74,6 +74,7 @@ class MrelloFirestore {
         firestore.collection(Constants.FIRESTORE_BOARDS_COLLECTION_NAME).document(boardId).get()
             .addOnSuccessListener { document ->
                 val board: MrelloBoard = document.toObject(MrelloBoard::class.java)!!
+                board.id = document.id
                 activity.onBoardDetailsSuccess(board)
             }.addOnFailureListener {
                 Log.e(

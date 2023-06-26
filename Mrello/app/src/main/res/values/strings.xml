@@ -60,4 +60,7 @@
     <string name="list_deleted">List deleted</string>
     <string name="list_edited">List edited</string>
     <string name="card_added">Card added</string>
+    <string name="error_empty_title">Title cannot be empty!</string>
+    <string name="action_delete_list">Yes, delete list and all associated tasks.</string>
+    <string name="action_skip_deletion">No</string>
 </resources>
