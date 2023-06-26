@@ -17,6 +17,7 @@ class TaskActivity : BaseActivity(),
     private lateinit var binding: ActivityTaskBinding
     private lateinit var board: MrelloBoard
     private lateinit var rvTasks: RecyclerView
+    private lateinit var currentUserId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,8 @@ class TaskActivity : BaseActivity(),
         var id = ""
         if (intent.hasExtra(Constants.ID)) id = intent.getStringExtra(Constants.ID).toString()
         getBoardDetails(id)
+
+        this.currentUserId = MrelloFirestore().getCurrentId()
     }
 
 
@@ -53,6 +56,16 @@ class TaskActivity : BaseActivity(),
         rvTasks.adapter = adapter
     }
 
+    private fun saveTaskListToBoard() {
+        super.showProgressDialog(resources.getString(R.string.please_wait))
+        MrelloFirestore().addUpdateTaskList(this, this.board)
+    }
+
+    fun onTaskCreatedSuccess() {
+        this.dismissProgressDialog()
+
+    }
+
     override fun actionCardAdded(position: Int, task: MrelloTask) {
 
         super.showInfoToast(resources.getString(R.string.card_added))
@@ -60,6 +73,19 @@ class TaskActivity : BaseActivity(),
 
     override fun actionListEdited(position: Int, task: MrelloTask) {
         val adapter = rvTasks.adapter!!
+
+        // remove the dummy item
+        board.taskList.removeAt(adapter.itemCount - 1)
+
+        // assign created by to this task
+        task.createdBy = this.currentUserId
+
+        /* Save to Firestore */
+        saveTaskListToBoard()
+
+        // add the dummy item back
+        board.taskList.add(MrelloTask())
+
         adapter.notifyItemChanged(position, task)
 
         super.showInfoToast(resources.getString(R.string.list_edited))
@@ -70,8 +96,13 @@ class TaskActivity : BaseActivity(),
 
         // remove the dummy item
         board.taskList.removeAt(adapter.itemCount - 1)
+
         // remove the current item
         board.taskList.removeAt(position)
+
+        /* Save to Firestore */
+        saveTaskListToBoard()
+
         // add the dummy item back
         board.taskList.add(MrelloTask())
 
@@ -82,10 +113,18 @@ class TaskActivity : BaseActivity(),
 
     override fun actionListAdded(position: Int, task: MrelloTask) {
         val adapter = rvTasks.adapter!!
+
+        // assign created by to this task
+        task.createdBy = this.currentUserId
+
         // remove the dummy item
         board.taskList.removeAt(adapter.itemCount - 1)
         // add new item at the starting of the list
         board.taskList.add(0, task)
+
+        /* Save to Firestore */
+        saveTaskListToBoard()
+
         // add the dummy item back
         board.taskList.add(MrelloTask())
 

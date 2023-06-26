@@ -13,6 +13,7 @@ object Constants {
     const val CREATED_BY: String = "createdBy"
     const val CREATED_DATE: String = "createdDate"
     const val ASSIGNED_TO: String = "assignedTo"
+    const val TASK_LIST: String = "taskList"
 
     /* Image */
     const val USER_IMAGE_PREFIX: String = "USER_IMAGE_"

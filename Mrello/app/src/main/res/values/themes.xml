@@ -11,7 +11,8 @@
         <item name="android:textColor">@color/light_text_primary</item>
         <item name="android:textColorSecondary">@color/light_text_secondary</item>
         <item name="hintTextColor">@color/light_color_activated</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/dark_secondary_container</item>
+        <item name="colorOnSecondary">@color/dark_secondary_container</item>
         <item name="colorTertiary">@color/light_tertiary</item>
         <item name="colorSecondaryContainer">@color/light_secondary_container</item>
     </style>

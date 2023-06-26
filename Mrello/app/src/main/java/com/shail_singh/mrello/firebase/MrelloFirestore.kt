@@ -86,6 +86,23 @@ class MrelloFirestore {
             }
     }
 
+    fun addUpdateTaskList(activity: TaskActivity, board: MrelloBoard) {
+        val taskListHashMap = HashMap<String, Any>()
+        taskListHashMap[Constants.TASK_LIST] = board.taskList
+
+        firestore.collection(Constants.FIRESTORE_BOARDS_COLLECTION_NAME).document(board.id)
+            .update(taskListHashMap).addOnSuccessListener {
+                activity.onTaskCreatedSuccess()
+            }.addOnFailureListener {
+                Log.e(
+                    activity.javaClass.simpleName,
+                    activity.resources.getString(R.string.error_firestore_add_collection)
+                )
+                it.printStackTrace()
+                activity.dismissProgressDialog()
+            }
+    }
+
     fun loadUserData(activity: BaseActivity, readBoardsList: Boolean) {
         firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME).document(getCurrentId())
             .get().addOnSuccessListener { document ->
