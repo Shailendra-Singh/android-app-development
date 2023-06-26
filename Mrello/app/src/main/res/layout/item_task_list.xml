@@ -2,14 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/colorTertiary"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.google.android.material.appbar.AppBarLayout
         style="@style/AppBarOverlay"
+        android:layout_marginEnd="@dimen/item_card_marginEnd"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/item_card_marginEnd"
         android:background="?attr/colorTertiary">
 
         <androidx.cardview.widget.CardView
@@ -17,7 +18,7 @@
             android:layout_height="match_parent"
             android:backgroundTint="?attr/colorSecondaryContainer"
             android:elevation="@dimen/card_view_default_elevation"
-            app:cardCornerRadius="@dimen/signup_input_card_corner_radius">
+            app:cardCornerRadius="@dimen/square_round_border_radius">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -139,6 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_edit"
+                        app:layout_constraintBottom_toTopOf="@id/dividerH1"
                         app:layout_constraintBottom_toBottomOf="@id/tv_list"
                         app:layout_constraintEnd_toStartOf="@id/dividerV"
                         app:layout_constraintStart_toEndOf="@id/tv_list"
@@ -169,6 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/action_delete"
+                        app:layout_constraintBottom_toTopOf="@id/dividerH1"
                         app:layout_constraintBottom_toBottomOf="@id/tv_list"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tv_list"
@@ -185,9 +188,10 @@
                         android:id="@+id/dividerH1"
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
-                        android:layout_margin="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="5dp"
                         android:background="?attr/colorTertiary"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_list" />
@@ -272,8 +276,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_cards"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/card_fields_marginTop" />
+                        android:layout_height="match_parent" />
 
                     <View
                         android:id="@+id/dividerH2"

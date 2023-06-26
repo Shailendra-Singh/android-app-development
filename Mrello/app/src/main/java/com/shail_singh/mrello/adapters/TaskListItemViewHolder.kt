@@ -251,7 +251,7 @@ class TaskListItemViewHolder(
                     rvCards.adapter?.notifyItemInserted(task.cardList.size - 1)
 
                     clearInputs()
-                    taskListItemActionAdapter.actionListEdited(position, task)
+                    taskListItemActionAdapter.actionCardAdded(position, task)
                 }
             }
         }

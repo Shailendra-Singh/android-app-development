@@ -103,9 +103,9 @@ class MainActivity : BaseActivity(), ActivityResultHandler.OnActivityResultListe
             // On-Click Listener
             boardListAdapter.setOnClickListener(object :
                 BoardListItemAdapter.OnAdapterItemClickListener {
-                override fun onClickItem(position: Int, board: MrelloBoard) {
+                override fun onClickItem(position: Int, model: MrelloBoard) {
                     val intent = Intent(this@MainActivity, TaskActivity::class.java)
-                    intent.putExtra(Constants.ID, board.id)
+                    intent.putExtra(Constants.ID, model.id)
                     startActivity(intent)
                 }
             })

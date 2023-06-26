@@ -9,6 +9,7 @@ import com.shail_singh.mrello.R
 import com.shail_singh.mrello.activities.BaseActivity
 import com.shail_singh.mrello.activities.CreateBoardActivity
 import com.shail_singh.mrello.activities.MainActivity
+import com.shail_singh.mrello.activities.MembersActivity
 import com.shail_singh.mrello.activities.ProfileActivity
 import com.shail_singh.mrello.activities.TaskActivity
 import com.shail_singh.mrello.activities.auth.SignInActivity
@@ -68,6 +69,41 @@ class MrelloFirestore {
             it.printStackTrace()
             activity.dismissProgressDialog()
         }
+    }
+
+    fun getAssignedMembersListDetails(activity: MembersActivity, assignedTo: List<String>) {
+        firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME)
+            .whereIn(Constants.ID, assignedTo).get().addOnSuccessListener { document ->
+                val users: ArrayList<MrelloUser> = ArrayList()
+                for (doc in document.documents) {
+                    val user = doc.toObject(MrelloUser::class.java)
+                    users.add(user!!)
+                }
+                activity.populateMembersListAdapter(users)
+            }.addOnFailureListener {
+                Log.e(
+                    activity.javaClass.simpleName,
+                    activity.resources.getString(R.string.error_firestore_fetch_collection)
+                )
+                it.printStackTrace()
+                activity.dismissProgressDialog()
+            }
+    }
+
+    fun assignMemberToBoard(activity: MembersActivity, board: MrelloBoard, user: MrelloUser) {
+        val assignedToHashMap = HashMap<String, Any>()
+        assignedToHashMap[Constants.ASSIGNED_TO] = board.assignedTo
+        firestore.collection(Constants.FIRESTORE_BOARDS_COLLECTION_NAME).document(board.id)
+            .update(assignedToHashMap).addOnSuccessListener {
+                activity.memberAssignSuccess()
+            }.addOnFailureListener {
+                Log.e(
+                    activity.javaClass.simpleName,
+                    activity.resources.getString(R.string.error_firestore_add_collection)
+                )
+                it.printStackTrace()
+                activity.dismissProgressDialog()
+            }
     }
 
     fun getBoard(activity: TaskActivity, boardId: String) {
@@ -146,6 +182,26 @@ class MrelloFirestore {
             activity.updateProfileDataSuccess()
             activity.showInfoToast(activity.resources.getString(R.string.profile_no_changes))
         }
+    }
+
+    fun getMemberDetails(activity: MembersActivity, email: String) {
+        firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME)
+            .whereEqualTo(Constants.EMAIL, email).get().addOnSuccessListener { document ->
+                if (document.size() > 0) {
+                    val user = document.documents[0].toObject(MrelloUser::class.java)
+                    activity.memberDetail(user!!)
+                } else {
+                    activity.dismissProgressDialog()
+                    activity.showErrorSnackBar(activity.resources.getString(R.string.error_no_such_member))
+                }
+            }.addOnFailureListener {
+                Log.e(
+                    activity.javaClass.simpleName,
+                    activity.resources.getString(R.string.error_firestore_fetch_collection)
+                )
+                it.printStackTrace()
+                activity.dismissProgressDialog()
+            }
     }
 
     fun getCurrentId(): String {

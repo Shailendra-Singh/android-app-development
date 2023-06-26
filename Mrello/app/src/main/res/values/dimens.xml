@@ -65,5 +65,8 @@
     <dimen name="item_card_marginTop">20dp</dimen>
     <dimen name="item_card_marginEnd">20dp</dimen>
     <dimen name="task_card_text_size">14sp</dimen>
+    <dimen name="item_view_margin_bottom">5dp</dimen>
+    <dimen name="search_member_textSize">22sp</dimen>
+    <dimen name="search_action_textSize">18sp</dimen>
     <!--    <dimen name="small_image_container_padding">2.5dp</dimen>-->
 </resources>

@@ -9,11 +9,13 @@ object Constants {
     const val IMAGE: String = "image"
     const val NAME: String = "name"
     const val MOBILE: String = "mobile"
+    const val EMAIL: String = "email"
     const val ID: String = "id"
     const val CREATED_BY: String = "createdBy"
     const val CREATED_DATE: String = "createdDate"
     const val ASSIGNED_TO: String = "assignedTo"
     const val TASK_LIST: String = "taskList"
+    const val BOARD_DETAIL: String = "boardDetail"
 
     /* Image */
     const val USER_IMAGE_PREFIX: String = "USER_IMAGE_"

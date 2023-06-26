@@ -63,4 +63,11 @@
     <string name="error_empty_title">Title cannot be empty!</string>
     <string name="action_delete_list">Yes, delete list and all associated tasks.</string>
     <string name="action_skip_deletion">No</string>
+    <string name="no_members_assigned">No members assigned to the board</string>
+    <string name="members">Members</string>
+    <string name="add_member">Add member</string>
+    <string name="search_member">Search Member</string>
+    <string name="add">ADD</string>
+    <string name="cancel">CANCEL</string>
+    <string name="error_no_such_member">No such member found</string>
 </resources>
