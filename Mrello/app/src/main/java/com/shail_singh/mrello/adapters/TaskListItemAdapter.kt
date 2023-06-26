@@ -35,10 +35,9 @@ class TaskListItemAdapter(
 
     override fun onBindViewHolder(holder: TaskListItemViewHolder, position: Int) {
         val task = tasks[position]
-
-        holder.registerOnClickListeners(position, task)
-        holder.resetView()
         holder.tvList.text = task.name
+        holder.initializeListenersAndVariables(position, task)
+        holder.resetView()
 
         // Only for last item, show add option
         if (position == tasks.size - 1) {

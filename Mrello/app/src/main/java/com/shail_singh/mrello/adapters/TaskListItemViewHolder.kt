@@ -7,12 +7,14 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ItemTaskListBinding
+import com.shail_singh.mrello.firebase.MrelloFirestore
+import com.shail_singh.mrello.models.MrelloCard
 import com.shail_singh.mrello.models.MrelloTask
-
 
 class TaskListItemViewHolder(
     private val context: Context,
@@ -22,6 +24,7 @@ class TaskListItemViewHolder(
 
     private var position: Int = 0
     private lateinit var task: MrelloTask
+    private val currentId = MrelloFirestore().getCurrentId()
 
 
     /* UI Variables*/
@@ -45,6 +48,9 @@ class TaskListItemViewHolder(
 
     // Display
     internal lateinit var tvList: TextView
+    private lateinit var dividerH1: View
+    private lateinit var dividerH2: View
+
     private lateinit var rvCards: RecyclerView
 
     // Containers
@@ -58,9 +64,13 @@ class TaskListItemViewHolder(
         initializeUIVariables()
     }
 
-    fun registerOnClickListeners(position: Int, task: MrelloTask) {
+    fun initializeListenersAndVariables(position: Int, task: MrelloTask) {
         this.position = position
         this.task = task
+
+        rvCards.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvCards.setHasFixedSize(true)
+        rvCards.adapter = TaskCardItemAdapter(context, task.cardList)
 
         btnAddList.setOnClickListener(this)
         btnAddCard.setOnClickListener(this)
@@ -95,6 +105,9 @@ class TaskListItemViewHolder(
 
         // Display
         tvList = binding.tvList
+        dividerH1 = binding.dividerH1
+        dividerH2 = binding.dividerH2
+
         rvCards = binding.rvCards
 
         // Containers
@@ -105,7 +118,13 @@ class TaskListItemViewHolder(
     }
 
     fun resetView() {
-        rvCards.visibility = View.GONE
+        if (rvCards.adapter?.itemCount == 0) {
+            rvCards.visibility = View.GONE
+            dividerH2.visibility = View.GONE
+        } else {
+            rvCards.visibility = View.VISIBLE
+            dividerH2.visibility = View.VISIBLE
+        }
 
         containerAddList.visibility = View.GONE
         containerEditList.visibility = View.GONE
@@ -113,7 +132,7 @@ class TaskListItemViewHolder(
         containerAddCard.visibility = View.GONE
     }
 
-    fun clearInputs() {
+    private fun clearInputs() {
         etAddList.text?.clear()
         etEditList.text?.clear()
         etAddCard.text?.clear()
@@ -140,6 +159,7 @@ class TaskListItemViewHolder(
                 val listName = etAddList.text.toString()
                 if (validateInput(listName)) {
                     task.name = listName
+                    task.createdBy = currentId
                     tvList.text = listName
 
                     containerAddList.visibility = View.GONE
@@ -175,6 +195,7 @@ class TaskListItemViewHolder(
                 val listName = etEditList.text.toString()
                 if (validateInput(listName)) {
                     task.name = listName
+                    task.createdBy = currentId
                     tvList.text = listName
 
                     containerEditList.visibility = View.GONE
@@ -204,6 +225,35 @@ class TaskListItemViewHolder(
                 actionDialog.show()
             }
 
+            btnAddCard.id -> {
+                btnAddCard.visibility = View.GONE
+                containerAddCard.visibility = View.VISIBLE
+            }
+
+            btnCardAddCancel.id -> {
+                btnAddCard.visibility = View.VISIBLE
+                containerAddCard.visibility = View.GONE
+                clearInputs()
+            }
+
+            btnCardAddOk.id -> {
+                val cardName = etAddCard.text.toString()
+                if (validateInput(cardName)) {
+                    containerAddCard.visibility = View.GONE
+                    btnAddCard.visibility = View.VISIBLE
+
+                    rvCards.visibility = View.VISIBLE
+                    dividerH2.visibility = View.VISIBLE
+
+                    val card = MrelloCard(cardName, currentId)
+                    card.assignedTo.add(currentId)
+                    task.cardList.add(card)
+                    rvCards.adapter?.notifyItemInserted(task.cardList.size - 1)
+
+                    clearInputs()
+                    taskListItemActionAdapter.actionListEdited(position, task)
+                }
+            }
         }
     }
 

@@ -3,36 +3,33 @@ package com.shail_singh.mrello.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class MrelloTask(
-    var id: String = "",
+data class MrelloCard(
     var name: String = "",
     var createdBy: String = "",
-    var cardList: ArrayList<MrelloCard> = ArrayList()
+    var assignedTo: ArrayList<String> = ArrayList()
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readString()!!,
-        parcel.createTypedArrayList<MrelloCard>(MrelloCard.CREATOR)!!
+        parcel.createStringArrayList()!!,
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) = with(parcel) {
-        parcel.writeString(id)
         parcel.writeString(name)
         parcel.writeString(createdBy)
-        parcel.writeTypedList(cardList)
+        parcel.writeStringList(assignedTo)
     }
 
     override fun describeContents(): Int {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<MrelloTask> {
-        override fun createFromParcel(parcel: Parcel): MrelloTask {
-            return MrelloTask(parcel)
+    companion object CREATOR : Parcelable.Creator<MrelloCard> {
+        override fun createFromParcel(parcel: Parcel): MrelloCard {
+            return MrelloCard(parcel)
         }
 
-        override fun newArray(size: Int): Array<MrelloTask?> {
+        override fun newArray(size: Int): Array<MrelloCard?> {
             return arrayOfNulls(size)
         }
     }

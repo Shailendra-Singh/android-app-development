@@ -67,7 +67,18 @@ class TaskActivity : BaseActivity(),
     }
 
     override fun actionCardAdded(position: Int, task: MrelloTask) {
+        val adapter = rvTasks.adapter!!
 
+        // remove the dummy item
+        board.taskList.removeAt(adapter.itemCount - 1)
+
+        /* Save to Firestore */
+        saveTaskListToBoard()
+
+        // add the dummy item back
+        board.taskList.add(MrelloTask())
+
+        adapter.notifyItemChanged(position, task)
         super.showInfoToast(resources.getString(R.string.card_added))
     }
 
@@ -76,9 +87,6 @@ class TaskActivity : BaseActivity(),
 
         // remove the dummy item
         board.taskList.removeAt(adapter.itemCount - 1)
-
-        // assign created by to this task
-        task.createdBy = this.currentUserId
 
         /* Save to Firestore */
         saveTaskListToBoard()
@@ -113,9 +121,6 @@ class TaskActivity : BaseActivity(),
 
     override fun actionListAdded(position: Int, task: MrelloTask) {
         val adapter = rvTasks.adapter!!
-
-        // assign created by to this task
-        task.createdBy = this.currentUserId
 
         // remove the dummy item
         board.taskList.removeAt(adapter.itemCount - 1)
