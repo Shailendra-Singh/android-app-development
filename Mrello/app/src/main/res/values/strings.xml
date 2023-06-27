@@ -18,7 +18,7 @@
     <string name="registered_success">Registration Success!</string>
     <string name="profile_update_success">Profile updated successfully!</string>
     <string name="profile_update_failure">Profile update failed!</string>
-    <string name="profile_no_changes">No changes made!</string>
+    <string name="info_no_changes">No changes made!</string>
     <string name="error_signing_up">Registration Failed!</string>
     <string name="error_profile_image_setup">Could not set profile image!</string>
     <string name="error_signing_in">Login Failed!</string>
@@ -70,4 +70,15 @@
     <string name="add">ADD</string>
     <string name="cancel">CANCEL</string>
     <string name="error_no_such_member">No such member found</string>
+    <string name="select_color">Select Color</string>
+    <string name="label_color">Label Color</string>
+    <string name="select_members">Select Members</string>
+    <string name="due_date">Due Date</string>
+    <string name="select_due_date">Select Due Date</string>
+    <string name="card_details">Card Details</string>
+    <string name="delete_card">Delete Card</string>
+    <string name="delete">Delete</string>
+    <string name="task_delete_alert">All members associated with this task will be affected!</string>
+    <string name="card_delete_alert">All members associated with this card will be affected!</string>
+    <string name="deleted">Deleted</string>
 </resources>

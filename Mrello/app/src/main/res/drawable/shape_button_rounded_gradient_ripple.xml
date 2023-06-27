@@ -13,7 +13,7 @@
             <gradient
                 android:angle="360"
                 android:endColor="?attr/colorAccent"
-                android:startColor="?attr/colorControlNormal"
+                android:startColor="?attr/colorControlHighlight"
                 android:type="linear" />
             <corners android:radius="@dimen/shape_button_background_corner_radius" />
         </shape>

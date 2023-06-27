@@ -7,6 +7,7 @@ import com.google.firebase.firestore.SetOptions
 import com.shail_singh.mrello.Constants
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.activities.BaseActivity
+import com.shail_singh.mrello.activities.CardDetailsActivity
 import com.shail_singh.mrello.activities.CreateBoardActivity
 import com.shail_singh.mrello.activities.MainActivity
 import com.shail_singh.mrello.activities.MembersActivity
@@ -122,13 +123,21 @@ class MrelloFirestore {
             }
     }
 
-    fun addUpdateTaskList(activity: TaskActivity, board: MrelloBoard) {
+    fun addUpdateTaskList(activity: BaseActivity, board: MrelloBoard) {
         val taskListHashMap = HashMap<String, Any>()
         taskListHashMap[Constants.TASK_LIST] = board.taskList
 
         firestore.collection(Constants.FIRESTORE_BOARDS_COLLECTION_NAME).document(board.id)
             .update(taskListHashMap).addOnSuccessListener {
-                activity.onTaskCreatedSuccess()
+                when (activity) {
+                    is TaskActivity -> {
+                        activity.onTaskCreatedSuccess()
+                    }
+
+                    is CardDetailsActivity -> {
+                        activity.onTaskCreatedSuccess()
+                    }
+                }
             }.addOnFailureListener {
                 Log.e(
                     activity.javaClass.simpleName,
@@ -180,7 +189,7 @@ class MrelloFirestore {
         } else {
             // Return! No need to call FireStore
             activity.updateProfileDataSuccess()
-            activity.showInfoToast(activity.resources.getString(R.string.profile_no_changes))
+            activity.showInfoToast(activity.resources.getString(R.string.info_no_changes))
         }
     }
 

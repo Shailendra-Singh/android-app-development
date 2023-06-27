@@ -13,7 +13,8 @@ import com.shail_singh.mrello.models.MrelloTask
 class TaskListItemAdapter(
     private val context: Context,
     private val tasks: List<MrelloTask>,
-    private val taskListItemActionListener: TaskListItemActionListener
+    private val taskListItemActionListener: TaskListItemActionListener,
+    private val cardClickListener: TaskCardItemAdapter.CardClickListener
 ) : RecyclerView.Adapter<TaskListItemViewHolder>() {
 
     interface TaskListItemActionListener {
@@ -30,7 +31,9 @@ class TaskListItemAdapter(
         )
         binding.root.layoutParams = layoutParams
 
-        return TaskListItemViewHolder(context, binding, taskListItemActionListener)
+        return TaskListItemViewHolder(
+            context, binding, taskListItemActionListener, cardClickListener
+        )
     }
 
     override fun onBindViewHolder(holder: TaskListItemViewHolder, position: Int) {

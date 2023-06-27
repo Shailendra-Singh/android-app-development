@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shail_singh.mrello.Constants
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.adapters.TaskCardItemAdapter
 import com.shail_singh.mrello.adapters.TaskListItemAdapter
 import com.shail_singh.mrello.databinding.ActivityTaskBinding
 import com.shail_singh.mrello.firebase.MrelloFirestore
@@ -18,10 +19,11 @@ import com.shail_singh.mrello.models.MrelloTask
 import com.shail_singh.mrello.utils.ActivityResultHandler
 
 class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListener,
-    ActivityResultHandler.OnActivityResultListener {
+    ActivityResultHandler.OnActivityResultListener, TaskCardItemAdapter.CardClickListener {
 
     companion object {
         const val MEMBERS_REQUEST_CODE: Int = 1
+        const val CARD_DETAILS_REQUEST_CODE: Int = 2
     }
 
     private lateinit var binding: ActivityTaskBinding
@@ -29,7 +31,7 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
     private lateinit var rvTasks: RecyclerView
     private lateinit var currentUserId: String
     private lateinit var boardDocumentId: String
-    private lateinit var membersActivityResultHandler: ActivityResultHandler
+    private lateinit var activityResultHandler: ActivityResultHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +47,7 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
 
         getBoardDetails(this.boardDocumentId)
 
-        this.membersActivityResultHandler = ActivityResultHandler(this)
+        this.activityResultHandler = ActivityResultHandler(this)
 
         this.currentUserId = MrelloFirestore().getCurrentId()
     }
@@ -60,7 +62,7 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
             R.id.action_members -> {
                 val intent = Intent(this, MembersActivity::class.java)
                 intent.putExtra(Constants.BOARD_DETAIL, this.board)
-                this.membersActivityResultHandler.launchIntent(intent, this, MEMBERS_REQUEST_CODE)
+                this.activityResultHandler.launchIntent(intent, this, MEMBERS_REQUEST_CODE)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -82,7 +84,7 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
 
         rvTasks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvTasks.setHasFixedSize(true)
-        val adapter = TaskListItemAdapter(this, board.taskList, this)
+        val adapter = TaskListItemAdapter(this, board.taskList, this, this)
         rvTasks.adapter = adapter
     }
 
@@ -169,10 +171,22 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
         super.showInfoToast("${task.name} added")
     }
 
+    override fun onCardClickListener(taskPosition: Int, cardPosition: Int) {
+        val intent = Intent(this, CardDetailsActivity::class.java)
+        intent.putExtra(Constants.BOARD_DETAIL, this.board)
+        intent.putExtra(Constants.TASK_LIST_ITEM_POSITION, taskPosition)
+        intent.putExtra(Constants.CARD_LIST_ITEM_POSITION, cardPosition)
+        this.activityResultHandler.launchIntent(intent, this, CARD_DETAILS_REQUEST_CODE)
+    }
+
     override fun onActivityResult(customActivityCode: Int, result: ActivityResult?) {
         if (result?.resultCode == RESULT_OK) {
             when (customActivityCode) {
                 MEMBERS_REQUEST_CODE -> {
+                    getBoardDetails(this.boardDocumentId)
+                }
+
+                CARD_DETAILS_REQUEST_CODE -> {
                     getBoardDetails(this.boardDocumentId)
                 }
             }

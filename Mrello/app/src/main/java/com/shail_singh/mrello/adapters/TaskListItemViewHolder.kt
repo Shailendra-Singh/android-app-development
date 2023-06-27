@@ -1,9 +1,10 @@
 package com.shail_singh.mrello.adapters
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.text.TextUtils
 import android.view.View
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.activities.TaskActivity
 import com.shail_singh.mrello.databinding.ItemTaskListBinding
+import com.shail_singh.mrello.databinding.LayoutDialogDeleteItemBinding
 import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloCard
 import com.shail_singh.mrello.models.MrelloTask
@@ -19,7 +22,8 @@ import com.shail_singh.mrello.models.MrelloTask
 class TaskListItemViewHolder(
     private val context: Context,
     private val binding: ItemTaskListBinding,
-    private val taskListItemActionAdapter: TaskListItemAdapter.TaskListItemActionListener
+    private val taskListItemActionAdapter: TaskListItemAdapter.TaskListItemActionListener,
+    private val cardClickListener: TaskCardItemAdapter.CardClickListener
 ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
     private var position: Int = 0
@@ -70,7 +74,8 @@ class TaskListItemViewHolder(
 
         rvCards.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvCards.setHasFixedSize(true)
-        rvCards.adapter = TaskCardItemAdapter(context, task.cardList)
+        rvCards.adapter =
+            TaskCardItemAdapter(context, task.cardList, cardClickListener, taskPosition = position)
 
         btnAddList.setOnClickListener(this)
         btnAddCard.setOnClickListener(this)
@@ -209,20 +214,25 @@ class TaskListItemViewHolder(
             }
 
             btnListDelete.id -> {
-                val actionDialog = AlertDialog.Builder(context)
-                actionDialog.setIcon(R.drawable.baseline_warning_24)
-                actionDialog.setTitle("Select action")
-                val pictureDialogItems = arrayOf(
-                    context.resources.getString(R.string.action_delete_list),
-                    context.resources.getString(R.string.action_skip_deletion)
-                )
-                actionDialog.setItems(pictureDialogItems) { dialog, which ->
-                    when (which) {
-                        0 -> taskListItemActionAdapter.actionListDeleted(position, task)
-                        1 -> dialog.dismiss()
-                    }
+                val dialog = Dialog(context)
+                val dialogBinding =
+                    LayoutDialogDeleteItemBinding.inflate((context as TaskActivity).layoutInflater)
+                "Delete ${this.task.name}?".also { dialogBinding.tvActionTitle.text = it }
+                dialogBinding.tvActionDescription.text =
+                    context.getString(R.string.task_delete_alert)
+                dialog.setContentView(dialogBinding.root)
+                dialogBinding.btnDelete.setOnClickListener {
+                    dialog.dismiss()
+                    taskListItemActionAdapter.actionListDeleted(position, task)
                 }
-                actionDialog.show()
+                dialogBinding.btnCancel.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+                dialog.window?.setLayout(
+                    WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT
+                )
+                dialog.show()
             }
 
             btnAddCard.id -> {
@@ -256,5 +266,4 @@ class TaskListItemViewHolder(
             }
         }
     }
-
 }

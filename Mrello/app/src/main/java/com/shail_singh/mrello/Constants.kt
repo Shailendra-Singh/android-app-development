@@ -16,6 +16,8 @@ object Constants {
     const val ASSIGNED_TO: String = "assignedTo"
     const val TASK_LIST: String = "taskList"
     const val BOARD_DETAIL: String = "boardDetail"
+    const val TASK_LIST_ITEM_POSITION: String = "taskListItemPosition"
+    const val CARD_LIST_ITEM_POSITION: String = "cardListItemPosition"
 
     /* Image */
     const val USER_IMAGE_PREFIX: String = "USER_IMAGE_"

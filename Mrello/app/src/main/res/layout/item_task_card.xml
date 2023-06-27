@@ -4,33 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:padding="4dp">
+    android:layout_marginTop="5dp">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abl_card_container"
+        style="@style/AppBarOverlay"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardElevation="15dp"
-        android:backgroundTint="?attr/colorControlNormal"
-        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSecondaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:focusable="true"
         app:layout_constraintTop_toTopOf="parent">
 
-        <CheckedTextView
-            android:id="@+id/tvCardName"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="5dp"
-            android:textColor="?attr/colorOnPrimary"
-            android:textAppearance="?textAppearanceCaption"
-            android:textSize="@dimen/task_card_text_size"
-            android:textStyle="italic"
-            tools:text="Hello World"
+            android:layout_height="50dp"
+            android:backgroundTint="?attr/colorSecondary"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardElevation="15dp">
 
-            />
-    </androidx.cardview.widget.CardView>
-
+            <CheckedTextView
+                android:id="@+id/tvCardName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
+                android:textAppearance="?textAppearanceCaption"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/task_card_text_size"
+                android:textStyle="italic"
+                tools:text="Hello World" />
+        </androidx.cardview.widget.CardView>
+    </com.google.android.material.appbar.AppBarLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
