@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorTertiary"
+    android:padding="@dimen/dialog_color_selector_padding">
+
+    <TextView
+        android:id="@+id/tv_select_label_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dialog_color_selector_item_marginStartEnd"
+        android:layout_marginEnd="@dimen/dialog_color_selector_item_marginStartEnd"
+        android:text="@string/select_label_color"
+        android:textAppearance="?textAppearancePopupMenuHeader"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="@dimen/card_details_large_textSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/dividerH1"
+        app:layout_constraintStart_toStartOf="@id/dividerH1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/dividerH1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginStart="@dimen/dialog_color_selector_item_marginStartEnd"
+        android:layout_marginTop="@dimen/dialog_color_selector_divider_marginTopBottom"
+        android:layout_marginEnd="@dimen/dialog_color_selector_item_marginStartEnd"
+        android:layout_marginBottom="@dimen/dialog_color_selector_divider_marginTopBottom"
+        android:background="?android:textColorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_select_label_color" />
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/AppBarOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_color_selector_divider_marginTopBottom"
+        android:background="?attr/colorTertiary"
+        app:layout_constraintEnd_toEndOf="@id/dividerH1"
+        app:layout_constraintStart_toStartOf="@id/dividerH1"
+        app:layout_constraintTop_toBottomOf="@id/dividerH1">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="?attr/colorSecondaryContainer"
+            android:elevation="@dimen/card_view_default_elevation"
+            app:cardCornerRadius="@dimen/square_round_border_radius">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_label_colors"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/dialog_color_selector_padding" />
+
+        </androidx.cardview.widget.CardView>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

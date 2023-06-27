@@ -6,18 +6,21 @@ import android.os.Parcelable
 data class MrelloCard(
     var name: String = "",
     var createdBy: String = "",
-    var assignedTo: ArrayList<String> = ArrayList()
+    var assignedTo: ArrayList<String> = ArrayList(),
+    var labelColor: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.createStringArrayList()!!,
+        parcel.readString()!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) = with(parcel) {
         parcel.writeString(name)
         parcel.writeString(createdBy)
         parcel.writeStringList(assignedTo)
+        parcel.writeString(labelColor)
     }
 
     override fun describeContents(): Int {

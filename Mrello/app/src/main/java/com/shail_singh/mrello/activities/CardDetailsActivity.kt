@@ -3,6 +3,7 @@ package com.shail_singh.mrello.activities
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -13,15 +14,22 @@ import com.shail_singh.mrello.Constants
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ActivityCardDetailsBinding
 import com.shail_singh.mrello.databinding.LayoutDialogDeleteItemBinding
+import com.shail_singh.mrello.dialogs.LabelColorListDialog
 import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloBoard
 import com.shail_singh.mrello.models.MrelloCard
 
 class CardDetailsActivity : BaseActivity() {
 
+    private companion object {
+        var COLOR_LIST: ArrayList<String> =
+            arrayListOf("#43C86F", "#0C90F1", "#F72400", "#7A8089", "#D57C1D", "#770000", "#0022F8")
+    }
+
     private lateinit var binding: ActivityCardDetailsBinding
     private lateinit var board: MrelloBoard
     private lateinit var card: MrelloCard
+    private var selectedColor: String = ""
     private var taskListPosition: Int = -1
     private var cardPosition: Int = -1
     private var hasChanges: Boolean = false
@@ -37,10 +45,24 @@ class CardDetailsActivity : BaseActivity() {
 
         getIntentData()
         this.card = this.board.taskList[this.taskListPosition].cardList[this.cardPosition]
+        this.selectedColor = this.card.labelColor
         supportActionBar?.title = card.name
 
         binding.btnUpdate.setOnClickListener {
             this.updateCardDetails()
+        }
+
+        binding.btnSelectColor.setOnClickListener {
+            val listDialog = object : LabelColorListDialog(
+                this, COLOR_LIST, selectedColor = this.selectedColor
+            ) {
+                override fun onColorItemSelected(color: String) {
+                    this@CardDetailsActivity.selectedColor = color
+                    updateColorLabel()
+                }
+            }
+
+            listDialog.show()
         }
     }
 
@@ -49,6 +71,13 @@ class CardDetailsActivity : BaseActivity() {
         // Initialize UI Elements
         binding.etCardName.setText(this.card.name)
         binding.etCardName.setSelection(binding.etCardName.text.toString().length)
+
+        if (this.selectedColor.isEmpty() || this.selectedColor.length != 7) {
+            binding.tvSelectedColor.text = resources.getString(R.string.select_color)
+        } else {
+            binding.tvSelectedColor.text = ""
+            binding.btnSelectColor.setBackgroundColor(Color.parseColor(selectedColor))
+        }
     }
 
     @Suppress("DEPRECATION")
@@ -83,6 +112,17 @@ class CardDetailsActivity : BaseActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateColorLabel() {
+        if (this.selectedColor.isEmpty()) {
+            binding.tvSelectedColor.text = resources.getString(R.string.select_color)
+        } else {
+            binding.tvSelectedColor.text = ""
+            binding.btnSelectColor.setBackgroundColor(Color.parseColor(this@CardDetailsActivity.selectedColor))
+            this.card.labelColor = this.selectedColor
+            this.hasChanges = true
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -128,6 +168,9 @@ class CardDetailsActivity : BaseActivity() {
         }
 
         if (this.hasChanges) {
+            // Remove dummy task as added by Task Activity to show add list button
+            this.board.taskList.removeAt(this.board.taskList.size - 1)
+
             super.showProgressDialog(resources.getString(R.string.please_wait))
             MrelloFirestore().addUpdateTaskList(this@CardDetailsActivity, this.board)
         } else {

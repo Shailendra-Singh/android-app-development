@@ -1,7 +1,9 @@
 package com.shail_singh.mrello.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -34,9 +36,14 @@ class TaskCardItemAdapter(
         holder.tvCardName.setOnClickListener {
             cardClickListener.onCardClickListener(taskPosition, position)
         }
+        if (card.labelColor.isNotEmpty()) {
+            holder.cardLegend.visibility = View.VISIBLE
+            holder.cardLegend.setBackgroundColor(Color.parseColor(card.labelColor))
+        }
     }
 
     class ViewHolder(binding: ItemTaskCardBinding) : RecyclerView.ViewHolder(binding.root) {
         val tvCardName: TextView = binding.tvCardName
+        val cardLegend: View = binding.cardLegend
     }
 }

@@ -74,5 +74,12 @@
     <dimen name="card_details_large_textSize">18sp</dimen>
     <dimen name="card_details_small_textSize">16sp</dimen>
     <dimen name="card_details_group_marginTop">10dp</dimen>
+    <dimen name="label_color_selector_button_size">40dp</dimen>
+    <dimen name="label_color_selector_button_marginEnd">2.5dp</dimen>
+    <dimen name="label_color_selector_item_size">45dp</dimen>
+    <dimen name="dialog_color_selector_padding">15dp</dimen>
+    <dimen name="dialog_color_selector_divider_marginTopBottom">15dp</dimen>
+    <dimen name="dialog_color_selector_item_marginStartEnd">5dp</dimen>
+    <dimen name="dialog_color_label_paddingLeft">10dp</dimen>
     <!--    <dimen name="small_image_container_padding">2.5dp</dimen>-->
 </resources>

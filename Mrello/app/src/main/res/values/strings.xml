@@ -68,7 +68,7 @@
     <string name="add_member">Add member</string>
     <string name="search_member">Search Member</string>
     <string name="add">ADD</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">Cancel</string>
     <string name="error_no_such_member">No such member found</string>
     <string name="select_color">Select Color</string>
     <string name="label_color">Label Color</string>
@@ -81,4 +81,5 @@
     <string name="task_delete_alert">All members associated with this task will be affected!</string>
     <string name="card_delete_alert">All members associated with this card will be affected!</string>
     <string name="deleted">Deleted</string>
+    <string name="select_label_color">Select Label Color</string>
 </resources>
