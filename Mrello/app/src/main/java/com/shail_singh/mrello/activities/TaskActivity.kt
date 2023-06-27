@@ -16,6 +16,7 @@ import com.shail_singh.mrello.databinding.ActivityTaskBinding
 import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloBoard
 import com.shail_singh.mrello.models.MrelloTask
+import com.shail_singh.mrello.models.MrelloUser
 import com.shail_singh.mrello.utils.ActivityResultHandler
 
 class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListener,
@@ -32,6 +33,7 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
     private lateinit var currentUserId: String
     private lateinit var boardDocumentId: String
     private lateinit var activityResultHandler: ActivityResultHandler
+    private lateinit var assignedMemberDetailsList: ArrayList<MrelloUser>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +88,18 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
         rvTasks.setHasFixedSize(true)
         val adapter = TaskListItemAdapter(this, board.taskList, this, this)
         rvTasks.adapter = adapter
+
+        getAssignedMembersDetails()
+    }
+
+    private fun getAssignedMembersDetails() {
+        this.showProgressDialog()
+        MrelloFirestore().getAssignedMembersListDetails(this, this.board.assignedTo)
+    }
+
+    fun onBoardMembersDetailsSuccess(assignedMembers: ArrayList<MrelloUser>) {
+        this.assignedMemberDetailsList = assignedMembers
+        super.dismissProgressDialog()
     }
 
     private fun saveTaskListToBoard() {
@@ -174,6 +188,7 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
     override fun onCardClickListener(taskPosition: Int, cardPosition: Int) {
         val intent = Intent(this, CardDetailsActivity::class.java)
         intent.putExtra(Constants.BOARD_DETAIL, this.board)
+        intent.putExtra(Constants.BOARD_MEMBERS_LIST, this.assignedMemberDetailsList)
         intent.putExtra(Constants.TASK_LIST_ITEM_POSITION, taskPosition)
         intent.putExtra(Constants.CARD_LIST_ITEM_POSITION, cardPosition)
         this.activityResultHandler.launchIntent(intent, this, CARD_DETAILS_REQUEST_CODE)

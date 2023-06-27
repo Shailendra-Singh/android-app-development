@@ -72,7 +72,7 @@ class MrelloFirestore {
         }
     }
 
-    fun getAssignedMembersListDetails(activity: MembersActivity, assignedTo: List<String>) {
+    fun getAssignedMembersListDetails(activity: BaseActivity, assignedTo: List<String>) {
         firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME)
             .whereIn(Constants.ID, assignedTo).get().addOnSuccessListener { document ->
                 val users: ArrayList<MrelloUser> = ArrayList()
@@ -80,7 +80,11 @@ class MrelloFirestore {
                     val user = doc.toObject(MrelloUser::class.java)
                     users.add(user!!)
                 }
-                activity.populateMembersListAdapter(users)
+                when (activity) {
+                    is MembersActivity -> activity.populateMembersListAdapter(users)
+                    is TaskActivity -> activity.onBoardMembersDetailsSuccess(users)
+                }
+
             }.addOnFailureListener {
                 Log.e(
                     activity.javaClass.simpleName,

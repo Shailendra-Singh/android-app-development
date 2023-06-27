@@ -14,10 +14,12 @@ import com.shail_singh.mrello.Constants
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ActivityCardDetailsBinding
 import com.shail_singh.mrello.databinding.LayoutDialogDeleteItemBinding
+import com.shail_singh.mrello.dialogs.AssignedMemberListDialog
 import com.shail_singh.mrello.dialogs.LabelColorListDialog
 import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloBoard
 import com.shail_singh.mrello.models.MrelloCard
+import com.shail_singh.mrello.models.MrelloUser
 
 class CardDetailsActivity : BaseActivity() {
 
@@ -29,6 +31,7 @@ class CardDetailsActivity : BaseActivity() {
     private lateinit var binding: ActivityCardDetailsBinding
     private lateinit var board: MrelloBoard
     private lateinit var card: MrelloCard
+    private lateinit var membersDetailsList: ArrayList<MrelloUser>
     private var selectedColor: String = ""
     private var taskListPosition: Int = -1
     private var cardPosition: Int = -1
@@ -44,9 +47,15 @@ class CardDetailsActivity : BaseActivity() {
         )
 
         getIntentData()
+
+        initializeUI()
+    }
+
+    private fun initializeUI() {
         this.card = this.board.taskList[this.taskListPosition].cardList[this.cardPosition]
         this.selectedColor = this.card.labelColor
         supportActionBar?.title = card.name
+
 
         binding.btnUpdate.setOnClickListener {
             this.updateCardDetails()
@@ -64,15 +73,24 @@ class CardDetailsActivity : BaseActivity() {
 
             listDialog.show()
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
+        binding.btnSelectMembers.setOnClickListener {
+            val memberDialog = object : AssignedMemberListDialog(
+                this, this.membersDetailsList, this.card.createdBy
+            ) {
+                override fun onMemberSelected(member: MrelloUser) {
+                    // TODO: Implement selection checklist
+                }
+            }
+
+            memberDialog.show()
+        }
+
         // Initialize UI Elements
         binding.etCardName.setText(this.card.name)
         binding.etCardName.setSelection(binding.etCardName.text.toString().length)
 
-        if (this.selectedColor.isEmpty() || this.selectedColor.length != 7) {
+        if (this.selectedColor.isEmpty()) {
             binding.tvSelectedColor.text = resources.getString(R.string.select_color)
         } else {
             binding.tvSelectedColor.text = ""
@@ -88,6 +106,17 @@ class CardDetailsActivity : BaseActivity() {
                     intent.getParcelableExtra(Constants.BOARD_DETAIL, MrelloBoard::class.java)!!
             } else {
                 this.board = intent.getParcelableExtra(Constants.BOARD_DETAIL)!!
+            }
+        }
+
+        if (intent.hasExtra(Constants.BOARD_MEMBERS_LIST)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                this.membersDetailsList = intent.getParcelableArrayListExtra(
+                    Constants.BOARD_MEMBERS_LIST, MrelloUser::class.java
+                )!!
+            } else {
+                this.membersDetailsList =
+                    intent.getParcelableArrayListExtra(Constants.BOARD_MEMBERS_LIST)!!
             }
         }
 

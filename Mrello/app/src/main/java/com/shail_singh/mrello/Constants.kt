@@ -18,6 +18,11 @@ object Constants {
     const val BOARD_DETAIL: String = "boardDetail"
     const val TASK_LIST_ITEM_POSITION: String = "taskListItemPosition"
     const val CARD_LIST_ITEM_POSITION: String = "cardListItemPosition"
+    const val BOARD_MEMBERS_LIST: String = "boardMembersList"
+
+    /* Misc */
+    const val CHECK: String = "check"
+    const val UNCHECK: String = "uncheck"
 
     /* Image */
     const val USER_IMAGE_PREFIX: String = "USER_IMAGE_"
