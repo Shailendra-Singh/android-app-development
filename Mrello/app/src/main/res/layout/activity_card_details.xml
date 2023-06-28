@@ -158,6 +158,14 @@
                             android:textSize="@dimen/card_details_large_textSize" />
                     </FrameLayout>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_selected_members"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/card_fields_marginTop"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
                     <TextView
                         android:id="@+id/tv_due_date"
                         android:layout_width="match_parent"

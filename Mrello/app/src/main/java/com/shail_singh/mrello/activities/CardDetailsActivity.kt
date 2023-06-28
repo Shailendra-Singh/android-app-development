@@ -3,15 +3,20 @@ package com.shail_singh.mrello.activities
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shail_singh.mrello.Constants
 import com.shail_singh.mrello.R
+import com.shail_singh.mrello.adapters.SelectedMemberListAdapter
 import com.shail_singh.mrello.databinding.ActivityCardDetailsBinding
 import com.shail_singh.mrello.databinding.LayoutDialogDeleteItemBinding
 import com.shail_singh.mrello.dialogs.AssignedMemberListDialog
@@ -32,6 +37,8 @@ class CardDetailsActivity : BaseActivity() {
     private lateinit var board: MrelloBoard
     private lateinit var card: MrelloCard
     private lateinit var membersDetailsList: ArrayList<MrelloUser>
+    private lateinit var rvSelectedMembers: RecyclerView
+    private lateinit var selectedMembersList: ArrayList<MrelloUser>
     private var selectedColor: String = ""
     private var taskListPosition: Int = -1
     private var cardPosition: Int = -1
@@ -47,10 +54,18 @@ class CardDetailsActivity : BaseActivity() {
             binding.activityToolbar, resources.getString(R.string.card_details)
         )
 
+        this.rvSelectedMembers = binding.rvSelectedMembers
+        val spanCount: Int =
+            (Resources.getSystem().displayMetrics.widthPixels - 60.toPx()).toDp() / 60
+        this.rvSelectedMembers.layoutManager = GridLayoutManager(this, spanCount)
+
         getIntentData()
 
         initializeUI()
     }
+
+    private fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+    private fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     private fun initializeUI() {
         this.card = this.board.taskList[this.taskListPosition].cardList[this.cardPosition]
@@ -76,21 +91,26 @@ class CardDetailsActivity : BaseActivity() {
         }
 
         binding.btnSelectMembers.setOnClickListener {
-            val memberDialog = object : AssignedMemberListDialog(
-                this, this.membersDetailsList, assignedToMembersIsSelectedHashMap
-            ) {
-                override fun onMemberSelected() {
-                    this@CardDetailsActivity.hasChanges = true
-                }
-            }
-
-            memberDialog.show()
+            showSelectMembersDialog()
         }
 
         // creates a hashmap to save member select options
         this.createAssignedToMembersIsSelectedHashMap()
 
-        // Initialize UI Elements
+        // create selected member array list for adapter
+        this.selectedMembersList = ArrayList()
+        this.updateSelectedMembersListFromHashMap()
+
+        // after creating hash map, initialize the adapter
+        this.rvSelectedMembers.adapter = SelectedMemberListAdapter(this,
+            this.selectedMembersList,
+            object : SelectedMemberListAdapter.AddProfileImageViewClickListener {
+                override fun onAddProfileImageViewClick() {
+                    showSelectMembersDialog()
+                }
+            })
+
+        /* Initialize UI Elements */
         binding.etCardName.setText(this.card.name)
         binding.etCardName.setSelection(binding.etCardName.text.toString().length)
 
@@ -99,6 +119,36 @@ class CardDetailsActivity : BaseActivity() {
         } else {
             binding.tvSelectedColor.text = ""
             binding.btnSelectColor.setBackgroundColor(Color.parseColor(selectedColor))
+        }
+
+        // show appropriate view for select member button
+        showRelevantViewForSelectMembers()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun showSelectMembersDialog() {
+        val memberDialog = object : AssignedMemberListDialog(
+            this, this.membersDetailsList, assignedToMembersIsSelectedHashMap
+        ) {
+            override fun onMemberSelected() {
+                this@CardDetailsActivity.hasChanges = true
+                // update the data in adapter
+                this@CardDetailsActivity.updateSelectedMembersListFromHashMap()
+                this@CardDetailsActivity.showRelevantViewForSelectMembers()
+                this@CardDetailsActivity.rvSelectedMembers.adapter?.notifyDataSetChanged()
+            }
+        }
+
+        memberDialog.show()
+    }
+
+    private fun showRelevantViewForSelectMembers() {
+        if (this.selectedMembersList.size == 1) { // the dummy item
+            binding.btnSelectMembers.visibility = View.VISIBLE
+            binding.rvSelectedMembers.visibility = View.GONE
+        } else {
+            binding.btnSelectMembers.visibility = View.GONE
+            binding.rvSelectedMembers.visibility = View.VISIBLE
         }
     }
 
@@ -112,9 +162,6 @@ class CardDetailsActivity : BaseActivity() {
         for (id in this.card.assignedTo) {
             assignedToMembersIsSelectedHashMap[id] = true
         }
-
-        // add a dummy item to show 'plus' button in the UI
-        assignedToMembersIsSelectedHashMap[""] = false
     }
 
     private fun updateCardAssignedToList() {
@@ -125,6 +172,21 @@ class CardDetailsActivity : BaseActivity() {
             }
         }
         this.card.assignedTo = newAssignedToList
+    }
+
+    private fun updateSelectedMembersListFromHashMap() {
+
+        // clear to reflect date change for adapter
+        this.selectedMembersList.clear()
+
+        for (member in this.membersDetailsList) {
+            if (this.assignedToMembersIsSelectedHashMap[member.id]!!) {
+                this.selectedMembersList.add(0, member)
+            }
+        }
+
+        // Add a dummy member to show the plus button image view
+        this.selectedMembersList.add(MrelloUser())
     }
 
     @Suppress("DEPRECATION")

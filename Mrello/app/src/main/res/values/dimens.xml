@@ -81,5 +81,9 @@
     <dimen name="dialog_color_selector_divider_marginTopBottom">15dp</dimen>
     <dimen name="dialog_color_selector_item_marginStartEnd">5dp</dimen>
     <dimen name="dialog_color_label_paddingLeft">10dp</dimen>
+    <dimen name="thumbnail_image_size_tiny">50dp</dimen>
+    <dimen name="thumbnail_tiny_border_width">1dp</dimen>
+    <dimen name="item_selected_member_container_size">60dp</dimen>
+    <dimen name="item_selected_member_container_padding">5dp</dimen>
     <!--    <dimen name="small_image_container_padding">2.5dp</dimen>-->
 </resources>
