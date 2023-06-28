@@ -2,6 +2,7 @@ package com.shail_singh.mrello.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.res.Resources
 import android.graphics.Color
@@ -25,6 +26,7 @@ import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloBoard
 import com.shail_singh.mrello.models.MrelloCard
 import com.shail_singh.mrello.models.MrelloUser
+import java.util.Calendar
 
 class CardDetailsActivity : BaseActivity() {
 
@@ -94,6 +96,23 @@ class CardDetailsActivity : BaseActivity() {
             showSelectMembersDialog()
         }
 
+        binding.btnSelectDueDate.setOnClickListener {
+            val myCalendar = Calendar.getInstance()
+            val currentYear = myCalendar.get(Calendar.YEAR)
+            val currentMonth = myCalendar.get(Calendar.MONTH)
+            val currentDay = myCalendar.get(Calendar.DAY_OF_MONTH)
+            val dpd = DatePickerDialog(
+                this, { _, year, month, dayOfMonth ->
+                    "${month + 1}/$dayOfMonth/$year".also { binding.tvDueDate.text = it }
+                    this@CardDetailsActivity.hasChanges = true
+                }, currentYear, currentMonth, currentDay
+            )
+
+            // Due date cannot be in past
+            dpd.datePicker.minDate = System.currentTimeMillis() + 86400000
+            dpd.show()
+        }
+
         // creates a hashmap to save member select options
         this.createAssignedToMembersIsSelectedHashMap()
 
@@ -102,7 +121,8 @@ class CardDetailsActivity : BaseActivity() {
         this.updateSelectedMembersListFromHashMap()
 
         // after creating hash map, initialize the adapter
-        this.rvSelectedMembers.adapter = SelectedMemberListAdapter(this,
+        this.rvSelectedMembers.adapter = SelectedMemberListAdapter(
+            this,
             this.selectedMembersList,
             object : SelectedMemberListAdapter.AddProfileImageViewClickListener {
                 override fun onAddProfileImageViewClick() {
@@ -119,6 +139,10 @@ class CardDetailsActivity : BaseActivity() {
         } else {
             binding.tvSelectedColor.text = ""
             binding.btnSelectColor.setBackgroundColor(Color.parseColor(selectedColor))
+        }
+
+        if (this.card.dueDate.isNotEmpty()) {
+            binding.tvDueDate.text = this.card.dueDate
         }
 
         // show appropriate view for select member button
@@ -290,6 +314,9 @@ class CardDetailsActivity : BaseActivity() {
         if (this.hasChanges) {
             // update card's assigned to list
             this.updateCardAssignedToList()
+
+            // update card's due date
+            this.card.dueDate = binding.tvDueDate.text.toString()
 
             // Remove dummy task as added by Task Activity to show add list button
             this.board.taskList.removeAt(this.board.taskList.size - 1)

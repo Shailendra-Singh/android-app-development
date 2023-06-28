@@ -100,7 +100,6 @@
                     android:padding="@dimen/card_details_padding">
 
                     <TextView
-                        android:id="@+id/tv_label_color"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -130,7 +129,6 @@
                     </FrameLayout>
 
                     <TextView
-                        android:id="@+id/tv_members"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -167,7 +165,6 @@
                         tools:visibility="visible" />
 
                     <TextView
-                        android:id="@+id/tv_due_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -186,6 +183,7 @@
                         tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck">
 
                         <TextView
+                            android:id="@+id/tv_due_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

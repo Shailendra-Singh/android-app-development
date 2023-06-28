@@ -7,12 +7,14 @@ data class MrelloCard(
     var name: String = "",
     var createdBy: String = "",
     var assignedTo: ArrayList<String> = ArrayList(),
-    var labelColor: String = ""
+    var labelColor: String = "",
+    var dueDate: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.createStringArrayList()!!,
+        parcel.readString()!!,
         parcel.readString()!!
     )
 
@@ -21,6 +23,7 @@ data class MrelloCard(
         parcel.writeString(createdBy)
         parcel.writeStringList(assignedTo)
         parcel.writeString(labelColor)
+        parcel.writeString(dueDate)
     }
 
     override fun describeContents(): Int {
