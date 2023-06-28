@@ -148,11 +148,6 @@ class ProfileActivity : BaseActivity(), ImageSelectionHandler.ImageSelectionList
         }
     }
 
-    fun updateProfileDataSuccess() {
-        super.dismissProgressDialog()
-        finish()
-    }
-
     override fun onPickFromGallery(contentURI: Uri?) {
         this.userProfileImageUri = contentURI!!
         this.isCapturedFromCamera = false

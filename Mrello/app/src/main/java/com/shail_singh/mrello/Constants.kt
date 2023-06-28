@@ -11,8 +11,6 @@ object Constants {
     const val MOBILE: String = "mobile"
     const val EMAIL: String = "email"
     const val ID: String = "id"
-    const val CREATED_BY: String = "createdBy"
-    const val CREATED_DATE: String = "createdDate"
     const val ASSIGNED_TO: String = "assignedTo"
     const val TASK_LIST: String = "taskList"
     const val BOARD_DETAIL: String = "boardDetail"
@@ -21,8 +19,9 @@ object Constants {
     const val BOARD_MEMBERS_LIST: String = "boardMembersList"
 
     /* Misc */
-    const val CHECK: String = "check"
-    const val UNCHECK: String = "uncheck"
+    const val MRELLO_SHARED_PREFERENCES = "mrello_shared_preferences"
+    const val IS_FCM_TOKEN_UPDATED = "is_fcm_token_updated"
+    const val FCM_TOKEN = "fcmToken"
 
     /* Image */
     const val USER_IMAGE_PREFIX: String = "USER_IMAGE_"

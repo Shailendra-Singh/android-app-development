@@ -95,7 +95,7 @@ class MrelloFirestore {
             }
     }
 
-    fun assignMemberToBoard(activity: MembersActivity, board: MrelloBoard, user: MrelloUser) {
+    fun assignMemberToBoard(activity: MembersActivity, board: MrelloBoard) {
         val assignedToHashMap = HashMap<String, Any>()
         assignedToHashMap[Constants.ASSIGNED_TO] = board.assignedTo
         firestore.collection(Constants.FIRESTORE_BOARDS_COLLECTION_NAME).document(board.id)
@@ -177,19 +177,28 @@ class MrelloFirestore {
     }
 
     fun updateUserProfileData(
-        activity: ProfileActivity, userUpdatesHashMap: HashMap<String, Any>?
+        activity: BaseActivity, userUpdatesHashMap: HashMap<String, Any>?
     ) {
         if (!userUpdatesHashMap.isNullOrEmpty()) {
-
             firestore.collection(Constants.FIRESTORE_USER_COLLECTION_NAME).document(getCurrentId())
                 .update(userUpdatesHashMap).addOnSuccessListener {
-                    activity.updateProfileDataSuccess()
-                    activity.showInfoToast(activity.resources.getString(R.string.profile_update_success))
+                    when (activity) {
+                        is ProfileActivity -> {
+                            activity.updateProfileDataSuccess()
+                            activity.showInfoToast(activity.resources.getString(R.string.profile_update_success))
+                        }
+
+                        is MainActivity -> {
+                            activity.tokenUpdateSuccess()
+                        }
+                    }
+
                 }.addOnFailureListener {
                     activity.showErrorSnackBar(activity.resources.getString(R.string.profile_update_failure))
                     Log.e("PROFILE UPDATE", it.toString())
                     it.printStackTrace()
                 }
+
         } else {
             // Return! No need to call FireStore
             activity.updateProfileDataSuccess()

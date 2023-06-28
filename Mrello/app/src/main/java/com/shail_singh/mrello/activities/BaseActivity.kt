@@ -105,4 +105,9 @@ open class BaseActivity : AppCompatActivity() {
     fun showInfoToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
+
+    fun updateProfileDataSuccess() {
+        dismissProgressDialog()
+        finish()
+    }
 }

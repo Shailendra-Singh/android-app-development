@@ -125,7 +125,7 @@ class MembersActivity : BaseActivity() {
         this.board.assignedTo.add(user.id)
         this.assignedMembersList.add(user)
         super.showProgressDialog(resources.getString(R.string.please_wait))
-        MrelloFirestore().assignMemberToBoard(this, this.board, user)
+        MrelloFirestore().assignMemberToBoard(this, this.board)
     }
 
     fun memberAssignSuccess() {
