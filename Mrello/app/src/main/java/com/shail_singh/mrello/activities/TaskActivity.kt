@@ -117,7 +117,7 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
 
     }
 
-    override fun actionCardAdded(position: Int, task: MrelloTask) {
+    override fun actionCardAddedOrUpdated(position: Int, task: MrelloTask) {
         val adapter = rvTasks.adapter!!
 
         // remove the dummy item
@@ -130,7 +130,7 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
         board.taskList.add(MrelloTask())
 
         adapter.notifyItemChanged(position, task)
-        super.showInfoToast(resources.getString(R.string.card_added))
+        super.showInfoToast(resources.getString(R.string.card_added_updated))
     }
 
     override fun actionListEdited(position: Int, task: MrelloTask) {

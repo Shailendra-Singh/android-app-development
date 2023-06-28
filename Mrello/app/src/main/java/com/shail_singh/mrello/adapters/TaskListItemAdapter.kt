@@ -20,7 +20,7 @@ class TaskListItemAdapter(
 ) : RecyclerView.Adapter<TaskListItemViewHolder>() {
 
     interface TaskListItemActionListener {
-        fun actionCardAdded(position: Int, task: MrelloTask)
+        fun actionCardAddedOrUpdated(position: Int, task: MrelloTask)
         fun actionListEdited(position: Int, task: MrelloTask)
         fun actionListDeleted(position: Int, task: MrelloTask)
         fun actionListAdded(position: Int, task: MrelloTask)

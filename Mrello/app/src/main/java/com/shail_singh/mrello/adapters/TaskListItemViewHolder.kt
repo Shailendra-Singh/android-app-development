@@ -8,6 +8,8 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
@@ -19,6 +21,7 @@ import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloCard
 import com.shail_singh.mrello.models.MrelloTask
 import com.shail_singh.mrello.models.MrelloUser
+import java.util.Collections
 
 class TaskListItemViewHolder(
     private val context: Context,
@@ -31,6 +34,10 @@ class TaskListItemViewHolder(
     private var position: Int = 0
     private lateinit var task: MrelloTask
     private val currentId = MrelloFirestore().getCurrentId()
+
+    /* Card-Drag Variables*/
+    private var cardPositionDraggedFrom: Int = -1
+    private var cardPositionDraggedTo: Int = -1
 
 
     /* UI Variables*/
@@ -95,6 +102,47 @@ class TaskListItemViewHolder(
         btnCardAddOk.setOnClickListener(this)
         btnListEdit.setOnClickListener(this)
         btnListDelete.setOnClickListener(this)
+
+
+        // Cards drag up and down functionality
+        val dividerItemDecoration = DividerItemDecoration(
+            context, DividerItemDecoration.VERTICAL
+        )
+        rvCards.addItemDecoration(dividerItemDecoration)
+        val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val draggedPosition = viewHolder.adapterPosition
+                val targetPosition = target.adapterPosition
+                if (cardPositionDraggedFrom == -1) {
+                    cardPositionDraggedFrom = draggedPosition
+                }
+                cardPositionDraggedTo = targetPosition
+                Collections.swap(task.cardList, draggedPosition, targetPosition)
+                rvCards.adapter?.notifyItemMoved(draggedPosition, targetPosition)
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+            override fun clearView(
+                recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder
+            ) {
+                super.clearView(recyclerView, viewHolder)
+                if (cardPositionDraggedFrom != -1 && cardPositionDraggedTo != -1 && cardPositionDraggedFrom != cardPositionDraggedTo) {
+                    taskListItemActionAdapter.actionCardAddedOrUpdated(position, task)
+                }
+
+                cardPositionDraggedFrom = -1
+                cardPositionDraggedTo = -1
+            }
+        })
+
+        touchHelper.attachToRecyclerView(rvCards)
     }
 
     private fun initializeUIVariables() {/* UI Variables*/
@@ -269,7 +317,7 @@ class TaskListItemViewHolder(
                     rvCards.adapter?.notifyItemInserted(task.cardList.size - 1)
 
                     clearInputs()
-                    taskListItemActionAdapter.actionCardAdded(position, task)
+                    taskListItemActionAdapter.actionCardAddedOrUpdated(position, task)
                 }
             }
         }
