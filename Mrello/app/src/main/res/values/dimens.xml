@@ -86,5 +86,6 @@
     <dimen name="item_selected_member_container_size">60dp</dimen>
     <dimen name="item_selected_member_container_padding">5dp</dimen>
     <dimen name="task_card_items_marginTop">5dp</dimen>
+    <dimen name="item_selected_member_container_width">55dp</dimen>
     <!--    <dimen name="small_image_container_padding">2.5dp</dimen>-->
 </resources>

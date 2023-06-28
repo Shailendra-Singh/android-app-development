@@ -7,11 +7,11 @@
 
     <FrameLayout
         android:id="@+id/fl_container_user_profile_image"
-        android:layout_width="@dimen/item_selected_member_container_size"
-        android:layout_height="@dimen/item_selected_member_container_size"
-        android:padding="@dimen/item_selected_member_container_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView

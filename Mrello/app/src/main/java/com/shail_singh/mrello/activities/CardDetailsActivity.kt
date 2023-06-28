@@ -60,7 +60,7 @@ class CardDetailsActivity : BaseActivity() {
 
         this.rvSelectedMembers = binding.rvSelectedMembers
         val spanCount: Int =
-            (Resources.getSystem().displayMetrics.widthPixels - 60.toPx()).toDp() / 60
+            (Resources.getSystem().displayMetrics.widthPixels - 50.toPx()).toDp() / 50
         this.rvSelectedMembers.layoutManager = GridLayoutManager(this, spanCount)
 
         getIntentData()

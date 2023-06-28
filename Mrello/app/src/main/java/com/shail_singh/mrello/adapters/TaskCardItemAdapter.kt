@@ -1,6 +1,7 @@
 package com.shail_singh.mrello.adapters
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import com.shail_singh.mrello.R
 import com.shail_singh.mrello.databinding.ItemTaskCardBinding
 import com.shail_singh.mrello.models.MrelloCard
 import com.shail_singh.mrello.models.MrelloUser
+import com.shail_singh.mrello.utils.Utilities.toDp
+import com.shail_singh.mrello.utils.Utilities.toPx
 
 class TaskCardItemAdapter(
     private val context: Context,
@@ -59,11 +62,21 @@ class TaskCardItemAdapter(
         // Set up recycler view
         if (this.assignedToMembersList.isNotEmpty()) {
             holder.rvSelectedMembers.visibility = View.VISIBLE
-            holder.rvSelectedMembers.layoutManager = GridLayoutManager(context, 3)
+            // calculate span count from 70% width of the screen as used by task list item
+            // use tiny image's size to adjust spans
+            var spanCount: Int =
+                ((Resources.getSystem().displayMetrics.widthPixels * 0.7).toInt() - 50.toPx()).toDp() / 50
+            // avoid setting it less than 2
+            if (spanCount < 2) {
+                spanCount = 2
+            }
+            holder.rvSelectedMembers.layoutManager = GridLayoutManager(context, spanCount)
             val otherMembers: ArrayList<MrelloUser> = ArrayList()
             for (member in this.assignedToMembersList) {
-                if (member.id.compareTo(card.createdBy) != 0) {
-                    otherMembers.add(member)
+                for (assignedToId in card.assignedTo) {
+                    if (member.id.compareTo(assignedToId) == 0 && member.id != card.createdBy) {
+                        otherMembers.add(member)
+                    }
                 }
             }
             holder.rvSelectedMembers.adapter = SelectedMemberListAdapter(context, otherMembers)
