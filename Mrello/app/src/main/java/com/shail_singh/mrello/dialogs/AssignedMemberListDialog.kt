@@ -13,7 +13,7 @@ import com.shail_singh.mrello.models.MrelloUser
 abstract class AssignedMemberListDialog(
     context: Context,
     private val members: ArrayList<MrelloUser>,
-    private val selectedMemberId: String,
+    private val assignedToMembersIsSelectedHashMap: HashMap<String, Boolean>,
 ) : Dialog(context), MemberListItemAdapter.MemberSelectionHandler {
     private lateinit var binding: DialogListSelectorBinding
 
@@ -30,13 +30,13 @@ abstract class AssignedMemberListDialog(
         binding.tvLabel.text = context.resources.getString(R.string.select_members)
         binding.rvItems.layoutManager = LinearLayoutManager(context)
         val adapter = MemberListItemAdapter(context, members, true)
-        adapter.setItemSelectionListener(this, selectedMemberId)
+        adapter.setItemSelectionListener(this, assignedToMembersIsSelectedHashMap)
         binding.rvItems.adapter = adapter
     }
 
-    abstract fun onMemberSelected(member: MrelloUser)
-    override fun onMemberSelection(position: Int, member: MrelloUser) {
+    abstract fun onMemberSelected()
+    override fun onMemberSelection() {
         super.dismiss()
-        onMemberSelected(member)
+        onMemberSelected()
     }
 }

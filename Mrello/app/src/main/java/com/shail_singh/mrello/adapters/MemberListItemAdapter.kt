@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -21,17 +20,18 @@ class MemberListItemAdapter(
 ) : RecyclerView.Adapter<MemberListItemAdapter.ViewHolder>() {
 
     private var memberSelectionHandler: MemberSelectionHandler? = null
-    private var selectedMemberId: String = ""
+    private var assignedToMembersIsSelectedHashMap: HashMap<String, Boolean>? = null
 
     interface MemberSelectionHandler {
-        fun onMemberSelection(position: Int, member: MrelloUser)
+        fun onMemberSelection()
     }
 
     fun setItemSelectionListener(
-        memberSelectionHandler: MemberSelectionHandler, selectedMemberId: String
+        memberSelectionHandler: MemberSelectionHandler,
+        assignedToMembersIsSelectedHashMap: HashMap<String, Boolean>
     ) {
         this.memberSelectionHandler = memberSelectionHandler
-        this.selectedMemberId = selectedMemberId
+        this.assignedToMembersIsSelectedHashMap = assignedToMembersIsSelectedHashMap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -51,15 +51,19 @@ class MemberListItemAdapter(
             .placeholder(R.drawable.ic_default_profile_pic).into(holder.ivUserProfileImage)
 
         if (showCheckMarks && this.memberSelectionHandler != null) {
-            holder.checkBoxContainer.isClickable = false
-            if (this.selectedMemberId == member.id) {
-                holder.ivSelectionBox.visibility = View.VISIBLE
+            if (this.assignedToMembersIsSelectedHashMap != null) {
+                val isChecked = this.assignedToMembersIsSelectedHashMap!![member.id]!!
+                if (isChecked) {
+                    holder.ivSelectionBox.visibility = View.VISIBLE
+                }
             }
 
             holder.appBarContainer.setOnClickListener {
-                memberSelectionHandler!!.onMemberSelection(position, member)
+                // reverse the polarity
+                assignedToMembersIsSelectedHashMap!![member.id] =
+                    !assignedToMembersIsSelectedHashMap!![member.id]!!
+                memberSelectionHandler!!.onMemberSelection()
             }
-
         } else {
             holder.ivSelectionBox.visibility = View.GONE
         }
@@ -70,7 +74,6 @@ class MemberListItemAdapter(
         internal val ivUserProfileImage: ImageView = binding.ivUserProfileImage
         internal val tvName: TextView = binding.tvName
         internal val tvEmail: TextView = binding.tvEmail
-        internal val checkBoxContainer: FrameLayout = binding.checkBoxContainer
         internal val ivSelectionBox: ImageView = binding.ivSelectionBox
         internal val appBarContainer: AppBarLayout = binding.appBarContainer
     }

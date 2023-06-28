@@ -36,6 +36,7 @@ class CardDetailsActivity : BaseActivity() {
     private var taskListPosition: Int = -1
     private var cardPosition: Int = -1
     private var hasChanges: Boolean = false
+    private var assignedToMembersIsSelectedHashMap: HashMap<String, Boolean> = HashMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,15 +77,18 @@ class CardDetailsActivity : BaseActivity() {
 
         binding.btnSelectMembers.setOnClickListener {
             val memberDialog = object : AssignedMemberListDialog(
-                this, this.membersDetailsList, this.card.createdBy
+                this, this.membersDetailsList, assignedToMembersIsSelectedHashMap
             ) {
-                override fun onMemberSelected(member: MrelloUser) {
-                    // TODO: Implement selection checklist
+                override fun onMemberSelected() {
+                    this@CardDetailsActivity.hasChanges = true
                 }
             }
 
             memberDialog.show()
         }
+
+        // creates a hashmap to save member select options
+        this.createAssignedToMembersIsSelectedHashMap()
 
         // Initialize UI Elements
         binding.etCardName.setText(this.card.name)
@@ -96,6 +100,31 @@ class CardDetailsActivity : BaseActivity() {
             binding.tvSelectedColor.text = ""
             binding.btnSelectColor.setBackgroundColor(Color.parseColor(selectedColor))
         }
+    }
+
+    private fun createAssignedToMembersIsSelectedHashMap() {
+        // fill all members
+        for (item in this.membersDetailsList) {
+            assignedToMembersIsSelectedHashMap[item.id] = false
+        }
+
+        // assign check equals to true for member Ids in card's assigned to list
+        for (id in this.card.assignedTo) {
+            assignedToMembersIsSelectedHashMap[id] = true
+        }
+
+        // add a dummy item to show 'plus' button in the UI
+        assignedToMembersIsSelectedHashMap[""] = false
+    }
+
+    private fun updateCardAssignedToList() {
+        val newAssignedToList: ArrayList<String> = ArrayList()
+        for (member in this.membersDetailsList) {
+            if (this.assignedToMembersIsSelectedHashMap[member.id]!!) {
+                newAssignedToList.add(member.id)
+            }
+        }
+        this.card.assignedTo = newAssignedToList
     }
 
     @Suppress("DEPRECATION")
@@ -197,6 +226,9 @@ class CardDetailsActivity : BaseActivity() {
         }
 
         if (this.hasChanges) {
+            // update card's assigned to list
+            this.updateCardAssignedToList()
+
             // Remove dummy task as added by Task Activity to show add list button
             this.board.taskList.removeAt(this.board.taskList.size - 1)
 
