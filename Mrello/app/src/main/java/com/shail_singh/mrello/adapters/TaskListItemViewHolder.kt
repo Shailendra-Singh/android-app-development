@@ -18,12 +18,14 @@ import com.shail_singh.mrello.databinding.LayoutDialogDeleteItemBinding
 import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloCard
 import com.shail_singh.mrello.models.MrelloTask
+import com.shail_singh.mrello.models.MrelloUser
 
 class TaskListItemViewHolder(
     private val context: Context,
     private val binding: ItemTaskListBinding,
     private val taskListItemActionAdapter: TaskListItemAdapter.TaskListItemActionListener,
-    private val cardClickListener: TaskCardItemAdapter.CardClickListener
+    private val cardClickListener: TaskCardItemAdapter.CardClickListener,
+    private val assignedToMembersList: ArrayList<MrelloUser>
 ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
     private var position: Int = 0
@@ -74,8 +76,14 @@ class TaskListItemViewHolder(
 
         rvCards.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvCards.setHasFixedSize(true)
-        rvCards.adapter =
-            TaskCardItemAdapter(context, task.cardList, cardClickListener, taskPosition = position)
+        val taskCardItemAdapter = TaskCardItemAdapter(
+            context,
+            task.cardList,
+            cardClickListener,
+            taskPosition = position,
+            assignedToMembersList
+        )
+        rvCards.adapter = taskCardItemAdapter
 
         btnAddList.setOnClickListener(this)
         btnAddCard.setOnClickListener(this)

@@ -82,4 +82,6 @@
     <string name="card_delete_alert">All members associated with this card will be affected!</string>
     <string name="deleted">Deleted</string>
     <string name="select_label_color">Select Label Color</string>
+    <string name="due">"Due: "</string>
+    <string name="task_list_card">Task list card</string>
 </resources>

@@ -26,6 +26,8 @@ import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloBoard
 import com.shail_singh.mrello.models.MrelloCard
 import com.shail_singh.mrello.models.MrelloUser
+import com.shail_singh.mrello.utils.Utilities.toDp
+import com.shail_singh.mrello.utils.Utilities.toPx
 import java.util.Calendar
 
 class CardDetailsActivity : BaseActivity() {
@@ -65,9 +67,6 @@ class CardDetailsActivity : BaseActivity() {
 
         initializeUI()
     }
-
-    private fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
-    private fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     private fun initializeUI() {
         this.card = this.board.taskList[this.taskListPosition].cardList[this.cardPosition]
@@ -121,14 +120,14 @@ class CardDetailsActivity : BaseActivity() {
         this.updateSelectedMembersListFromHashMap()
 
         // after creating hash map, initialize the adapter
-        this.rvSelectedMembers.adapter = SelectedMemberListAdapter(
-            this,
-            this.selectedMembersList,
-            object : SelectedMemberListAdapter.AddProfileImageViewClickListener {
-                override fun onAddProfileImageViewClick() {
-                    showSelectMembersDialog()
-                }
-            })
+        val selectedMemberListAdapter = SelectedMemberListAdapter(this, this.selectedMembersList)
+        selectedMemberListAdapter.setAddProfileImageViewClickListener(object :
+            SelectedMemberListAdapter.AddProfileImageViewClickListener {
+            override fun onAddProfileImageViewClick() {
+                showSelectMembersDialog()
+            }
+        })
+        this.rvSelectedMembers.adapter = selectedMemberListAdapter
 
         /* Initialize UI Elements */
         binding.etCardName.setText(this.card.name)

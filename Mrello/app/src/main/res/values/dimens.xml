@@ -64,7 +64,7 @@
     <dimen name="card_container_padding_TopBottom">5dp</dimen>
     <dimen name="item_card_marginTop">20dp</dimen>
     <dimen name="item_card_marginEnd">20dp</dimen>
-    <dimen name="task_card_text_size">14sp</dimen>
+    <dimen name="task_card_text_size">12sp</dimen>
     <dimen name="item_view_margin_bottom">5dp</dimen>
     <dimen name="search_member_textSize">22sp</dimen>
     <dimen name="search_action_textSize">18sp</dimen>
@@ -85,5 +85,6 @@
     <dimen name="thumbnail_tiny_border_width">1dp</dimen>
     <dimen name="item_selected_member_container_size">60dp</dimen>
     <dimen name="item_selected_member_container_padding">5dp</dimen>
+    <dimen name="task_card_items_marginTop">5dp</dimen>
     <!--    <dimen name="small_image_container_padding">2.5dp</dimen>-->
 </resources>

@@ -54,6 +54,15 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
         this.currentUserId = MrelloFirestore().getCurrentId()
     }
 
+    private fun initializeTaskListItemAdapter() {
+        rvTasks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvTasks.setHasFixedSize(true)
+        val adapter = TaskListItemAdapter(
+            this, board.taskList, this, this, assignedMemberDetailsList
+        )
+        rvTasks.adapter = adapter
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.activity_members_menu_options, menu)
         return super.onCreateOptionsMenu(menu)
@@ -83,12 +92,6 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
         // add dummy task to inflate recycle view
         board.taskList.add(MrelloTask())
 
-
-        rvTasks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rvTasks.setHasFixedSize(true)
-        val adapter = TaskListItemAdapter(this, board.taskList, this, this)
-        rvTasks.adapter = adapter
-
         getAssignedMembersDetails()
     }
 
@@ -100,6 +103,8 @@ class TaskActivity : BaseActivity(), TaskListItemAdapter.TaskListItemActionListe
     fun onBoardMembersDetailsSuccess(assignedMembers: ArrayList<MrelloUser>) {
         this.assignedMemberDetailsList = assignedMembers
         super.dismissProgressDialog()
+
+        initializeTaskListItemAdapter()
     }
 
     private fun saveTaskListToBoard() {

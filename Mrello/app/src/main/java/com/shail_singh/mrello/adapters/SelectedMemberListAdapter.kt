@@ -13,12 +13,17 @@ import com.shail_singh.mrello.models.MrelloUser
 
 class SelectedMemberListAdapter(
     private val context: Context,
-    private val selectedMembers: List<MrelloUser>,
-    private val addProfileImageViewClickListener: AddProfileImageViewClickListener
+    private val selectedMembers: List<MrelloUser>
 ) : RecyclerView.Adapter<SelectedMemberListAdapter.ViewHolder>() {
+
+    private var addProfileImageViewClickListener: AddProfileImageViewClickListener? = null
 
     interface AddProfileImageViewClickListener {
         fun onAddProfileImageViewClick()
+    }
+
+    fun setAddProfileImageViewClickListener(addProfileImageViewClickListener: AddProfileImageViewClickListener) {
+        this.addProfileImageViewClickListener = addProfileImageViewClickListener
     }
 
 
@@ -34,19 +39,24 @@ class SelectedMemberListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val member = selectedMembers[position]
-        if (position == itemCount - 1) {
-            Glide.with(context).load(R.drawable.baseline_add_circle_24).centerCrop()
-                .placeholder(R.drawable.ic_default_profile_pic).into(holder.profileImage)
 
-            holder.containerProfileImage.setOnClickListener {
-                addProfileImageViewClickListener.onAddProfileImageViewClick()
-            }
-        } else {
+        if (this.addProfileImageViewClickListener == null) {
             Glide.with(context).load(member.image).centerCrop()
                 .placeholder(R.drawable.ic_default_profile_pic).into(holder.profileImage)
+        } else {
+            if (position == itemCount - 1) {
+                Glide.with(context).load(R.drawable.baseline_add_circle_24).centerCrop()
+                    .placeholder(R.drawable.ic_default_profile_pic).into(holder.profileImage)
+
+                holder.containerProfileImage.setOnClickListener {
+                    addProfileImageViewClickListener!!.onAddProfileImageViewClick()
+                }
+            } else {
+                Glide.with(context).load(member.image).centerCrop()
+                    .placeholder(R.drawable.ic_default_profile_pic).into(holder.profileImage)
+            }
         }
     }
-
 
     class ViewHolder(binding: ItemSelectedMembersBinding) : RecyclerView.ViewHolder(binding.root) {
         internal val containerProfileImage: FrameLayout = binding.flContainerUserProfileImage

@@ -4,44 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp">
+    android:layout_marginStart="@dimen/item_board_main_marginStartEnd"
+    android:layout_marginTop="@dimen/item_board_main_marginStartEnd"
+    android:layout_marginEnd="@dimen/item_board_main_marginStartEnd">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/abl_card_container"
+        android:id="@+id/app_bar_container"
         style="@style/AppBarOverlay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="?attr/colorSecondaryContainer"
+        app:cardCornerRadius="@dimen/item_board_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:id="@+id/card_legend"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:backgroundTint="?attr/colorSecondary"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardElevation="15dp">
+            android:layout_height="match_parent"
+            android:backgroundTint="?attr/colorTertiary"
+            android:elevation="@dimen/card_view_default_elevation"
+            app:cardCornerRadius="@dimen/signup_input_card_corner_radius">
 
-            <CheckedTextView
-                android:id="@+id/tvCardName"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="5dp"
-                android:textAppearance="?textAppearanceCaption"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="@dimen/task_card_text_size"
-                android:textStyle="italic"
-                tools:text="Hello World" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/card_legend"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:visibility="gone"
+                    tools:dividerColor="?attr/colorPrimary"
+                    tools:visibility="visible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_card_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/label_color"
+                        android:textAppearance="?textAppearanceCaption"
+                        android:textColor="?android:textColor"
+                        android:textSize="@dimen/card_details_small_textSize" />
+
+                    <TextView
+                        android:id="@+id/tv_card_due_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/task_card_items_marginTop"
+                        android:textAppearance="?textAppearanceButton"
+                        android:textColor="#795548"
+                        android:textSize="@dimen/task_card_text_size"
+                        android:visibility="gone"
+                        tools:text="06/16/2023"
+                        tools:visibility="visible" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_selected_members"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/card_fields_marginTop"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </LinearLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
     </com.google.android.material.appbar.AppBarLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
