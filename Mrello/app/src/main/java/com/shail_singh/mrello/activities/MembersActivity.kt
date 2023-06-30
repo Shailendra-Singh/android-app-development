@@ -16,6 +16,7 @@ import com.shail_singh.mrello.R
 import com.shail_singh.mrello.adapters.MemberListItemAdapter
 import com.shail_singh.mrello.databinding.ActivityMembersBinding
 import com.shail_singh.mrello.databinding.LayoutDialogSearchMemberBinding
+import com.shail_singh.mrello.fcm.NotificationHandler
 import com.shail_singh.mrello.firebase.MrelloFirestore
 import com.shail_singh.mrello.models.MrelloBoard
 import com.shail_singh.mrello.models.MrelloUser
@@ -125,12 +126,16 @@ class MembersActivity : BaseActivity() {
         this.board.assignedTo.add(user.id)
         this.assignedMembersList.add(user)
         super.showProgressDialog(resources.getString(R.string.please_wait))
-        MrelloFirestore().assignMemberToBoard(this, this.board)
+        MrelloFirestore().assignMemberToBoard(this, this.board, user)
     }
 
-    fun memberAssignSuccess() {
+    fun memberAssignSuccess(user: MrelloUser) {
         this.rvMembersList.adapter?.notifyItemInserted(this.rvMembersList.adapter?.itemCount!!)
         super.dismissProgressDialog()
         this.memberActivityChangesMade = true
+        val token = user.fcmToken
+        val title = getString(R.string.mrello_board_assigned)
+        val body = "${this.getString(R.string.you_are_assigned_to_a_new_board)}${this.board.name}"
+        NotificationHandler(this).sendNotification(token, title, body)
     }
 }

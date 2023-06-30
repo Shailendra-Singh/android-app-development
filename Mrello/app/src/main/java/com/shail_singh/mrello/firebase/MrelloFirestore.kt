@@ -95,12 +95,12 @@ class MrelloFirestore {
             }
     }
 
-    fun assignMemberToBoard(activity: MembersActivity, board: MrelloBoard) {
+    fun assignMemberToBoard(activity: MembersActivity, board: MrelloBoard, user: MrelloUser) {
         val assignedToHashMap = HashMap<String, Any>()
         assignedToHashMap[Constants.ASSIGNED_TO] = board.assignedTo
         firestore.collection(Constants.FIRESTORE_BOARDS_COLLECTION_NAME).document(board.id)
             .update(assignedToHashMap).addOnSuccessListener {
-                activity.memberAssignSuccess()
+                activity.memberAssignSuccess(user)
             }.addOnFailureListener {
                 Log.e(
                     activity.javaClass.simpleName,

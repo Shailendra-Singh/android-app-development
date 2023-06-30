@@ -14,34 +14,37 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.shail_singh.mrello.R
 import com.shail_singh.mrello.activities.MainActivity
+import com.shail_singh.mrello.activities.auth.SignInActivity
+import com.shail_singh.mrello.firebase.MrelloFirestore
 
 class MrelloFirebaseMessagingService : FirebaseMessagingService() {
-    override fun onMessageReceived(message: RemoteMessage) {
-        super.onMessageReceived(message)
 
-        Log.d(TAG, "${resources.getString(R.string.from)}${message.from}")
-        message.data.isNotEmpty().let {
-            Log.d(TAG, "${resources.getString(R.string.message_data_payload)}${message.data}")
-        }
-
-        message.notification?.let {
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
+        // Check if message contains a data payload.
+        Log.d(TAG, "${resources.getString(R.string.from)}${remoteMessage.from}")
+        // Check if message contains a notification payload.
+        remoteMessage.notification?.let {
+            Log.d(TAG, "${resources.getString(R.string.message_notification_body)}${it.title}")
             Log.d(TAG, "${resources.getString(R.string.message_notification_body)}${it.body}")
+            sendNotification(it.title!!, it.body!!)
         }
     }
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d(TAG, "${resources.getString(R.string.refreshed_token)}${token}")
-        sendRegistrationToServer(token)
-    }
-
-    private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement
     }
 
     private fun sendNotification(title: String, message: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val intent = if (MrelloFirestore().getCurrentId().isNotEmpty()) {
+            Intent(this, MainActivity::class.java)
+        } else {
+            Intent(this, SignInActivity::class.java)
+        }
+        intent.addFlags(
+            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        )
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent, PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -50,7 +53,8 @@ class MrelloFirebaseMessagingService : FirebaseMessagingService() {
         val notificationBuilder = NotificationCompat.Builder(
             this, channelId
         ).setContentTitle(title).setContentText(message).setAutoCancel(true)
-            .setSound(defaultSoundUri)
+            .setSmallIcon(R.mipmap.ic_launcher_round).setSound(defaultSoundUri)
+            .setContentIntent(pendingIntent)
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
