@@ -91,5 +91,5 @@
     <string name="refreshed_token">"Refreshed token: "</string>
     <string name="error_member_notification">Unable to notify member</string>
     <string name="mrello_board_assigned">Mrello Board Assigned</string>
-    <string name="you_are_assigned_to_a_new_board">"You are assigned to a new board: "</string>
+    <string name="assigned_to_a_new_board">"You are assigned to"</string>
 </resources>

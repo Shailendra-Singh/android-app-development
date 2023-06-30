@@ -135,7 +135,8 @@ class MembersActivity : BaseActivity() {
         this.memberActivityChangesMade = true
         val token = user.fcmToken
         val title = getString(R.string.mrello_board_assigned)
-        val body = "${this.getString(R.string.you_are_assigned_to_a_new_board)}${this.board.name}"
+        val body =
+            "${this.getString(R.string.assigned_to_a_new_board)} ${this.board.createdBy}'s board: ${this.board.name}"
         NotificationHandler(this).sendNotification(token, title, body)
     }
 }
