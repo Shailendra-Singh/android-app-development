@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_grey">#C4C4C4</color>
+    <!--    Light Theme-->
+    <color name="light_primary">#66cccc</color>
+    <color name="light_secondary">#4DB6AC</color>
+    <color name="light_accent">#66cccc</color>
+    <color name="light_color_control">#B0BEC5</color>
+    <color name="light_color_activated">#0099cc</color>
+    <color name="light_color_control_highlight">#00BCD4</color>
+    <color name="light_text_primary">#424153</color>
+    <color name="light_text_secondary">#998877</color>
+    <color name="light_color_surface">#eee6ff</color>
+    <color name="light_tertiary">#ECEFF1</color>
+    <color name="light_secondary_container">@color/white</color>
+    <color name="light_color_error">#B71C1C</color>
+    <!--    Dark Theme-->
+    <color name="dark_primary">#424153</color>
+    <color name="dark_secondary">#555555</color>
+    <color name="dark_accent">#abbcda</color>
+    <color name="dark_color_control">#424242</color>
+    <color name="dark_color_activated">#004D40</color>
+    <color name="dark_color_control_highlight">#01579B</color>
+    <color name="dark_text_primary">#e7d8b1</color>
+    <color name="dark_text_secondary">#cccccc</color>
+    <color name="dark_color_surface">@color/black</color>
+    <color name="dark_tertiary">@color/black</color>
+    <color name="dark_secondary_container">#212121</color>
+    <color name="dark_color_error">#F50057</color>
+</resources>

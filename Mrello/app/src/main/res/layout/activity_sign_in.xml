@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorTertiary"
+    tools:context=".activities.auth.SignInActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activity_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/tv_signup_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/signup_content_text_marginTop"
+        android:gravity="center"
+        android:padding="@dimen/screen_main_padding"
+        android:text="@string/sign_in_content_text"
+        android:textAppearance="?textAppearanceBodyMedium"
+        android:textSize="@dimen/signup_activity_content_textSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_container" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_container"
+        style="@style/AppBarOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_main_padding"
+        android:layout_marginTop="@dimen/app_bar_marginTop"
+        android:layout_marginEnd="@dimen/screen_main_padding"
+        android:background="?attr/colorTertiary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_signup_description">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="?attr/colorSecondaryContainer"
+            android:elevation="@dimen/card_view_default_elevation"
+            app:cardCornerRadius="@dimen/signup_input_card_corner_radius">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/signup_input_card_content_padding">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/signup_fields_marginTop"
+                    app:boxStrokeColor="?attr/colorAccent"
+                    app:hintTextColor="?attr/hintTextColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/signup_field_email_text"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/signup_fields_marginTop"
+                    app:boxStrokeColor="?attr/colorAccent"
+                    app:hintTextColor="?attr/hintTextColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/signup_field_password_text"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <FrameLayout
+                    android:id="@+id/btn_sign_in"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/signup_btn_marginTop"
+                    android:background="@drawable/shape_button_rounded_gradient_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingTop="@dimen/intro_screen_frame_container_padding_topBottom"
+                    android:paddingBottom="@dimen/intro_screen_frame_container_padding_topBottom">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingTop="@dimen/intro_screen_button_paddingTopBottom"
+                        android:paddingBottom="@dimen/intro_screen_button_paddingTopBottom"
+                        android:text="@string/sign_in"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/intro_screen_button_textSize" />
+                </FrameLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

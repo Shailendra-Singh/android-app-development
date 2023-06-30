@@ -7,5 +7,4 @@
         </shape>
     </item>
     <item android:drawable="@drawable/item_circular_color_accent_border" />
-
 </ripple>

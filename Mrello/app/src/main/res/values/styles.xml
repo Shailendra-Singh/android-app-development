@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="gradient_button_frame">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/shape_button_rounded_gradient_ripple</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingTop">@dimen/intro_screen_frame_container_padding_topBottom</item>
+        <item name="android:paddingBottom">@dimen/intro_screen_frame_container_padding_topBottom
+        </item>
+    </style>
+
+    <style name="border_button_frame" parent="gradient_button_content">
+        <item name="android:background">@drawable/card_button_rounded_ripple</item>
+    </style>
+
+    <style name="action_button_container">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/action_button_rounded_ripple</item>
+    </style>
+
+    <style name="gradient_button_content">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">@dimen/intro_screen_button_paddingTopBottom</item>
+        <item name="android:paddingBottom">@dimen/intro_screen_button_paddingTopBottom</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/intro_screen_button_textSize</item>
+    </style>
+
+    <style name="card_button_content" parent="gradient_button_content">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">?android:textColor</item>
+        <!--        <item name="android:textColorHint">?android:textColor</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/card_button_textSize</item>
+    </style>
+
+    <dimen name="card_button_textSize">16sp</dimen>
+</resources>

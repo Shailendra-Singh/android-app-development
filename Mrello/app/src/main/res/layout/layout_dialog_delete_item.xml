@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_container"
+        style="@style/AppBarOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorTertiary">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="?attr/colorSecondaryContainer"
+            android:elevation="@dimen/card_view_default_elevation"
+            app:cardCornerRadius="@dimen/signup_input_card_corner_radius">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/signup_input_card_content_padding">
+
+                <ImageView
+                    android:id="@+id/iv_warning_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/baseline_warning_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_action_title"
+                    app:layout_constraintEnd_toStartOf="@id/tv_action_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_action_title" />
+
+                <TextView
+                    android:id="@+id/tv_action_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete"
+                    android:textAppearance="?textAppearanceDisplayMedium"
+                    android:textSize="@dimen/search_member_textSize"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_warning_sign"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tv_action_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/signup_fields_marginTop"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/action_delete"
+                    app:hintTextColor="?attr/hintTextColor"
+                    app:layout_constraintBottom_toTopOf="@id/btn_cancel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_action_title"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/cancel"
+                    android:textAllCaps="true"
+                    android:textAppearance="?textAppearanceButton"
+                    android:textColor="?attr/colorControlHighlight"
+                    android:textSize="@dimen/search_action_textSize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_delete"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_action_description"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/btn_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/delete"
+                    android:textAllCaps="true"
+                    android:textAppearance="?textAppearanceButton"
+                    android:textColor="?colorError"
+                    android:textSize="@dimen/search_action_textSize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_cancel"
+                    app:layout_constraintTop_toTopOf="@id/btn_cancel"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+</FrameLayout>

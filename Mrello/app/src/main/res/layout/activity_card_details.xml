@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorTertiary"
+    android:orientation="vertical"
+    tools:context=".activities.CardDetailsActivity">
+
+    <!-- Action Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activity_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/card_details_padding">
+
+        <!-- Card Container -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_card_container"
+            style="@style/PopupOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorTertiary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="?attr/colorSecondaryContainer"
+                android:elevation="@dimen/card_view_default_elevation"
+                app:cardCornerRadius="@dimen/square_round_border_radius">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_details_padding">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxStrokeColor="?attr/colorAccent"
+                        app:hintTextColor="?attr/hintTextColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_card_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/signup_field_name_text"
+                            android:inputType="textPersonName" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </FrameLayout>
+
+            </androidx.cardview.widget.CardView>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Update Container -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_update_container"
+            style="@style/AppBarOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/card_details_margin"
+            android:background="?attr/colorTertiary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/abl_card_container">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="?attr/colorSecondaryContainer"
+                android:elevation="@dimen/card_view_default_elevation"
+                app:cardCornerRadius="@dimen/square_round_border_radius">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_details_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/card_details_group_marginTop"
+                        android:text="@string/label_color"
+                        android:textAppearance="?textAppearanceCaption"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/card_details_small_textSize" />
+
+                    <FrameLayout
+                        android:id="@+id/btn_select_color"
+                        style="@style/action_button_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/card_fields_marginTop"
+                        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck">
+
+                        <TextView
+                            android:id="@+id/tv_selected_color"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/select_color"
+                            android:textAppearance="?textAppearanceCaption"
+                            android:textColor="?android:textColor"
+                            android:textSize="@dimen/card_details_large_textSize" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/card_details_group_marginTop"
+                        android:text="@string/members"
+                        android:textAppearance="?textAppearanceCaption"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/card_details_small_textSize" />
+
+                    <FrameLayout
+                        android:id="@+id/btn_select_members"
+                        style="@style/action_button_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/card_fields_marginTop"
+                        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/select_members"
+                            android:textAppearance="?textAppearanceCaption"
+                            android:textColor="?android:textColor"
+                            android:textSize="@dimen/card_details_large_textSize" />
+                    </FrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_selected_members"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/card_fields_marginTop"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/card_details_group_marginTop"
+                        android:text="@string/due_date"
+                        android:textAppearance="?textAppearanceCaption"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/card_details_small_textSize" />
+
+                    <FrameLayout
+                        android:id="@+id/btn_select_due_date"
+                        style="@style/action_button_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/card_fields_marginTop"
+                        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck">
+
+                        <TextView
+                            android:id="@+id/tv_due_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/select_due_date"
+                            android:textAppearance="?textAppearanceCaption"
+                            android:textColor="?android:textColor"
+                            android:textSize="@dimen/card_details_large_textSize" />
+                    </FrameLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/btn_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/signup_btn_marginTop"
+            android:background="@drawable/shape_button_rounded_gradient_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingTop="@dimen/intro_screen_frame_container_padding_topBottom"
+            android:paddingBottom="@dimen/intro_screen_frame_container_padding_topBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/abl_update_container">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingTop="@dimen/intro_screen_button_paddingTopBottom"
+                android:paddingBottom="@dimen/intro_screen_button_paddingTopBottom"
+                android:text="@string/button_update_text"
+                android:textAllCaps="true"
+                android:textSize="@dimen/intro_screen_button_textSize" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

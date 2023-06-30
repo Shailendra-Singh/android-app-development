@@ -1,0 +1,22 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Mrello" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorSecondary">@color/light_secondary</item>
+        <item name="colorAccent">@color/light_accent</item>
+        <item name="colorControlNormal">@color/light_color_control</item>
+        <item name="colorControlActivated">@color/light_color_activated</item>
+        <item name="colorControlHighlight">@color/light_color_control_highlight</item>
+        <item name="android:textColor">@color/light_text_primary</item>
+        <item name="android:textColorSecondary">@color/light_text_secondary</item>
+        <item name="hintTextColor">@color/light_color_activated</item>
+        <item name="colorOnPrimary">@color/dark_secondary_container</item>
+        <item name="colorOnSecondary">@color/dark_secondary_container</item>
+        <item name="colorTertiary">@color/light_tertiary</item>
+        <item name="colorSecondaryContainer">@color/light_secondary_container</item>
+        <item name="colorError">@color/light_color_error</item>
+    </style>
+
+    <style name="Theme.Mrello" parent="Base.Theme.Mrello" />
+</resources>
